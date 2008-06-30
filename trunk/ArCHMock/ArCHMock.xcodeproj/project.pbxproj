@@ -11,7 +11,6 @@
 		6703B6520DFED7E700E6DD20 /* CHMSearchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6703B6510DFED7E700E6DD20 /* CHMSearchOperation.m */; };
 		6710921A0DD772A200DA5EF0 /* CHMWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 671092190DD772A200DA5EF0 /* CHMWindowController.m */; };
 		67380E0B0DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 67380E0A0DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.m */; };
-		673860390DCE1E7F00BEA1DE /* libpcre_intel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 673860380DCE1E7F00BEA1DE /* libpcre_intel.a */; };
 		673861980DCEA9AC00BEA1DE /* CHMURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 673861970DCEA9AC00BEA1DE /* CHMURLProtocol.m */; };
 		673861B00DCEAB5E00BEA1DE /* CHMApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 673861AF0DCEAB5E00BEA1DE /* CHMApplicationDelegate.m */; };
 		673863260DCED4F900BEA1DE /* CHMContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 673863250DCED4F900BEA1DE /* CHMContainer.m */; };
@@ -32,7 +31,6 @@
 		677C0A6A0DD2A0940073A016 /* CHMTableOfContents.m in Sources */ = {isa = PBXBuildFile; fileRef = 677C0A690DD2A0940073A016 /* CHMTableOfContents.m */; };
 		6785F14F0E022482000F4094 /* CHMDocumentSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6785F14E0E022482000F4094 /* CHMDocumentSplitView.m */; };
 		6789D2C30E135AC00045F174 /* Home.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 6789D2C20E135AC00045F174 /* Home.tiff */; };
-		67909A730DDB8BBF00B68688 /* libpcre_ppc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67909A720DDB8BBF00B68688 /* libpcre_ppc.a */; };
 		67AA361D0E11854C000CF9CA /* prototype-1.6.0.2-scriptaculous-1.8.1-effects-shrinkvars.js in Resources */ = {isa = PBXBuildFile; fileRef = 67AA360F0E1184C2000CF9CA /* prototype-1.6.0.2-scriptaculous-1.8.1-effects-shrinkvars.js */; };
 		67AA37470E12029B000CF9CA /* BackArrow.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 67AA37460E12029B000CF9CA /* BackArrow.tiff */; };
 		67AA37490E1202A7000CF9CA /* ForwardArrow.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 67AA37480E1202A7000CF9CA /* ForwardArrow.tiff */; };
@@ -147,9 +145,7 @@
 			files = (
 				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
 				674288500DCADDF700848DA0 /* WebKit.framework in Frameworks */,
-				673860390DCE1E7F00BEA1DE /* libpcre_intel.a in Frameworks */,
 				67EFB2E60DD5515A00CC25C9 /* libcrypto.dylib in Frameworks */,
-				67909A730DDB8BBF00B68688 /* libpcre_ppc.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
