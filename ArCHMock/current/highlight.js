@@ -207,8 +207,6 @@ var highlighter = new function Highlighter() {
         
         var match;
         while (match = this.wordsRegExp.exec(text)) {
-            this.isHighlighted = true;
-            
             // Logger.debug('Match: ' + match.inspect() + ', lastIndex: ' + this.wordsRegExp.lastIndex + ', match length: ' + match[0].length);
             var plainChunk = text.substring(previousLastIndex, this.wordsRegExp.lastIndex - match[0].length);
             // Logger.debug("Plain chunk: '" + plainChunk + "'");
@@ -220,6 +218,8 @@ var highlighter = new function Highlighter() {
             match[0].escapeHTML() + 
             '</span>';
             previousLastIndex = this.wordsRegExp.lastIndex;
+
+            this.isHighlighted = true;
         }
         if (highlightedText) {
             highlightedText = highlightedText + text.substring(previousLastIndex, text.length).escapeHTML();

@@ -160,7 +160,7 @@ static NSString *librariesCode = nil;
             }
         }
         else if ([keyPath isEqualToString:@"currentSearchQuery"]) {
-            if ([[self chmDocument] currentSearchQuery]) {
+            if (nil != [[self chmDocument] currentSearchQuery]) {
                 [self removeHighlights];
                 [self highlightContent];
             }
@@ -174,6 +174,7 @@ static NSString *librariesCode = nil;
 }
 
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
+//    NSLog(@"DEBUG: Finished load for frame");
     if ([sender mainFrame] == frame) {
 //        NSLog(@"DEBUG: Injecting JavaScript into content");
         [self injectJavaScriptIntoContent];

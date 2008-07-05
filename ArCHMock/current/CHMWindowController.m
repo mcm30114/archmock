@@ -18,6 +18,8 @@
     [super windowDidLoad];
     
     CHMDocument *document = self.chmDocument;
+    [document retain];
+    
     sectionContentViewController = [SectionContentViewController new];
     [sectionContentViewController setRepresentedObject:document];
     [contentView setContentView:[sectionContentViewController view]];
@@ -37,6 +39,10 @@
                            selector:@selector(switchSidebarView:) 
                                name:@"SearchCancelled" 
                              object:document];
+    [document addObserver:self 
+               forKeyPath:@"currentSectionPath" 
+                  options:NSKeyValueChangeSetting
+                  context:nil];
     
     if (document.tableOfContents) {
         tableOfContentsViewController = [TableOfContentsViewController new];
@@ -46,7 +52,6 @@
         [self showSidebarWithAnimation:NO];
     }
     else {
-
         [self hideSidebarWithAnimation:NO];
     }
     
@@ -108,6 +113,10 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[self document] removeObserver:self 
+                         forKeyPath:@"currentSectionPath"];
+    [[self document] release];
+
     
     self.sectionContentViewController = nil;
     self.tableOfContentsViewController = nil;
@@ -244,18 +253,28 @@
     
     [printOperation setShowPanels:YES];
     // With modalPrintOperation "Print" button on toolbar won't unstick immediately 
-    [printOperation runOperation];
+//    [printOperation runOperation];
     
-//    [[self document] runModalPrintOperation:printOperation
-//                                   delegate:nil
-//                             didRunSelector:nil
-//                                contextInfo:nil];
+    [[self document] runModalPrintOperation:printOperation
+                                   delegate:nil
+                             didRunSelector:nil
+                                contextInfo:nil];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
-    NSString *title = self.chmDocument.container.title;
-    
+    CHMDocument *document = self.chmDocument;
+    NSString *title = document.container.title;
     if (nil != title && 0 != [title length]) {
+        if (document.tableOfContents) {
+            CHMSection *section = [document sectionByPath:document.currentSectionPath];
+            if (section && section.label && [section.label length] > 0) {
+                title = [NSString stringWithFormat:@"%@ - %@", section.label, title];
+            }
+        }
+        title = [(NSString *)CFXMLCreateStringByUnescapingEntities(kCFAllocatorDefault, 
+                                                                   (CFStringRef)title,
+                                                                   NULL) autorelease];
+        
         return title;
     }
     
@@ -301,8 +320,19 @@
 }
 
 - (void)sectionContentLoaded:(NSNotification *)notification {
+    [self synchronizeWindowTitleWithDocumentName];
     [self adjustSplitViewDivider];
 }
+
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
+                       context:(void *)context {
+    if (object == [self document] && [keyPath isEqualToString:@"currentSectionPath"]) {
+        [self synchronizeWindowTitleWithDocumentName];
+    }
+}
+
 
 - (void)adjustSplitViewDivider {
     splitView.dividerThickness = self.isSidebarCollapsed ? 0.0 : 1.0;
