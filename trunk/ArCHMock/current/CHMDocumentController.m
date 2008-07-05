@@ -26,6 +26,14 @@
     [super addDocument:document];
 }
 
+- (void)removeDocument:(NSDocument *)document {
+    CHMDocument *chmDocument = (CHMDocument *)document;
+    
+    [documentByContainerID removeObjectForKey:chmDocument.containerID];
+    
+    [super removeDocument:document];
+}
+
 - (void)dealloc {
     self.documentByContainerID = nil;
     self.operationQueue = nil;
