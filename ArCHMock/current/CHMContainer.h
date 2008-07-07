@@ -19,8 +19,6 @@
 
 + (CHMContainer *)containerWithFilePath:(NSString*)filePath;
 
-+ (NSMutableDictionary *)containersByUniqueID;
-
 - (id)initWithFilePath:(NSString *)path;
 
 - (NSString *)locateHomeSectionPath;

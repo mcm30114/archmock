@@ -4,24 +4,18 @@
 @implementation CHMWindowController
 
 @dynamic isSidebarCollapsed;
-@dynamic chmDocument;
+@synthesize chmDocument;
 
 @synthesize isSidebarCollapsing;
 @synthesize tableOfContentsViewController, sectionContentViewController, searchViewController;
 
 
-- (CHMDocument *)chmDocument {
-    return (CHMDocument *)[self document];
-}
-
 - (void)windowDidLoad {
     [super windowDidLoad];
-    
-    CHMDocument *document = self.chmDocument;
-    [document retain];
+    self.chmDocument = [self document];
     
     sectionContentViewController = [SectionContentViewController new];
-    [sectionContentViewController setRepresentedObject:document];
+    [sectionContentViewController setRepresentedObject:chmDocument];
     [contentView setContentView:[sectionContentViewController view]];
     
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -30,23 +24,23 @@
                            selector:@selector(sectionContentLoaded:) 
                                name:@"SectionContentLoaded" 
                              object:sectionContentViewController];
+    [chmDocument addObserver:self 
+                  forKeyPath:@"currentSectionPath" 
+                     options:NSKeyValueChangeSetting
+                     context:nil];
     
     [notificationCenter addObserver:self 
                            selector:@selector(switchSidebarView:) 
                                name:@"SearchOperationStarted" 
-                             object:document];
+                             object:chmDocument];
     [notificationCenter addObserver:self 
                            selector:@selector(switchSidebarView:) 
                                name:@"SearchCancelled" 
-                             object:document];
-    [document addObserver:self 
-               forKeyPath:@"currentSectionPath" 
-                  options:NSKeyValueChangeSetting
-                  context:nil];
+                             object:chmDocument];
     
-    if (document.tableOfContents) {
+    if (chmDocument.tableOfContents) {
         tableOfContentsViewController = [TableOfContentsViewController new];
-        [tableOfContentsViewController setRepresentedObject:document];
+        [tableOfContentsViewController setRepresentedObject:chmDocument];
         [sidebarView setContentView:[tableOfContentsViewController view]];
         
         [self showSidebarWithAnimation:NO];
@@ -55,14 +49,18 @@
         [self hideSidebarWithAnimation:NO];
     }
     
-    if (document.index) {
+    if (chmDocument.index) {
         searchViewController = [SearchViewController new];
-        [searchViewController setRepresentedObject:self.chmDocument];
+        [searchViewController setRepresentedObject:chmDocument];
     }
     
-    document.currentSectionPath = document.homeSectionPath;
+    chmDocument.currentSectionPath = chmDocument.homeSectionPath;
     
     [self adjustSplitViewDivider];
+}
+
+- (void)close {
+    NSLog(@"DEBUG: Window is closing");
 }
 
 - (void)setToggleSidebarButtonImage {
@@ -109,20 +107,6 @@
         return YES;
     }
     return NO;
-}
-
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [[self document] removeObserver:self 
-                         forKeyPath:@"currentSectionPath"];
-    [[self document] release];
-
-    
-    self.sectionContentViewController = nil;
-    self.tableOfContentsViewController = nil;
-    self.searchViewController = nil;
-    
-    [super dealloc];
 }
 
 - (IBAction)searchForText:(id)sender {
@@ -369,5 +353,17 @@
 //    // Do whatever else you want to do in this delegate.
 //}
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [chmDocument removeObserver:self 
+                     forKeyPath:@"currentSectionPath"];
+
+    self.chmDocument = nil;
+    self.sectionContentViewController = nil;
+    self.tableOfContentsViewController = nil;
+    self.searchViewController = nil;
+    
+    [super dealloc];
+}
 
 @end

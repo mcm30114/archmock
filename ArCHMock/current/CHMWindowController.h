@@ -8,6 +8,8 @@
 #import "SearchViewController.h"
 
 @interface CHMWindowController : NSWindowController {
+    CHMDocument *chmDocument;
+    
     TableOfContentsViewController *tableOfContentsViewController;
     SectionContentViewController *sectionContentViewController;
     SearchViewController *searchViewController;
@@ -28,7 +30,7 @@
 @property BOOL isSidebarCollapsing;
 @property (readonly) BOOL isSidebarCollapsed;
 
-@property (readonly) CHMDocument *chmDocument;
+@property (retain) CHMDocument *chmDocument;
 
 @property (retain) TableOfContentsViewController *tableOfContentsViewController;
 @property (retain) SectionContentViewController *sectionContentViewController;
@@ -61,6 +63,5 @@
 - (void)showSidebarWithAnimation:(BOOL)animate;
 - (void)hideSidebarWithAnimation:(BOOL)animate;
 - (void)adjustSplitViewDivider;
-
 
 @end
