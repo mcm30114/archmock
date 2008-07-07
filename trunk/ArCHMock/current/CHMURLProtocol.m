@@ -1,5 +1,6 @@
 #import "CHMURLProtocol.h"
-#import "CHMContainer.h"
+#import "CHMDocumentController.h";
+#import "CHMDocument.h";
 #import <Foundation/NSXMLDocument.h>
 
 @class NSURLProtocolClient;
@@ -12,7 +13,9 @@
     }
     
     NSString *containerUniqueID = [url host];
-    return nil != [[CHMContainer containersByUniqueID] valueForKey:containerUniqueID];
+    return nil != [[[CHMDocumentController sharedCHMDocumentController] documentByContainerID] objectForKey:containerUniqueID];
+    
+//    return nil != [[CHMContainer containersByUniqueID] valueForKey:containerUniqueID];
 }
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
@@ -31,7 +34,10 @@
     
     //    NSLog(@"DEBUG: Object path: '%@'", objectPath);
     
-    CHMContainer *container = [[CHMContainer containersByUniqueID] valueForKey:containerUniqueID];
+    CHMDocument *document = [[[CHMDocumentController sharedCHMDocumentController] documentByContainerID] objectForKey:containerUniqueID];
+    CHMContainer *container = document.container;
+    
+//    CHMContainer *container = [[CHMContainer containersByUniqueID] valueForKey:containerUniqueID];
     
     if ([objectPath isEqualToString:@""]) {
         objectPath = [container homeSectionPath];

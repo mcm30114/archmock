@@ -21,7 +21,8 @@
 
 - (void)addDocument:(NSDocument *)document {
     CHMDocument *chmDocument = (CHMDocument *)document;
-    [documentByContainerID setObject:document forKey:chmDocument.containerID];
+    [documentByContainerID setObject:document 
+                              forKey:chmDocument.containerID];
     
     [super addDocument:document];
 }

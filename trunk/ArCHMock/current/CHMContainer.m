@@ -8,25 +8,8 @@
 @synthesize filePath, homeSectionPath, uniqueID, systemData, stringsData, windowsData;
 @dynamic title;
 
-static NSMutableDictionary *containersByUniqueID;
-
-+ (void)initialize {
-    [super initialize];
-    containersByUniqueID = [NSMutableDictionary new];
-}
-
 + (CHMContainer *)containerWithFilePath:(NSString *)filePath {
     return [[[CHMContainer alloc] initWithFilePath:filePath] autorelease];
-}
-
-+ (NSMutableDictionary *)containersByUniqueID {
-    return containersByUniqueID;
-}
-
-+ (void)dealloc {
-    [containersByUniqueID release];
-    
-    [super dealloc];
 }
 
 - (id)initWithFilePath:(NSString*)path {
@@ -62,9 +45,6 @@ static NSMutableDictionary *containersByUniqueID;
         else {
             NSLog(@"WARN: Can't locate home section path");
         }
-        
-        // TODO: Check if dictionary is really necessary
-        [[CHMContainer containersByUniqueID] setObject:self forKey:uniqueID];
         
         //        NSLog(@"Successfully opened CHM file '%@'", path);
     }
@@ -221,10 +201,22 @@ static NSMutableDictionary *containersByUniqueID;
                                    freeWhenDone:YES] autorelease];
 }
 
+//- (id)retain {
+//    [super retain];
+//    NSLog(@"DEBUG: Retaining CHM container: retain count: %i, %@", [self retainCount], self);
+//    return self;
+//}
+//
+//- (oneway void)release {
+//    NSLog(@"DEBUG: Releasing CHM container: retain count: %i, %@", [self retainCount], self);
+//    [super release];
+//}
+
 - (void)dealloc {
+    NSLog(@"DEBUG: Deallocating CHM container");
+    
     if (fileHandle) {
         chm_close(fileHandle);
-        //        NSLog(@"DEBUG: CHM file '%@' closed", self.filePath);
     }
     
     self.filePath = nil;

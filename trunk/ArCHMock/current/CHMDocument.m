@@ -52,6 +52,8 @@
         }
     }
     
+    NSLog(@"DEBUG: Opening CHM document: '%@'", [self fileURL]);
+    
     return YES;
 }
 
@@ -62,6 +64,7 @@
 }
 
 - (void)dealloc {
+    NSLog(@"DEBUG: Deallocating CHM document");
     self.container = nil;
     self.tableOfContents = nil;
     self.index = nil;
@@ -209,6 +212,22 @@
         [self startSearchOperation:scheduledSearchOperation];
         self.scheduledSearchOperation = nil;
     }
+}
+
+//- (id)retain {
+//    [super retain];
+//    NSLog(@"DEBUG: Retaining CHM document: retain count: %i, %@", [self retainCount], self);
+//    return self;
+//}
+//
+//- (oneway void)release {
+//    NSLog(@"DEBUG: Releasing CHM document: retain count: %i, %@", [self retainCount], self);
+//    [super release];
+//}
+        
+- (void)close {
+    NSLog(@"DEBUG: Closing CHM document: '%@'", [self fileURL]);
+    [super close];
 }
 
 @end
