@@ -213,7 +213,7 @@
 //}
 
 - (void)dealloc {
-    NSLog(@"DEBUG: Deallocating CHM container");
+//    NSLog(@"DEBUG: Deallocating CHMContainer");
     
     if (fileHandle) {
         chm_close(fileHandle);
@@ -223,7 +223,7 @@
     self.uniqueID = nil;
     self.homeSectionPath = nil;
     
-    self.systemData  = nil;
+    self.systemData = nil;
     self.stringsData = nil;
     self.windowsData = nil;
     

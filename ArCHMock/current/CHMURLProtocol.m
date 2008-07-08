@@ -106,7 +106,7 @@
                                                                                                forKey:@"url"]];
     }
     else {
-        NSLog(@"WARN: URL '%@' isn't handled: no data for object with path '%@'", url, objectPath);
+//        NSLog(@"WARN: URL '%@' isn't handled: no data for object with path '%@'", url, objectPath);
     }
     
     [client URLProtocolDidFinishLoading:self];
