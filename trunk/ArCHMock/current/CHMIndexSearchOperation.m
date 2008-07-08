@@ -61,6 +61,7 @@
         [document performSelectorOnMainThread:@selector(searchOperationEnded:)
                                    withObject:query 
                                 waitUntilDone:YES];
+        self.searchResultBySectionPath = nil;
     }
 }
 
@@ -152,6 +153,8 @@
 }
 
 - (void)dealloc {
+    NSLog(@"DEBUG: Deallocating CHMIndexSearchOperation");
+    
     self.document = nil;
     
     self.index = nil;
