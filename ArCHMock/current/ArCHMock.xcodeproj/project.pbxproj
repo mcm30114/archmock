@@ -18,6 +18,7 @@
 		674288590DCADE3000848DA0 /* chm_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = 674288550DCADE3000848DA0 /* chm_lib.c */; };
 		6742885A0DCADE3000848DA0 /* lzx.c in Sources */ = {isa = PBXBuildFile; fileRef = 674288570DCADE3000848DA0 /* lzx.c */; };
 		674B8E170DFBAE1500A48CF2 /* CHMDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 674B8E160DFBAE1500A48CF2 /* CHMDocumentController.m */; };
+		674EBEF90E233235002907A6 /* CHMBookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 674EBEF80E233235002907A6 /* CHMBookmark.m */; };
 		675895880DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 675895870DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.m */; };
 		675895C40DF7A86E000CDC91 /* CHMSearchToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 675895C30DF7A86E000CDC91 /* CHMSearchToken.m */; };
 		6761DFF30E18991400DBF296 /* script.aculo.us MIT-license in Resources */ = {isa = PBXBuildFile; fileRef = 6761DFF20E18991400DBF296 /* script.aculo.us MIT-license */; };
@@ -87,6 +88,8 @@
 		674288580DCADE3000848DA0 /* lzx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lzx.h; sourceTree = "<group>"; };
 		674B8E150DFBAE1500A48CF2 /* CHMDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMDocumentController.h; sourceTree = "<group>"; };
 		674B8E160DFBAE1500A48CF2 /* CHMDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMDocumentController.m; sourceTree = "<group>"; };
+		674EBEF70E233235002907A6 /* CHMBookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMBookmark.h; sourceTree = "<group>"; };
+		674EBEF80E233235002907A6 /* CHMBookmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMBookmark.m; sourceTree = "<group>"; };
 		675895860DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMSectionAccumulatingSearchResult.h; sourceTree = "<group>"; };
 		675895870DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMSectionAccumulatingSearchResult.m; sourceTree = "<group>"; };
 		675895C20DF7A86E000CDC91 /* CHMSearchToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMSearchToken.h; sourceTree = "<group>"; };
@@ -292,6 +295,8 @@
 		67909AAE0DDBA55700B68688 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				677B873B0DDD37B00032EB26 /* NSData-CHMChunks.h */,
+				677B873C0DDD37B00032EB26 /* NSData-CHMChunks.m */,
 				673863240DCED4F900BEA1DE /* CHMContainer.h */,
 				673863250DCED4F900BEA1DE /* CHMContainer.m */,
 				6776529F0DEF61C900996307 /* CHMIndex.h */,
@@ -300,8 +305,8 @@
 				677C0A690DD2A0940073A016 /* CHMTableOfContents.m */,
 				677C0A650DD2A06F0073A016 /* CHMSection.h */,
 				677C0A660DD2A06F0073A016 /* CHMSection.m */,
-				677B873B0DDD37B00032EB26 /* NSData-CHMChunks.h */,
-				677B873C0DDD37B00032EB26 /* NSData-CHMChunks.m */,
+				674EBEF70E233235002907A6 /* CHMBookmark.h */,
+				674EBEF80E233235002907A6 /* CHMBookmark.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -439,6 +444,7 @@
 				674B8E170DFBAE1500A48CF2 /* CHMDocumentController.m in Sources */,
 				6785F14F0E022482000F4094 /* CHMDocumentSplitView.m in Sources */,
 				67AA378F0E120F2D000CF9CA /* CHMToolbar.m in Sources */,
+				674EBEF90E233235002907A6 /* CHMBookmark.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
