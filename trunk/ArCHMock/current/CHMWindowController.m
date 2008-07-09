@@ -1,5 +1,6 @@
 #import "CHMWindowController.h"
-
+#import "CHMBookmark.h"
+#import "CHMDocumentController.h"
 
 @implementation CHMWindowController
 
@@ -57,10 +58,6 @@
     chmDocument.currentSectionPath = chmDocument.homeSectionPath;
     
     [self adjustSplitViewDivider];
-}
-
-- (void)close {
-    NSLog(@"DEBUG: Window is closing");
 }
 
 - (void)setToggleSidebarButtonImage {
@@ -175,6 +172,10 @@
     }
 }
 
+- (IBAction)addCurrentSectionToBookmarks:(id)sender {
+    NSLog(@"DEBUG: Adding current section to bookmarks");
+}
+
 - (BOOL)validateToolbarItem:(NSToolbarItem *)item {
     return [self validateInterfaceItem:[item action]];
 }
@@ -199,14 +200,20 @@
     else if (@selector(goForward:) == action) {
         return [sectionContentViewController.webView canGoForward];
     }
-    else if (@selector(scrollToNextHighlight:) == action || @selector(scrollToPreviousHighlight:) == action) {
+    else if (@selector(scrollToNextHighlight:) == action || 
+             @selector(scrollToPreviousHighlight:) == action) {
         return [sectionContentViewController canScrollBetweenHighlights];
     }
     else if (@selector(goBackOrForward:) == action) {
-        [goBackOrForwardControl setEnabled:[self validateInterfaceItem:@selector(goBack:)] 
+        BOOL goBackEnabled = [self validateInterfaceItem:@selector(goBack:)];
+        BOOL goForwardEnabled = [self validateInterfaceItem:@selector(goForward:)];
+        
+        [goBackOrForwardControl setEnabled:goBackEnabled
                                 forSegment:0];
-        [goBackOrForwardControl setEnabled:[self validateInterfaceItem:@selector(goForward:)] 
+        [goBackOrForwardControl setEnabled:goForwardEnabled 
                                 forSegment:1];
+        
+        return goBackEnabled || goForwardEnabled;
     }
     else if (@selector(changeTextSize:) == action) {
         [changeTextSizeControl setEnabled:[self validateInterfaceItem:@selector(makeTextSmaller:)] 
@@ -221,6 +228,18 @@
         [goToHomeSectionButton setEnabled:isEnabled];
 
         return isEnabled;
+    }
+    else if (@selector(toggleSidebar:) == action) {
+        CHMDocument *document = self.chmDocument;
+        if (nil != document.index && nil != document.currentSearchQuery) {
+            return YES;
+        }
+        
+        if (nil != document.tableOfContents) {
+            return YES;
+        }
+        
+        return NO;
     }
     
     return YES;    
