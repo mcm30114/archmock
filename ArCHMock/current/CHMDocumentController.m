@@ -25,7 +25,9 @@
         //    NSLog(@"DEBUG: Application name: '%@'", applicationName);
         NSFileManager *fileManager = [NSFileManager defaultManager];
         self.applicationSupportFolderPath = [[NSString stringWithFormat:@"~/Library/Application Support/%@", applicationName] stringByExpandingTildeInPath];
-        if (NO == [fileManager fileExistsAtPath:applicationSupportFolderPath]) {
+        BOOL isDirectory;
+        if (![fileManager fileExistsAtPath:applicationSupportFolderPath 
+                               isDirectory:&isDirectory] || !isDirectory) {
             [fileManager createDirectoryAtPath:applicationSupportFolderPath attributes:nil];
         }
         
@@ -67,7 +69,7 @@
 }
 
 - (IBAction)editBookmarks:(id)sender {
-    NSLog(@"DEBUG: Edit bookmarks");
+    [bookmarksWindow makeKeyAndOrderFront:sender];
 }
 
 - (IBAction)saveBookmarks:(id)sender {
@@ -75,6 +77,10 @@
                                      toFile:bookmarksFilePath]) {
         NSLog(@"ERROR: Can't save bookmarks into file '%@'", bookmarksFilePath);
     }
+}
+
+- (void)addBookmark:(CHMBookmark *)bookmark {
+    [[self mutableArrayValueForKey:@"bookmarks"] addObject:bookmark];
 }
 
 - (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item {

@@ -1,4 +1,5 @@
 #import <Cocoa/Cocoa.h>
+#import "CHMBookmark.h"
 
 
 @interface CHMDocumentController : NSDocumentController {
@@ -9,6 +10,9 @@
     
     NSMutableArray *bookmarks;
     NSString *bookmarksFilePath;
+    
+    IBOutlet NSArrayController *bookmarksController;
+    IBOutlet NSWindow *bookmarksWindow;
 }
 
 @property (retain) NSMutableDictionary *loadedDocumentByContainerID;
@@ -23,5 +27,7 @@
 - (IBAction)loadBookmarks:(id)sender;
 - (IBAction)editBookmarks:(id)sender;
 - (IBAction)saveBookmarks:(id)sender;
+
+- (void)addBookmark:(CHMBookmark *)bookmark;
 
 @end
