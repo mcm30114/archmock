@@ -10,7 +10,7 @@
     for (int i = 0; i < [items count]; i++) {
         NSToolbarItem *item = [items objectAtIndex:i];
         if (![item autovalidates]) {
-            [windowController validateInterfaceItem:[item action]];
+            [item setEnabled:[windowController validateInterfaceItem:[item action]]];
         }
     }
 }

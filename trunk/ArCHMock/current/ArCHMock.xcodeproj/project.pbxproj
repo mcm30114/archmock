@@ -41,6 +41,10 @@
 		67AA378F0E120F2D000CF9CA /* CHMToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 67AA378E0E120F2D000CF9CA /* CHMToolbar.m */; };
 		67AA37F10E12831B000CF9CA /* ShowSidebar.png in Resources */ = {isa = PBXBuildFile; fileRef = 67AA37EF0E12831B000CF9CA /* ShowSidebar.png */; };
 		67AA37F20E12831B000CF9CA /* HideSidebar.png in Resources */ = {isa = PBXBuildFile; fileRef = 67AA37F00E12831B000CF9CA /* HideSidebar.png */; };
+		67AA632E0E2813F700CB7CF8 /* About BDAlias.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 67AA63290E2813F400CB7CF8 /* About BDAlias.rtf */; };
+		67AA632F0E2813F700CB7CF8 /* BDAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = 67AA632B0E2813F500CB7CF8 /* BDAlias.m */; };
+		67AA63300E2813F700CB7CF8 /* BDAlias.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 67AA632C0E2813F600CB7CF8 /* BDAlias.rtf */; };
+		67AA63310E2813F700CB7CF8 /* License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 67AA632D0E2813F700CB7CF8 /* License.rtf */; };
 		67ADAF0B0DE694030063D2A4 /* TableOfContentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ADAF0A0DE694030063D2A4 /* TableOfContentsViewController.m */; };
 		67ADAF0E0DE6949C0063D2A4 /* TableOfContentsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67ADAF0D0DE6949C0063D2A4 /* TableOfContentsView.xib */; };
 		67ADAF150DE754410063D2A4 /* SectionAccumulatedSearchResultsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67ADAF140DE754410063D2A4 /* SectionAccumulatedSearchResultsView.xib */; };
@@ -126,6 +130,11 @@
 		67AA378E0E120F2D000CF9CA /* CHMToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMToolbar.m; sourceTree = "<group>"; };
 		67AA37EF0E12831B000CF9CA /* ShowSidebar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShowSidebar.png; sourceTree = "<group>"; };
 		67AA37F00E12831B000CF9CA /* HideSidebar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HideSidebar.png; sourceTree = "<group>"; };
+		67AA63290E2813F400CB7CF8 /* About BDAlias.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = "About BDAlias.rtf"; path = "BDAlias-1.0.1/About BDAlias.rtf"; sourceTree = "<group>"; };
+		67AA632A0E2813F500CB7CF8 /* BDAlias.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BDAlias.h; path = "BDAlias-1.0.1/BDAlias.h"; sourceTree = "<group>"; };
+		67AA632B0E2813F500CB7CF8 /* BDAlias.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BDAlias.m; path = "BDAlias-1.0.1/BDAlias.m"; sourceTree = "<group>"; };
+		67AA632C0E2813F600CB7CF8 /* BDAlias.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = BDAlias.rtf; path = "BDAlias-1.0.1/BDAlias.rtf"; sourceTree = "<group>"; };
+		67AA632D0E2813F700CB7CF8 /* License.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = License.rtf; path = "BDAlias-1.0.1/License.rtf"; sourceTree = "<group>"; };
 		67ADAF090DE694030063D2A4 /* TableOfContentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableOfContentsViewController.h; sourceTree = "<group>"; };
 		67ADAF0A0DE694030063D2A4 /* TableOfContentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableOfContentsViewController.m; sourceTree = "<group>"; };
 		67ADAF0D0DE6949C0063D2A4 /* TableOfContentsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableOfContentsView.xib; sourceTree = "<group>"; };
@@ -225,6 +234,12 @@
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				67AA63280E2813F400CB7CF8 /* BDAlias-1.0.1 */,
+				67AA63290E2813F400CB7CF8 /* About BDAlias.rtf */,
+				67AA632A0E2813F500CB7CF8 /* BDAlias.h */,
+				67AA632B0E2813F500CB7CF8 /* BDAlias.m */,
+				67AA632C0E2813F600CB7CF8 /* BDAlias.rtf */,
+				67AA632D0E2813F700CB7CF8 /* License.rtf */,
 				674288540DCADE0200848DA0 /* libchm */,
 				32DBCF750370BD2300C91783 /* ArCHMock_Prefix.pch */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
@@ -317,6 +332,13 @@
 				674EBEF80E233235002907A6 /* CHMBookmark.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		67AA63280E2813F400CB7CF8 /* BDAlias-1.0.1 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "BDAlias-1.0.1";
 			sourceTree = "<group>";
 		};
 		67ADAF080DE693BD0063D2A4 /* Controllers */ = {
@@ -418,6 +440,9 @@
 				67BD29D20E149BE7001A0FEC /* QuestionMark.icns in Resources */,
 				6761DFF30E18991400DBF296 /* script.aculo.us MIT-license in Resources */,
 				6761DFF50E18999100DBF296 /* prototype MIT-license in Resources */,
+				67AA632E0E2813F700CB7CF8 /* About BDAlias.rtf in Resources */,
+				67AA63300E2813F700CB7CF8 /* BDAlias.rtf in Resources */,
+				67AA63310E2813F700CB7CF8 /* License.rtf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -455,6 +480,7 @@
 				67AA378F0E120F2D000CF9CA /* CHMToolbar.m in Sources */,
 				674EBEF90E233235002907A6 /* CHMBookmark.m in Sources */,
 				679B38730E2733B40034F45E /* CHMBookmarksController.m in Sources */,
+				67AA632F0E2813F700CB7CF8 /* BDAlias.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

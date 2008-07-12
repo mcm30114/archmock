@@ -120,12 +120,12 @@
 }
 
 - (IBAction)clearSearchText:(id)sender {
-    [searchField setStringValue:@""];
-    [self searchForText:searchField];
+    [searchPatternField setStringValue:@""];
+    [self searchForText:searchPatternField];
 }
 
 - (IBAction)activateSearch:(id)sender {
-    [[self window] makeFirstResponder:searchField];
+    [[self window] makeFirstResponder:searchPatternField];
 }
 
 - (IBAction)makeTextLarger:(id)sender {
@@ -171,9 +171,37 @@
         return [self makeTextLarger:self];
     }
 }
+- (IBAction)openAddCurrentSectionToBookmarksWindow:(id)sender {
+    NSString *bookmarkLabel = [[self window] title];
+    [bookmarkNameForCurrentSectionField setStringValue:bookmarkLabel];
+    [bookmarkNameForCurrentSectionField selectText:self];
+    
+    [NSApp beginSheet:addCurrentSectionToBookmarksWindow 
+       modalForWindow:[self window] 
+        modalDelegate:nil 
+       didEndSelector:NULL 
+          contextInfo:NULL];
+}
+
+- (IBAction)closeAddCurrentSectionToBookmarksWindow:(id)sender {
+    [NSApp endSheet:addCurrentSectionToBookmarksWindow];
+    [addCurrentSectionToBookmarksWindow orderOut:sender];
+}
 
 - (IBAction)addCurrentSectionToBookmarks:(id)sender {
-    NSLog(@"DEBUG: Adding current section to bookmarks");
+    [self closeAddCurrentSectionToBookmarksWindow:self];
+
+    NSString *bookmarkLabel = [bookmarkNameForCurrentSectionField stringValue];
+    NSLog(@"DEBUG: Adding current section to bookmarks. Bookmark label: '%@'", bookmarkLabel);
+    
+    CHMDocument *document = self.chmDocument;
+    
+    CHMBookmark *bookmark = [CHMBookmark bookmarkWithLabel:bookmarkLabel
+                                                  filePath:[[document fileURL] relativePath]
+                                              sectionLabel:document.currentSectionLabel 
+                                               sectionPath:document.currentSectionPath];
+    
+    [[CHMDocumentController sharedCHMDocumentController] addBookmark:bookmark];
 }
 
 - (BOOL)validateToolbarItem:(NSToolbarItem *)item {
@@ -265,23 +293,20 @@
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
-    CHMDocument *document = self.chmDocument;
-    NSString *title = document.container.title;
-    if (nil != title && 0 != [title length]) {
-        if (document.tableOfContents) {
-            CHMSection *section = [document sectionByPath:document.currentSectionPath];
-            if (section && section.label && [section.label length] > 0) {
-                title = [NSString stringWithFormat:@"%@ - %@", section.label, title];
-            }
-        }
-        title = [(NSString *)CFXMLCreateStringByUnescapingEntities(kCFAllocatorDefault, 
-                                                                   (CFStringRef)title,
-                                                                   NULL) autorelease];
-        
-        return title;
+    NSString *documentTitle = self.chmDocument.title;
+    NSString *sectionLabel = self.chmDocument.currentSectionLabel;
+    
+    if (nil == documentTitle || [documentTitle length] == 0) {
+        documentTitle = displayName;
     }
     
-    return displayName;
+    NSString *windowTitle = nil != sectionLabel && [sectionLabel length] > 0 
+                            ? [NSString stringWithFormat:@"%@ - %@", sectionLabel, documentTitle] 
+                            : documentTitle;
+    
+    return [(NSString *)CFXMLCreateStringByUnescapingEntities(kCFAllocatorDefault, 
+                                                              (CFStringRef)windowTitle,
+                                                              NULL) autorelease];
 }
 
 // SplitView delegate logic

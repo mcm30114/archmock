@@ -119,7 +119,9 @@
             if ([operation isCancelled]) {
                 return;
             }
-            if (NSNotFound != [indexWord rangeOfString:textChunk options:NSCaseInsensitiveSearch].location) {
+            if (nil != indexWord && 
+                NSNotFound != [indexWord rangeOfString:textChunk 
+                                               options:NSCaseInsensitiveSearch].location) {
                 //                NSLog(@"DEBUG: Index word found '%@' while searching for partial words", indexWord);
                 [self processWLCBlockWithCount:wlcCount 
                                         offset:wlcOffset

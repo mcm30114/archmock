@@ -13,7 +13,7 @@
     }
     
     NSString *containerUniqueID = [url host];
-    return nil != [[[CHMDocumentController sharedCHMDocumentController] documentByContainerID] objectForKey:containerUniqueID];
+    return nil != [[[CHMDocumentController sharedCHMDocumentController] loadedDocumentByContainerID] objectForKey:containerUniqueID];
     
 //    return nil != [[CHMContainer containersByUniqueID] valueForKey:containerUniqueID];
 }
@@ -34,7 +34,7 @@
     
     //    NSLog(@"DEBUG: Object path: '%@'", objectPath);
     
-    CHMDocument *document = [[[CHMDocumentController sharedCHMDocumentController] documentByContainerID] objectForKey:containerUniqueID];
+    CHMDocument *document = [[[CHMDocumentController sharedCHMDocumentController] loadedDocumentByContainerID] objectForKey:containerUniqueID];
     CHMContainer *container = document.container;
     
 //    CHMContainer *container = [[CHMContainer containersByUniqueID] valueForKey:containerUniqueID];
