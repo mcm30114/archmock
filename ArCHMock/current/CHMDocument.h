@@ -12,6 +12,7 @@
     CHMTableOfContents *tableOfContents;
     CHMIndex *index;
     
+    NSString *uniqueID;
     NSString *currentSectionPath;
     NSString *homeSectionPath;
     BOOL scrollToFirstHighlight;
@@ -25,13 +26,21 @@
 }
 
 @property (readonly) NSString *containerID;
+
+@property (readonly) NSString *title;
+
+
 @property BOOL scrollToFirstHighlight;
+
+@property (retain) NSString *uniqueID;
 
 @property (retain) CHMContainer *container;
 @property (retain) CHMTableOfContents *tableOfContents;
 @property (retain) CHMIndex *index;
 
 @property (retain) NSString *currentSectionPath;
+@property (readonly) NSString *currentSectionLabel;
+
 @property (retain) NSString *homeSectionPath;
 @property (retain) CHMSearchQuery *currentSearchQuery;
 @property (retain) CHMSearchOperation *currentSearchOperation;

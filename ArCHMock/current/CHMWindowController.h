@@ -16,10 +16,15 @@
     
     BOOL isSidebarCollapsing;
     
+    IBOutlet NSWindow *addCurrentSectionToBookmarksWindow;
+    IBOutlet NSTextField *bookmarkNameForCurrentSectionField;
+
+    IBOutlet NSSearchField *searchPatternField;
+    
     IBOutlet NSBox *contentView;
     IBOutlet NSBox *sidebarView;
     IBOutlet CHMDocumentSplitView *splitView;
-    IBOutlet NSSearchField *searchField;
+    
     IBOutlet NSToolbar *toolbar;
     IBOutlet NSSegmentedControl *goBackOrForwardControl;
     IBOutlet NSSegmentedControl *changeTextSizeControl;
@@ -51,6 +56,10 @@
 - (IBAction)goBack:(id)sender;
 - (IBAction)goForward:(id)sender;
 - (IBAction)goBackOrForward:(id)sender;
+
+- (IBAction)openAddCurrentSectionToBookmarksWindow:(id)sender;
+- (IBAction)addCurrentSectionToBookmarks:(id)sender;
+- (IBAction)closeAddCurrentSectionToBookmarksWindow:(id)sender;
 
 - (BOOL)validateToolbarItem:(NSToolbarItem *)item;
 - (BOOL)validateMenuItem:(NSMenuItem *)item;

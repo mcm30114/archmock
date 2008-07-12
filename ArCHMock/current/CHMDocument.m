@@ -8,6 +8,11 @@
 
 @dynamic containerID;
 
+@dynamic title;
+
+@dynamic currentSectionLabel;
+
+@synthesize uniqueID;
 @synthesize container, tableOfContents, index;
 @synthesize currentSectionPath;
 @synthesize homeSectionPath;
@@ -19,6 +24,23 @@
     return self.container.uniqueID;
 }
 
+- (NSString *)title {
+    return self.container.title;
+}
+
+- (NSString *)currentSectionLabel {
+    if (nil == self.currentSectionPath) {
+        return nil;
+    }
+    
+    CHMSection *section = [self sectionByPath:self.currentSectionPath];
+    if (nil == section) {
+        return self.currentSectionPath;
+    }
+    
+    return section.label;
+}
+
 - (CHMSection *)sectionByPath:(NSString *)sectionPath {
     if (tableOfContents) {
         return [tableOfContents.sectionsByPath objectForKey:[sectionPath lowercaseString]];
@@ -27,9 +49,16 @@
     return nil;
 }
 
+//- (BOOL)readFromURL:(NSURL *)absoluteURL 
+//             ofType:(NSString *)typeName 
+//              error:(NSError **)outError {
+//    NSLog(@"INFO: Reading CHM from URL '%@', of type: '%@'", absoluteURL, typeName);
+//    return NO;
+//}
+
 - (BOOL)readFromFile:(NSString *)filePath 
-              ofType:(NSString *)docType {
-//    NSLog(@"INFO: Reading CHM file '%@'", filePath);
+              ofType:(NSString *)typeName {
+    NSLog(@"INFO: Reading CHM from file '%@', of type: '%@'", filePath, typeName);
     
     self.container = [CHMContainer containerWithFilePath:filePath];
     
@@ -64,7 +93,7 @@
 }
 
 - (void)dealloc {
-    NSLog(@"DEBUG: Deallocating CHMDocument");
+//    NSLog(@"DEBUG: Deallocating CHMDocument");
     self.container = nil;
     self.tableOfContents = nil;
     self.index = nil;

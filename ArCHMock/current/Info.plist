@@ -14,7 +14,7 @@
 			<key>CFBundleTypeIconFile</key>
 			<string>QuestionMark.icns</string>
 			<key>CFBundleTypeName</key>
-			<string>DocumentType</string>
+			<string>Microsoft Compiled HTML Help</string>
 			<key>CFBundleTypeOSTypes</key>
 			<array>
 				<string>????</string>

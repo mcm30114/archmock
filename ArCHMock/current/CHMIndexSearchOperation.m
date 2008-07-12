@@ -153,7 +153,7 @@
 }
 
 - (void)dealloc {
-    NSLog(@"DEBUG: Deallocating CHMIndexSearchOperation");
+//    NSLog(@"DEBUG: Deallocating CHMIndexSearchOperation");
     
     self.document = nil;
     
