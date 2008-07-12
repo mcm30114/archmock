@@ -76,28 +76,34 @@ static BOOL doesFileExist(NSString *filePath) {
                                                 isDirectory:&isDirectory] && !isDirectory;
 }
 
-- (BOOL)locateFile {
+- (NSString *)locateFile {
     if (doesFileExist(filePath)) {
-        return YES;
+        if (![[fileAlias fullPath] isEqualToString:filePath]) {
+            self.fileAlias = [BDAlias aliasWithPath:filePath];
+        }
+        return filePath;
     }
     else {
-        NSString *testFilePath = [fileAlias fullPath];
-        if (testFilePath) {
-            self.filePath = testFilePath;
-            return YES;
+        NSString *aliasFilePath = [fileAlias fullPath];
+        if (aliasFilePath) {
+            return aliasFilePath;
         }
     }
     
-    return NO;
+    return nil;
 }
 
 - (NSString *)fileRelativePath {
-    [self locateFile];
-    return [self.filePath stringByAbbreviatingWithTildeInPath];
+    NSString *myFilePath = [self locateFile];
+    if (nil == myFilePath) {
+        myFilePath = filePath;
+    }
+    
+    return [myFilePath stringByAbbreviatingWithTildeInPath];
 }
 
 - (NSColor *)filePathColor {
-    return [self locateFile] ? [NSColor textColor] : [NSColor redColor];
+    return nil != [self locateFile] ? [NSColor textColor] : [NSColor redColor];
 }
 
 - (void)dealloc {
