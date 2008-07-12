@@ -130,11 +130,11 @@
 		67AA378E0E120F2D000CF9CA /* CHMToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMToolbar.m; sourceTree = "<group>"; };
 		67AA37EF0E12831B000CF9CA /* ShowSidebar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShowSidebar.png; sourceTree = "<group>"; };
 		67AA37F00E12831B000CF9CA /* HideSidebar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HideSidebar.png; sourceTree = "<group>"; };
-		67AA63290E2813F400CB7CF8 /* About BDAlias.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = "About BDAlias.rtf"; path = "BDAlias-1.0.1/About BDAlias.rtf"; sourceTree = "<group>"; };
-		67AA632A0E2813F500CB7CF8 /* BDAlias.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BDAlias.h; path = "BDAlias-1.0.1/BDAlias.h"; sourceTree = "<group>"; };
-		67AA632B0E2813F500CB7CF8 /* BDAlias.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BDAlias.m; path = "BDAlias-1.0.1/BDAlias.m"; sourceTree = "<group>"; };
-		67AA632C0E2813F600CB7CF8 /* BDAlias.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = BDAlias.rtf; path = "BDAlias-1.0.1/BDAlias.rtf"; sourceTree = "<group>"; };
-		67AA632D0E2813F700CB7CF8 /* License.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = License.rtf; path = "BDAlias-1.0.1/License.rtf"; sourceTree = "<group>"; };
+		67AA63290E2813F400CB7CF8 /* About BDAlias.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "About BDAlias.rtf"; sourceTree = "<group>"; };
+		67AA632A0E2813F500CB7CF8 /* BDAlias.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDAlias.h; sourceTree = "<group>"; };
+		67AA632B0E2813F500CB7CF8 /* BDAlias.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDAlias.m; sourceTree = "<group>"; };
+		67AA632C0E2813F600CB7CF8 /* BDAlias.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = BDAlias.rtf; sourceTree = "<group>"; };
+		67AA632D0E2813F700CB7CF8 /* License.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = License.rtf; sourceTree = "<group>"; };
 		67ADAF090DE694030063D2A4 /* TableOfContentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableOfContentsViewController.h; sourceTree = "<group>"; };
 		67ADAF0A0DE694030063D2A4 /* TableOfContentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableOfContentsViewController.m; sourceTree = "<group>"; };
 		67ADAF0D0DE6949C0063D2A4 /* TableOfContentsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableOfContentsView.xib; sourceTree = "<group>"; };
@@ -235,11 +235,6 @@
 			isa = PBXGroup;
 			children = (
 				67AA63280E2813F400CB7CF8 /* BDAlias-1.0.1 */,
-				67AA63290E2813F400CB7CF8 /* About BDAlias.rtf */,
-				67AA632A0E2813F500CB7CF8 /* BDAlias.h */,
-				67AA632B0E2813F500CB7CF8 /* BDAlias.m */,
-				67AA632C0E2813F600CB7CF8 /* BDAlias.rtf */,
-				67AA632D0E2813F700CB7CF8 /* License.rtf */,
 				674288540DCADE0200848DA0 /* libchm */,
 				32DBCF750370BD2300C91783 /* ArCHMock_Prefix.pch */,
 				2A37F4B0FDCFA73011CA2CEA /* main.m */,
@@ -337,6 +332,11 @@
 		67AA63280E2813F400CB7CF8 /* BDAlias-1.0.1 */ = {
 			isa = PBXGroup;
 			children = (
+				67AA63290E2813F400CB7CF8 /* About BDAlias.rtf */,
+				67AA632A0E2813F500CB7CF8 /* BDAlias.h */,
+				67AA632B0E2813F500CB7CF8 /* BDAlias.m */,
+				67AA632C0E2813F600CB7CF8 /* BDAlias.rtf */,
+				67AA632D0E2813F700CB7CF8 /* License.rtf */,
 			);
 			path = "BDAlias-1.0.1";
 			sourceTree = "<group>";
