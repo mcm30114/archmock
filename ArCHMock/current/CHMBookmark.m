@@ -5,8 +5,8 @@
 
 @synthesize label, sectionLabel, sectionPath;
 @synthesize filePath, fileAlias;
+@synthesize containerID;
 @dynamic fileRelativePath;
-@dynamic filePathColor;
 
 + (CHMBookmark *)bookmarkWithLabel:(NSString *)label 
                           filePath:(NSString *)filePath
@@ -93,6 +93,10 @@ static BOOL doesFileExist(NSString *filePath) {
     return nil;
 }
 
+- (BOOL)isValid {
+    return nil != [self locateFile];
+}
+
 - (NSString *)fileRelativePath {
     NSString *myFilePath = [self locateFile];
     if (nil == myFilePath) {
@@ -100,10 +104,6 @@ static BOOL doesFileExist(NSString *filePath) {
     }
     
     return [myFilePath stringByAbbreviatingWithTildeInPath];
-}
-
-- (NSColor *)filePathColor {
-    return nil != [self locateFile] ? [NSColor textColor] : [NSColor redColor];
 }
 
 - (void)dealloc {

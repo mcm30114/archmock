@@ -1,7 +1,7 @@
 #import "CHMContainer.h"
 #import "NSData-CHMChunks.h"
+#import "SSCrypto.h"
 #import "chm_lib.h"
-#include <openssl/sha.h>
 
 @implementation CHMContainer
 
@@ -29,11 +29,7 @@
             return nil;
         }
         
-        unsigned char digest[SHA_DIGEST_LENGTH];
-        SHA1([systemData bytes], [systemData length], digest);
-        unsigned int *digestInt = (unsigned int *)digest;
-        uniqueID = [[NSString alloc] initWithFormat:@"%x%x%x%x%x", digestInt[0], 
-                    digestInt[1], digestInt[2], digestInt[3], digestInt[4]];
+        self.uniqueID = [[SSCrypto getSHA1ForData:systemData] hexval];
         
         self.windowsData = [self dataForObjectWithPath:@"/#WINDOWS"];
         self.stringsData = [self dataForObjectWithPath:@"/#STRINGS"];

@@ -6,6 +6,7 @@
     NSString *sectionLabel;
     NSString *sectionPath;
     NSString *filePath;
+    NSString *containerID;
     
     BDAlias *fileAlias;
 }
@@ -14,10 +15,10 @@
 @property (retain) NSString *sectionLabel;
 @property (retain) NSString *filePath;
 @property (retain) NSString *sectionPath;
+@property (retain) NSString *containerID;
 @property (retain) BDAlias *fileAlias;
 
 @property (readonly) NSString *fileRelativePath;
-@property (readonly) NSColor *filePathColor;
 
 + (CHMBookmark *)bookmarkWithLabel:(NSString *)label 
                           filePath:(NSString *)filePath
@@ -28,5 +29,9 @@
            filePath:(NSString *)initFilePath
        sectionLabel:(NSString *)initSectionLabel
         sectionPath:(NSString *)initSectionPath;
+
+- (NSString *)locateFile;
+
+- (BOOL)isValid;
     
 @end
