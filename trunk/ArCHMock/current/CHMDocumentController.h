@@ -13,6 +13,7 @@
     
     IBOutlet NSArrayController *bookmarksController;
     IBOutlet NSWindow *bookmarksWindow;
+    IBOutlet NSMenu *bookmarksMenu;
 }
 
 @property (retain) NSMutableDictionary *loadedDocumentByContainerID;
@@ -27,6 +28,7 @@
 - (IBAction)loadBookmarks:(id)sender;
 - (IBAction)editBookmarks:(id)sender;
 - (IBAction)saveBookmarks:(id)sender;
+- (IBAction)openBookmark:(id)sender;
 
 - (void)addBookmark:(CHMBookmark *)bookmark;
 

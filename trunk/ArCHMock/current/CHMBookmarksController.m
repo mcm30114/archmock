@@ -1,6 +1,5 @@
 #import "CHMBookmarksController.h"
 
-
 @implementation CHMBookmarksController
 
 - (BOOL)canRemove {

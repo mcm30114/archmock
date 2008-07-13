@@ -53,6 +53,9 @@
 		67ADB1C20DE8F6A10063D2A4 /* SectionContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ADB1C10DE8F6A10063D2A4 /* SectionContentViewController.m */; };
 		67ADB1C60DE8F7290063D2A4 /* ContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67ADB1C50DE8F7290063D2A4 /* ContentView.xib */; };
 		67BD29D20E149BE7001A0FEC /* QuestionMark.icns in Resources */ = {isa = PBXBuildFile; fileRef = 67BD29D10E149BE7001A0FEC /* QuestionMark.icns */; };
+		67D0CF0C0E2875F2000FD146 /* bDistributed-license in Resources */ = {isa = PBXBuildFile; fileRef = 67D0CF0B0E2875F2000FD146 /* bDistributed-license */; };
+		67D0CF150E2950EE000FD146 /* CHMBookmark-View.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D0CF140E2950EE000FD146 /* CHMBookmark-View.m */; };
+		67D0D0690E298F07000FD146 /* SSCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D0D0680E298F07000FD146 /* SSCrypto.m */; };
 		67DEDCAA0E26C9E60018C6EE /* AddBookmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 67DEDCA90E26C9E60018C6EE /* AddBookmark.png */; };
 		67EFB2E60DD5515A00CC25C9 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 67EFB2E50DD5515A00CC25C9 /* libcrypto.dylib */; };
 		67FF96100DF850E000668B16 /* CHMSearchQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 67FF960F0DF850E000668B16 /* CHMSearchQuery.m */; };
@@ -80,7 +83,6 @@
 		671092190DD772A200DA5EF0 /* CHMWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMWindowController.m; sourceTree = "<group>"; };
 		67380E090DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMSectionAccumulatedSearchResult.h; sourceTree = "<group>"; };
 		67380E0A0DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMSectionAccumulatedSearchResult.m; sourceTree = "<group>"; };
-		673860380DCE1E7F00BEA1DE /* libpcre_intel.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpcre_intel.a; sourceTree = "<group>"; };
 		673861960DCEA9AC00BEA1DE /* CHMURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMURLProtocol.h; sourceTree = "<group>"; };
 		673861970DCEA9AC00BEA1DE /* CHMURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMURLProtocol.m; sourceTree = "<group>"; };
 		673861AE0DCEAB5E00BEA1DE /* CHMApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMApplicationDelegate.h; sourceTree = "<group>"; };
@@ -118,7 +120,6 @@
 		6785F14D0E022482000F4094 /* CHMDocumentSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMDocumentSplitView.h; sourceTree = "<group>"; };
 		6785F14E0E022482000F4094 /* CHMDocumentSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMDocumentSplitView.m; sourceTree = "<group>"; };
 		6789D2C20E135AC00045F174 /* Home.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Home.tiff; sourceTree = "<group>"; };
-		67909A720DDB8BBF00B68688 /* libpcre_ppc.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpcre_ppc.a; sourceTree = "<group>"; };
 		679B38710E2733B40034F45E /* CHMBookmarksController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMBookmarksController.h; sourceTree = "<group>"; };
 		679B38720E2733B40034F45E /* CHMBookmarksController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMBookmarksController.m; sourceTree = "<group>"; };
 		67AA360F0E1184C2000CF9CA /* prototype-1.6.0.2-scriptaculous-1.8.1-effects-shrinkvars.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "prototype-1.6.0.2-scriptaculous-1.8.1-effects-shrinkvars.js"; sourceTree = "<group>"; };
@@ -147,6 +148,11 @@
 		67ADB1C10DE8F6A10063D2A4 /* SectionContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionContentViewController.m; sourceTree = "<group>"; };
 		67ADB1C50DE8F7290063D2A4 /* ContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentView.xib; sourceTree = "<group>"; };
 		67BD29D10E149BE7001A0FEC /* QuestionMark.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = QuestionMark.icns; sourceTree = "<group>"; };
+		67D0CF0B0E2875F2000FD146 /* bDistributed-license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "bDistributed-license"; sourceTree = "<group>"; };
+		67D0CF130E2950EE000FD146 /* CHMBookmark-View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CHMBookmark-View.h"; sourceTree = "<group>"; };
+		67D0CF140E2950EE000FD146 /* CHMBookmark-View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CHMBookmark-View.m"; sourceTree = "<group>"; };
+		67D0D0670E298F07000FD146 /* SSCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCrypto.h; sourceTree = "<group>"; };
+		67D0D0680E298F07000FD146 /* SSCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCrypto.m; sourceTree = "<group>"; };
 		67DEDCA90E26C9E60018C6EE /* AddBookmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddBookmark.png; sourceTree = "<group>"; };
 		67EFB2E50DD5515A00CC25C9 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = /usr/lib/libcrypto.dylib; sourceTree = "<absolute>"; };
 		67FF960E0DF850E000668B16 /* CHMSearchQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMSearchQuery.h; sourceTree = "<group>"; };
@@ -181,8 +187,6 @@
 			isa = PBXGroup;
 			children = (
 				67EFB2E50DD5515A00CC25C9 /* libcrypto.dylib */,
-				673860380DCE1E7F00BEA1DE /* libpcre_intel.a */,
-				67909A720DDB8BBF00B68688 /* libpcre_ppc.a */,
 				6742884F0DCADDF700848DA0 /* WebKit.framework */,
 				2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */,
 				13E42FBA07B3F13500E4EEF1 /* CoreData.framework */,
@@ -219,14 +223,6 @@
 				67ADAF080DE693BD0063D2A4 /* Controllers */,
 				67909AAE0DDBA55700B68688 /* Model */,
 				67FF96110DF850ED00668B16 /* Search */,
-				673861AE0DCEAB5E00BEA1DE /* CHMApplicationDelegate.h */,
-				673861AF0DCEAB5E00BEA1DE /* CHMApplicationDelegate.m */,
-				674B8E150DFBAE1500A48CF2 /* CHMDocumentController.h */,
-				674B8E160DFBAE1500A48CF2 /* CHMDocumentController.m */,
-				2A37F4AEFDCFA73011CA2CEA /* CHMDocument.h */,
-				2A37F4ACFDCFA73011CA2CEA /* CHMDocument.m */,
-				679B38710E2733B40034F45E /* CHMBookmarksController.h */,
-				679B38720E2733B40034F45E /* CHMBookmarksController.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -234,6 +230,7 @@
 		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				67D0D06A0E298F0B000FD146 /* SSCrypto */,
 				67AA63280E2813F400CB7CF8 /* BDAlias-1.0.1 */,
 				674288540DCADE0200848DA0 /* libchm */,
 				32DBCF750370BD2300C91783 /* ArCHMock_Prefix.pch */,
@@ -306,6 +303,8 @@
 				6785F14E0E022482000F4094 /* CHMDocumentSplitView.m */,
 				67AA378D0E120F2D000CF9CA /* CHMToolbar.h */,
 				67AA378E0E120F2D000CF9CA /* CHMToolbar.m */,
+				67D0CF130E2950EE000FD146 /* CHMBookmark-View.h */,
+				67D0CF140E2950EE000FD146 /* CHMBookmark-View.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -313,6 +312,8 @@
 		67909AAE0DDBA55700B68688 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				2A37F4AEFDCFA73011CA2CEA /* CHMDocument.h */,
+				2A37F4ACFDCFA73011CA2CEA /* CHMDocument.m */,
 				677B873B0DDD37B00032EB26 /* NSData-CHMChunks.h */,
 				677B873C0DDD37B00032EB26 /* NSData-CHMChunks.m */,
 				673863240DCED4F900BEA1DE /* CHMContainer.h */,
@@ -337,6 +338,7 @@
 				67AA632B0E2813F500CB7CF8 /* BDAlias.m */,
 				67AA632C0E2813F600CB7CF8 /* BDAlias.rtf */,
 				67AA632D0E2813F700CB7CF8 /* License.rtf */,
+				67D0CF0B0E2875F2000FD146 /* bDistributed-license */,
 			);
 			path = "BDAlias-1.0.1";
 			sourceTree = "<group>";
@@ -344,6 +346,8 @@
 		67ADAF080DE693BD0063D2A4 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				679B38710E2733B40034F45E /* CHMBookmarksController.h */,
+				679B38720E2733B40034F45E /* CHMBookmarksController.m */,
 				67ADAF160DE7545A0063D2A4 /* SearchViewController.h */,
 				67ADAF170DE7545A0063D2A4 /* SearchViewController.m */,
 				67ADB1C00DE8F6A10063D2A4 /* SectionContentViewController.h */,
@@ -354,8 +358,21 @@
 				67ADAFE60DE7D24F0063D2A4 /* CHMSubViewController.m */,
 				671092180DD772A200DA5EF0 /* CHMWindowController.h */,
 				671092190DD772A200DA5EF0 /* CHMWindowController.m */,
+				674B8E150DFBAE1500A48CF2 /* CHMDocumentController.h */,
+				674B8E160DFBAE1500A48CF2 /* CHMDocumentController.m */,
+				673861AE0DCEAB5E00BEA1DE /* CHMApplicationDelegate.h */,
+				673861AF0DCEAB5E00BEA1DE /* CHMApplicationDelegate.m */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		67D0D06A0E298F0B000FD146 /* SSCrypto */ = {
+			isa = PBXGroup;
+			children = (
+				67D0D0670E298F07000FD146 /* SSCrypto.h */,
+				67D0D0680E298F07000FD146 /* SSCrypto.m */,
+			);
+			name = SSCrypto;
 			sourceTree = "<group>";
 		};
 		67FF96110DF850ED00668B16 /* Search */ = {
@@ -443,6 +460,7 @@
 				67AA632E0E2813F700CB7CF8 /* About BDAlias.rtf in Resources */,
 				67AA63300E2813F700CB7CF8 /* BDAlias.rtf in Resources */,
 				67AA63310E2813F700CB7CF8 /* License.rtf in Resources */,
+				67D0CF0C0E2875F2000FD146 /* bDistributed-license in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +499,8 @@
 				674EBEF90E233235002907A6 /* CHMBookmark.m in Sources */,
 				679B38730E2733B40034F45E /* CHMBookmarksController.m in Sources */,
 				67AA632F0E2813F700CB7CF8 /* BDAlias.m in Sources */,
+				67D0CF150E2950EE000FD146 /* CHMBookmark-View.m in Sources */,
+				67D0D0690E298F07000FD146 /* SSCrypto.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

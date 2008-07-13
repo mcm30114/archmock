@@ -55,8 +55,6 @@
         [searchViewController setRepresentedObject:chmDocument];
     }
     
-    chmDocument.currentSectionPath = chmDocument.homeSectionPath;
-    
     [self adjustSplitViewDivider];
 }
 
@@ -192,12 +190,11 @@
     [self closeAddCurrentSectionToBookmarksWindow:self];
 
     NSString *bookmarkLabel = [bookmarkNameForCurrentSectionField stringValue];
-    NSLog(@"DEBUG: Adding current section to bookmarks. Bookmark label: '%@'", bookmarkLabel);
+//    NSLog(@"DEBUG: Adding current section to bookmarks. Bookmark label: '%@'", bookmarkLabel);
     
     CHMDocument *document = self.chmDocument;
-    
     CHMBookmark *bookmark = [CHMBookmark bookmarkWithLabel:bookmarkLabel
-                                                  filePath:[[document fileURL] relativePath]
+                                                   filePath:[[document fileURL] relativePath]
                                               sectionLabel:document.currentSectionLabel 
                                                sectionPath:document.currentSectionPath];
     

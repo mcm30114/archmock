@@ -49,13 +49,6 @@
     return nil;
 }
 
-//- (BOOL)readFromURL:(NSURL *)absoluteURL 
-//             ofType:(NSString *)typeName 
-//              error:(NSError **)outError {
-//    NSLog(@"INFO: Reading CHM from URL '%@', of type: '%@'", absoluteURL, typeName);
-//    return NO;
-//}
-
 - (BOOL)readFromFile:(NSString *)filePath 
               ofType:(NSString *)typeName {
     NSLog(@"INFO: Reading CHM from file '%@', of type: '%@'", filePath, typeName);
