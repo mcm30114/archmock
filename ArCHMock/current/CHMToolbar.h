@@ -1,9 +1,9 @@
 #import <Cocoa/Cocoa.h>
-#import "CHMWindowController.h"
+#import "CHMDocumentWindowController.h"
 
 
 @interface CHMToolbar : NSToolbar {
-    IBOutlet CHMWindowController *windowController;
+    IBOutlet CHMDocumentWindowController *windowController;
 }
 
 @end

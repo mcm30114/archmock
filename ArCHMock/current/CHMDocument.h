@@ -49,7 +49,7 @@
 @property (retain) NSMutableArray *currentSearchResults;
 @property (retain) NSMutableDictionary *searchResultBySectionPath;
 
-- (CHMSection *)sectionByPath:(NSString *)sectionPath;
+- (CHMSection *)locateSectionByPath:(NSString *)sectionPath;
 
 - (void)searchForText:(NSString *)text;
 

@@ -1,35 +1,30 @@
 #import <Cocoa/Cocoa.h>
+#import "CHMDocument.h"
 #import "CHMBookmark.h"
 
 
 @interface CHMDocumentController : NSDocumentController {
-    NSMutableDictionary *loadedDocumentByContainerID;
     NSOperationQueue *operationQueue;
     
-    NSString *applicationSupportFolderPath;
+    NSMutableDictionary *loadedDocumentByContainerID;
+
+    NSWindowController *bookmarksWindowController;
     
-    NSMutableArray *bookmarks;
-    NSString *bookmarksFilePath;
-    
-    IBOutlet NSArrayController *bookmarksController;
-    IBOutlet NSWindow *bookmarksWindow;
     IBOutlet NSMenu *bookmarksMenu;
 }
 
-@property (retain) NSMutableDictionary *loadedDocumentByContainerID;
 @property (retain) NSOperationQueue *operationQueue;
 
-@property (retain) NSMutableArray *bookmarks;
-@property (retain) NSString *bookmarksFilePath;
-@property (retain) NSString *applicationSupportFolderPath;
+@property (retain) NSMutableDictionary *loadedDocumentByContainerID;
+
+@property (retain) NSWindowController *bookmarksWindowController;
 
 + (CHMDocumentController *)sharedCHMDocumentController;
 
-- (IBAction)loadBookmarks:(id)sender;
-- (IBAction)editBookmarks:(id)sender;
-- (IBAction)saveBookmarks:(id)sender;
-- (IBAction)openBookmark:(id)sender;
+- (CHMDocument *)locateDocumentByContainerID:(NSString *)containerID;
 
-- (void)addBookmark:(CHMBookmark *)bookmark;
+- (IBAction)saveSettingsForCurrentDocuments:(id)sender;
+
+- (IBAction)openBookmarksEditor:(id)sender;
 
 @end

@@ -1,5 +1,5 @@
 #import "CHMDocument.h"
-#import "CHMWindowController.h"
+#import "CHMDocumentWindowController.h"
 #import "CHMDocumentController.h"
 #import "CHMSectionAccumulatingSearchResult.h"
 #import "CHMSectionAccumulatedSearchResult.h"
@@ -7,9 +7,7 @@
 @implementation CHMDocument
 
 @dynamic containerID;
-
 @dynamic title;
-
 @dynamic currentSectionLabel;
 
 @synthesize uniqueID;
@@ -33,7 +31,7 @@
         return nil;
     }
     
-    CHMSection *section = [self sectionByPath:self.currentSectionPath];
+    CHMSection *section = [self locateSectionByPath:self.currentSectionPath];
     if (nil == section) {
         return self.currentSectionPath;
     }
@@ -41,7 +39,7 @@
     return section.label;
 }
 
-- (CHMSection *)sectionByPath:(NSString *)sectionPath {
+- (CHMSection *)locateSectionByPath:(NSString *)sectionPath {
     if (tableOfContents) {
         return [tableOfContents.sectionsByPath objectForKey:[sectionPath lowercaseString]];
     }
@@ -51,7 +49,7 @@
 
 - (BOOL)readFromFile:(NSString *)filePath 
               ofType:(NSString *)typeName {
-    NSLog(@"INFO: Reading CHM from file '%@', of type: '%@'", filePath, typeName);
+//    NSLog(@"INFO: Reading CHM from file '%@', of type: '%@'", filePath, typeName);
     
     self.container = [CHMContainer containerWithFilePath:filePath];
     
@@ -80,7 +78,7 @@
 }
 
 - (void)makeWindowControllers {
-    CHMWindowController *controller = [[[CHMWindowController alloc] 
+    CHMDocumentWindowController *controller = [[[CHMDocumentWindowController alloc] 
                                         initWithWindowNibName:@"CHMDocument"] autorelease];
     [self addWindowController:controller];
 }
@@ -203,7 +201,7 @@
                                                                               sectionPath:accumulatingResult.sectionPath
                                                                                 relevancy:accumulatingResult.relevancy];
             
-            CHMSection *section = [self sectionByPath:accumulatedResult.sectionPath];
+            CHMSection *section = [self locateSectionByPath:accumulatedResult.sectionPath];
             if (section) {
                 accumulatedResult.sectionLabel = section.label;
             }
