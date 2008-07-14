@@ -91,12 +91,11 @@
     }
     
     NSArray *tokens = [query.tokensBySubstrings objectForKey:self.currentString];
-    for (int i = 0; i < [tokens count]; i++) {
-        CHMSearchToken *token = [tokens objectAtIndex:i];
+    for (CHMSearchToken *token in tokens) {
         NSNumber *previousOccurences = [result.tokensOccurences objectAtIndex:token.position];
         int currentOccurences = [previousOccurences intValue] + occurencesNumber;
         [result.tokensOccurences replaceObjectAtIndex:token.position 
-         withObject:[NSNumber numberWithInt:currentOccurences]];
+                                           withObject:[NSNumber numberWithInt:currentOccurences]];
     }
     
     if ([self isCancelled]) {
@@ -119,13 +118,22 @@
 //    NSLog(@"DEBUG: Words in sections found: %i. Flushing search results", wordsInSectionsFound);
     
     NSArray *results = [searchResultBySectionPath allValues];
+    NSMutableArray *filteredResults = [NSMutableArray array];
+    for (CHMSectionAccumulatingSearchResult *result in results) {
+        for (NSNumber *occurencesNumber in result.tokensOccurences) {
+            if (0 == [occurencesNumber intValue]) {
+                continue;
+            }
+            [filteredResults addObject:result];
+        }
+    }
+    results = [NSArray arrayWithArray:filteredResults];
+    
     NSMutableArray *tokensMaxCounts = [query tokensInfoArray];
-    for (int i = 0; i < [results count]; i++) {
+    for (CHMSectionAccumulatingSearchResult *result in results) {
         if ([self isCancelled]) {
             return;
         }
-        CHMSectionAccumulatingSearchResult *result = [results objectAtIndex:i];
-        
         for (int j = 0; j < [result.tokensOccurences count]; j++) {
             if ([self isCancelled]) {
                 return;

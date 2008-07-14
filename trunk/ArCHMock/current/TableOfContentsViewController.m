@@ -19,7 +19,7 @@
 }
 
 - (void)selectSectionInTableOfContentsTree:(NSString *)sectionPath {
-    CHMSection *section = [self.chmDocument sectionByPath:sectionPath]; 
+    CHMSection *section = [self.chmDocument locateSectionByPath:sectionPath]; 
     NSIndexPath *currentSelectionIndexPath = [treeController selectionIndexPath];
     if (!section && currentSelectionIndexPath) {
         [treeController removeSelectionIndexPaths:[NSArray arrayWithObject:currentSelectionIndexPath]];

@@ -13,9 +13,7 @@
     }
     
     NSString *containerUniqueID = [url host];
-    return nil != [[[CHMDocumentController sharedCHMDocumentController] loadedDocumentByContainerID] objectForKey:containerUniqueID];
-    
-//    return nil != [[CHMContainer containersByUniqueID] valueForKey:containerUniqueID];
+    return nil != [[CHMDocumentController sharedCHMDocumentController] locateDocumentByContainerID:containerUniqueID];
 }
 
 + (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
@@ -31,13 +29,10 @@
     NSString *containerUniqueID = [url host];
     NSString *objectPath = [url path];
     NSString *parameters = [url parameterString];
-    
     //    NSLog(@"DEBUG: Object path: '%@'", objectPath);
     
-    CHMDocument *document = [[[CHMDocumentController sharedCHMDocumentController] loadedDocumentByContainerID] objectForKey:containerUniqueID];
+    CHMDocument *document = [[CHMDocumentController sharedCHMDocumentController] locateDocumentByContainerID:containerUniqueID];
     CHMContainer *container = document.container;
-    
-//    CHMContainer *container = [[CHMContainer containersByUniqueID] valueForKey:containerUniqueID];
     
     if ([objectPath isEqualToString:@""]) {
         objectPath = [container homeSectionPath];

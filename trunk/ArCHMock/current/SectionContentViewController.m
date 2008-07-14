@@ -128,10 +128,10 @@ static NSString *librariesCode = nil;
     
     if (urlFragment) {
         NSString *urlPathWithFragment = [NSString stringWithFormat:@"%@#%@", urlPath, urlFragment];
-        section = [chmDocument sectionByPath:urlPathWithFragment];
+        section = [chmDocument locateSectionByPath:urlPathWithFragment];
     }
     if (!section) {
-        section = [chmDocument sectionByPath:urlPath];
+        section = [chmDocument locateSectionByPath:urlPath];
     }
     
     NSString *path = section ? section.path : urlPath;

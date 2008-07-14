@@ -1,13 +1,29 @@
 #import "CHMDocumentController.h"
-#import "CHMDocument.h"
-#import "CHMBookmark.h"
-
+#import "CHMDocumentSettings.h"
+#import "CHMApplicationDelegate.h"
 
 @implementation CHMDocumentController
 
-@synthesize loadedDocumentByContainerID, operationQueue;
-@synthesize applicationSupportFolderPath;
-@synthesize bookmarksFilePath, bookmarks;
+@synthesize loadedDocumentByContainerID;
+@synthesize operationQueue;
+
+@synthesize bookmarksWindowController;
+
+- (CHMDocument *)locateDocumentByContainerID:(NSString *)containerID {
+    CHMDocument *document = [loadedDocumentByContainerID objectForKey:containerID];
+    if (nil != document) {
+        return document;
+    }
+    
+    for (CHMDocument *document in [self documents]) {
+        if ([document.containerID isEqualToString:containerID]) {
+            [loadedDocumentByContainerID setObject:document 
+                                            forKey:containerID];
+            return document;
+        }
+    }
+    return nil;
+}
 
 + (CHMDocumentController *)sharedCHMDocumentController {
     return (CHMDocumentController *)[self sharedDocumentController];
@@ -21,6 +37,8 @@
 
 - (void)menuNeedsUpdate:(NSMenu *)menu {
     NSMenuItem *separator = [menu itemWithTag:BOOKMARKS_MENU_SEPARATOR];
+    NSArray *bookmarks = [CHMApplicationDelegate settings].bookmarks;
+    
     [separator setHidden:0 == [bookmarks count]];
     while ([menu numberOfItems] > 3) {
         [menu removeItemAtIndex:3];
@@ -39,7 +57,7 @@
 - (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item {
     SEL action = [item action];
     if (@selector(editBookmarks:) == action) {
-        return [bookmarks count] > 0;
+        return [[CHMApplicationDelegate settings].bookmarks count] > 0;
     }
     
     return [super validateUserInterfaceItem:item];
@@ -65,30 +83,15 @@
     }
     else {
         document.currentSectionPath = bookmark.sectionPath;
+//        NSLog(@"DEBUG: Window controllers: %@", [document windowControllers]);
     }
 }
 
 - (id)init {
     if (self = [super init]) {
-        self.loadedDocumentByContainerID = [NSMutableDictionary dictionary];
         operationQueue = [NSOperationQueue new];
+        self.loadedDocumentByContainerID = [NSMutableDictionary dictionary];
         
-        NSDictionary *mainInfoDictionary = [[NSBundle mainBundle] infoDictionary];
-        NSString *applicationName = [mainInfoDictionary objectForKey:@"CFBundleName"];
-        NSString *applicationVersion = [mainInfoDictionary objectForKey:@"CFBundleVersion"];
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        self.applicationSupportFolderPath = [[NSString stringWithFormat:@"~/Library/Application Support/%@ %@", 
-                                              applicationName, 
-                                              applicationVersion] stringByExpandingTildeInPath];
-        BOOL isDirectory;
-        if (![fileManager fileExistsAtPath:applicationSupportFolderPath 
-                               isDirectory:&isDirectory] || !isDirectory) {
-            [fileManager createDirectoryAtPath:applicationSupportFolderPath
-                                    attributes:nil];
-        }
-        
-        self.bookmarksFilePath = [NSString stringWithFormat:@"%@/bookmarks.binary", 
-                                  applicationSupportFolderPath];
     }
     
     return self;
@@ -100,7 +103,16 @@
     CHMDocument *document = (CHMDocument *)[super openDocumentWithContentsOfURL:absoluteURL 
                                                                         display:displayDocument 
                                                                           error:outError];
-    document.currentSectionPath = document.homeSectionPath;
+    if (nil != document) {
+        CHMDocumentSettings *settings = [[CHMApplicationDelegate settings].recentDocumentsSettings objectForKey:document.containerID];
+        if (nil != settings) {
+            document.currentSectionPath = settings.currentSectionPath;
+        }
+        else {
+            document.currentSectionPath = document.homeSectionPath;
+        }
+    }
+    
     return document;
 }
 
@@ -112,50 +124,35 @@
     [super addDocument:document];
 }
 
+- (void)saveSettingsForDocument:(NSDocument *)document {
+    [[CHMApplicationDelegate settings] addRecentSettingsForDocument:(CHMDocument *)document];
+}
+
 - (void)removeDocument:(NSDocument *)document {
     CHMDocument *chmDocument = (CHMDocument *)document;
-    
+    [self saveSettingsForDocument:document];
     [loadedDocumentByContainerID removeObjectForKey:chmDocument.containerID];
     
     [super removeDocument:document];
 }
 
-- (IBAction)loadBookmarks:(id)sender {
-    @try {
-        self.bookmarks = [NSKeyedUnarchiver unarchiveObjectWithFile:bookmarksFilePath];
-    }
-    @catch (NSException *e) {
-        NSLog(@"ERROR: Can't open bookmarks file '%@': %@", bookmarksFilePath, e);
-    }
-    @finally {
-        if (nil == bookmarks) {
-            self.bookmarks = [NSMutableArray array];
-        }
-    }
-//    NSLog(@"DEBUG: Loaded bookmarks: %@", bookmarks);
-}
-
-- (IBAction)editBookmarks:(id)sender {
-    [bookmarksWindow makeKeyAndOrderFront:sender];
-}
-
-- (IBAction)saveBookmarks:(id)sender {
-    if (![NSKeyedArchiver archiveRootObject:bookmarks 
-                                     toFile:bookmarksFilePath]) {
-        NSLog(@"ERROR: Can't save bookmarks into file '%@'", bookmarksFilePath);
+- (IBAction)saveSettingsForCurrentDocuments:(id)sender {
+    for (NSDocument *document in [self documents]) {
+        [self saveSettingsForDocument:document];
     }
 }
 
-- (void)addBookmark:(CHMBookmark *)bookmark {
-    [[self mutableArrayValueForKey:@"bookmarks"] addObject:bookmark];
+- (IBAction)openBookmarksEditor:(id)sender {
+    if (nil == self.bookmarksWindowController) {
+        self.bookmarksWindowController = [[[NSWindowController alloc] initWithWindowNibName:@"Bookmarks"] autorelease];
+    }
+    [self.bookmarksWindowController showWindow:self];
+    [[self.bookmarksWindowController window] makeKeyWindow];
 }
 
 - (void)dealloc {
     self.loadedDocumentByContainerID = nil;
     self.operationQueue = nil;
-    
-    self.bookmarksFilePath = nil;
-    self.bookmarks = nil;
     
     [super dealloc];
 }
