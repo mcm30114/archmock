@@ -79,7 +79,16 @@
                                                                             display:YES 
                                                                               error:&error];
         document.currentSectionScrollOffset = bookmark.documentSettings.currentSectionScrollOffset;
-        document.currentSectionPath = bookmark.documentSettings.currentSectionPath;
+        if ([document.currentSectionPath isEqualToString:bookmark.documentSettings.currentSectionPath]) {
+            [NSApp sendAction:@selector(scrollContentWithOffset:) 
+                           to:nil 
+                         from:self];
+        }
+        else {
+            document.dontClearContentOffsetOnUnload = YES;
+            document.currentSectionPath = bookmark.documentSettings.currentSectionPath;
+        }
+        
         return;
     }
     

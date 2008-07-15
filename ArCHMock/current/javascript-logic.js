@@ -347,7 +347,12 @@ Event.observe(window, 'scroll', function(event) {
               chmDocument.setCurrentSectionScrollOffset_(Object.toJSON(document.viewport.getScrollOffsets()));
               });
 Event.observe(window, 'unload', function(event) {
-              chmDocument.setCurrentSectionScrollOffset_('[0, 0]');
+              if(!chmDocument.dontClearContentOffsetOnUnload()) {
+                chmDocument.setCurrentSectionScrollOffset_('[0, 0]');
+              }
+              else {
+                chmDocument.setDontClearContentOffsetOnUnload_(0);
+              }
               highlighter.removeHighlights();
               });
 window.scrollTo.apply(window, chmDocument.currentSectionScrollOffset().evalJSON(true));

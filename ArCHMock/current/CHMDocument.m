@@ -20,11 +20,14 @@
 @synthesize currentSearchResults, searchResultBySectionPath;
 
 @synthesize scrollToFirstHighlight;
+@synthesize dontClearContentOffsetOnUnload;
 @synthesize windowSettings;
 
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)selector {
-    if (selector == @selector(setCurrentSectionScrollOffset:) || 
-        selector == @selector(currentSectionScrollOffset)) {
+    if (@selector(currentSectionScrollOffset) == selector ||
+        @selector(setCurrentSectionScrollOffset:) == selector || 
+        @selector(dontClearContentOffsetOnUnload) == selector ||
+        @selector(setDontClearContentOffsetOnUnload:) == selector) {
         return NO;
     }
     return YES;

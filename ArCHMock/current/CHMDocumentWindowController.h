@@ -43,6 +43,7 @@
 - (IBAction)searchForText:(id)sender;
 - (IBAction)scrollToNextHighlight:(id)sender;
 - (IBAction)scrollToPreviousHighlight:(id)sender;
+- (IBAction)scrollContentWithOffset:(id)sender;
 
 - (IBAction)activateSearch:(id)sender;
 - (IBAction)toggleSidebar:(id)sender;

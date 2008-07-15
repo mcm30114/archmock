@@ -42,7 +42,7 @@
         self.lastDocumentWindowSettings = [[CHMDocumentWindowSettings new] autorelease];
     }
     
-    NSLog(@"DEBUG: Last document window settings: %@", lastDocumentWindowSettings);
+//    NSLog(@"DEBUG: Last document window settings: %@", lastDocumentWindowSettings);
 }
 
 - (void)save {
@@ -101,8 +101,8 @@
     settings.date = [NSDate date];
     [recentDocumentsSettings setObject:settings 
                                 forKey:document.containerID];
-    NSLog(@"DEBUG: Saved recent settings for document with title '%@': %@", 
-          [document title], settings);
+//    NSLog(@"DEBUG: Saved recent settings for document with title '%@': %@", 
+//          [document title], settings);
     
     if (nil != document.tableOfContents) {
         self.lastDocumentWindowSettings = document.windowSettings;
@@ -110,7 +110,7 @@
     else {
         self.lastDocumentWindowSettings.frame = document.windowSettings.frame;
     }
-    NSLog(@"DEBUG: Saved last document window settings: %@", self.lastDocumentWindowSettings);
+//    NSLog(@"DEBUG: Saved last document window settings: %@", self.lastDocumentWindowSettings);
 }
 
 - (void)saveRecentDocumentsSettings {

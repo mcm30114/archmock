@@ -27,7 +27,7 @@
     self.chmDocument = [self document];
 
     CHMDocumentWindowSettings *windowSettings = self.chmDocument.windowSettings;
-    NSLog(@"DEBUG: DocumentWindowController: window settings: %@", windowSettings);
+//    NSLog(@"DEBUG: DocumentWindowController: window settings: %@", windowSettings);
     
     BOOL sidebarShouldBeCollapsed = windowSettings.isSidebarCollapsed;
 
@@ -155,6 +155,10 @@
 
 - (IBAction)scrollToPreviousHighlight:(id)sender {
     [sectionContentViewController scrollToPreviousHighlight:sender];
+}
+
+- (IBAction)scrollContentWithOffset:(id)sender {
+    [sectionContentViewController scrollContentWithOffset:sender];
 }
 
 - (IBAction)clearSearchText:(id)sender {
