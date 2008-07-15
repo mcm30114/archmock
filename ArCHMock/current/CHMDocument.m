@@ -8,17 +8,27 @@
 
 @dynamic containerID;
 @dynamic title;
+
 @dynamic currentSectionLabel;
 
 @synthesize uniqueID;
 @synthesize container, tableOfContents, index;
 @synthesize currentSectionPath;
+@synthesize currentSectionScrollOffset;
 @synthesize homeSectionPath;
 @synthesize currentSearchQuery, currentSearchOperation, scheduledSearchOperation;
 @synthesize currentSearchResults, searchResultBySectionPath;
 
 @synthesize scrollToFirstHighlight;
 @synthesize windowSettings;
+
++ (BOOL)isSelectorExcludedFromWebScript:(SEL)selector {
+    if (selector == @selector(setCurrentSectionScrollOffset:) || 
+        selector == @selector(currentSectionScrollOffset)) {
+        return NO;
+    }
+    return YES;
+}
 
 - (NSString *)containerID {
     return self.container.uniqueID;

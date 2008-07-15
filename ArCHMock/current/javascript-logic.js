@@ -1,25 +1,24 @@
 function Logger(logString) {
-    var date = new Date();
-    var milliseconds = date.getMilliseconds();
-    var millisecondsDigits = ('' + milliseconds).length;
-    if (millisecondsDigits < 3) {
-        milliseconds = millisecondsDigits < 2 ? '00' + milliseconds : '0' + milliseconds;
-    }
-    var timeString = date.toLocaleTimeString();
-    timeString = timeString.replace(/\d?\d:\d\d:\d\d/, function(time) {
-                                    return time + '.' + milliseconds;
-                                    });
-    var timeStamp = date.toLocaleDateString() + ' ' + timeString;
-    
-    logString = timeStamp + ": " + logString;
+//    var date = new Date();
+//    var milliseconds = date.getMilliseconds();
+//    var millisecondsDigits = ('' + milliseconds).length;
+//    if (millisecondsDigits < 3) {
+//        milliseconds = millisecondsDigits < 2 ? '00' + milliseconds : '0' + milliseconds;
+//    }
+//    var timeString = date.toLocaleTimeString();
+//    timeString = timeString.replace(/\d?\d:\d\d:\d\d/, function(time) {
+//                                    return time + '.' + milliseconds;
+//                                    });
+//    var timeStamp = date.toLocaleDateString() + ' ' + timeString;
+//    
+//    logString = timeStamp + ": " + logString;
     window.console.log(logString);
 };
 $w('debug info warn error').each(function(level) {
                                  Logger[level] = window.console 
-                                 ? function(logString) { Logger('[' + level.toUpperCase() + ']: ' + logString); }
+                                 ? function(logString) { Logger(level.toUpperCase() + ': ' + logString); }
                                  : function(logString) {};
-                                 });                           
-
+                                 });
 
 var highlighter = new function Highlighter() {
 	Event.observe(window, 'scroll', function(event) { 
@@ -70,7 +69,7 @@ var highlighter = new function Highlighter() {
         this.nodesToProcess = $A(bodyNode.childNodes); 
         this.isHighlighting = true;
         setTimeout(this.processNodes.bind(this), 0);
-        Logger.debug('Highlighting started');
+//        Logger.debug('Highlighting started');
     };
     
     this.initHighlighting = function() {
@@ -121,13 +120,13 @@ var highlighter = new function Highlighter() {
         patternParts.push.apply(patternParts, wordsParts);
         
         this.wordsRegExp = new RegExp(patternParts.join('|'), 'gim');
-        Logger.debug("Words RegExp: '" + this.wordsRegExp.source + "'");
+//        Logger.debug("Words RegExp: '" + this.wordsRegExp.source + "'");
         
     };
     
     this.processNodes = function() {
         if (this.isCancelled) {
-            Logger.debug('Highlighting cancelled');
+//            Logger.debug('Highlighting cancelled');
             return this.nodesProcessingFinished();
         }   
         
@@ -149,7 +148,7 @@ var highlighter = new function Highlighter() {
             if (this.isPaused) {
                 timeout = 100;
                 this.isPaused = false;
-                Logger.debug('Making pause for ' + timeout + 'ms');
+//                Logger.debug('Making pause for ' + timeout + ' ms');
             }
             setTimeout(this.processNodes.bind(this), timeout);
         }
@@ -161,18 +160,18 @@ var highlighter = new function Highlighter() {
     this.nodesProcessingFinished = function() {
         this.isCancelled = false;
         this.isHighlighting = false;
-        Logger.debug('Highlighting ended');
+//        Logger.debug('Highlighting ended');
 
         if (this.scheduledScrollingToHighlight && this.isHighlighted) {
             this.scheduledScrollingToHighlight();
         }
         
         if (this.scheduledHighlightsRemoving) {
-            Logger.debug('Running scheduled highlights removing');
+//            Logger.debug('Running scheduled highlights removing');
             setTimeout(this.scheduledHighlightsRemoving, 0);
         }
         else if (this.scheduledHighlighting) {
-            Logger.debug('Running scheduled highlighting');
+//            Logger.debug('Running scheduled highlighting');
             setTimeout(this.scheduledHighlighting, 0);
         }
     };
@@ -251,17 +250,17 @@ var highlighter = new function Highlighter() {
     		return;
     	}
         
-        Logger.debug('Removing highlights');
+//        Logger.debug('Removing highlights');
         this.isRemovingHighlights = true;
         this.replacements.each(function(nodesPair) {
                                nodesPair.highlighted.parentNode.replaceChild(nodesPair.plain, nodesPair.highlighted);
                                });
     	this.isHighlighted = false;
-        Logger.debug('Highlights removed');
+//        Logger.debug('Highlights removed');
         
         this.isRemovingHighlights = false;
         if (this.scheduledHighlighting) {
-            Logger.debug('Starting scheduled higlighting');
+//            Logger.debug('Starting scheduled higlighting');
             setTimeout(this.scheduledHighlighting, 0);
         }
     };
@@ -343,3 +342,12 @@ var highlighter = new function Highlighter() {
         }
     }
 };
+
+Event.observe(window, 'scroll', function(event) {
+              chmDocument.setCurrentSectionScrollOffset_(Object.toJSON(document.viewport.getScrollOffsets()));
+              });
+Event.observe(window, 'unload', function(event) {
+              chmDocument.setCurrentSectionScrollOffset_('[0, 0]');
+              highlighter.removeHighlights();
+              });
+window.scrollTo.apply(window, chmDocument.currentSectionScrollOffset().evalJSON(true));

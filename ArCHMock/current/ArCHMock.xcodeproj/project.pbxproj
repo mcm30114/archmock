@@ -24,7 +24,7 @@
 		675895C40DF7A86E000CDC91 /* CHMSearchToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 675895C30DF7A86E000CDC91 /* CHMSearchToken.m */; };
 		6761DFF30E18991400DBF296 /* script.aculo.us MIT-license in Resources */ = {isa = PBXBuildFile; fileRef = 6761DFF20E18991400DBF296 /* script.aculo.us MIT-license */; };
 		6761DFF50E18999100DBF296 /* prototype MIT-license in Resources */ = {isa = PBXBuildFile; fileRef = 6761DFF40E18999100DBF296 /* prototype MIT-license */; };
-		676BE4CB0DF5A42C00DD3F3A /* highlight.js in Resources */ = {isa = PBXBuildFile; fileRef = 676BE4C90DF4F59A00DD3F3A /* highlight.js */; };
+		676BE4CB0DF5A42C00DD3F3A /* javascript-logic.js in Resources */ = {isa = PBXBuildFile; fileRef = 676BE4C90DF4F59A00DD3F3A /* javascript-logic.js */; };
 		6770EA520DCADCEF00A1857F /* CHMDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6770EA500DCADCEF00A1857F /* CHMDocument.xib */; };
 		677652750DEF5BA400996307 /* CHMIndexSearchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 677652740DEF5BA400996307 /* CHMIndexSearchOperation.m */; };
 		677652A10DEF61C900996307 /* CHMIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 677652A00DEF61C900996307 /* CHMIndex.m */; };
@@ -46,6 +46,7 @@
 		67AA632F0E2813F700CB7CF8 /* BDAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = 67AA632B0E2813F500CB7CF8 /* BDAlias.m */; };
 		67AA63300E2813F700CB7CF8 /* BDAlias.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 67AA632C0E2813F600CB7CF8 /* BDAlias.rtf */; };
 		67AA63310E2813F700CB7CF8 /* License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 67AA632D0E2813F700CB7CF8 /* License.rtf */; };
+		67ABBEB80E2C58D000F16851 /* CHMJavaScriptConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ABBEB70E2C58D000F16851 /* CHMJavaScriptConsole.m */; };
 		67ADAF0B0DE694030063D2A4 /* TableOfContentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ADAF0A0DE694030063D2A4 /* TableOfContentsViewController.m */; };
 		67ADAF0E0DE6949C0063D2A4 /* TableOfContentsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67ADAF0D0DE6949C0063D2A4 /* TableOfContentsView.xib */; };
 		67ADAF150DE754410063D2A4 /* SectionAccumulatedSearchResultsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67ADAF140DE754410063D2A4 /* SectionAccumulatedSearchResultsView.xib */; };
@@ -110,7 +111,7 @@
 		675895C30DF7A86E000CDC91 /* CHMSearchToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMSearchToken.m; sourceTree = "<group>"; };
 		6761DFF20E18991400DBF296 /* script.aculo.us MIT-license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "script.aculo.us MIT-license"; sourceTree = "<group>"; };
 		6761DFF40E18999100DBF296 /* prototype MIT-license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "prototype MIT-license"; sourceTree = "<group>"; };
-		676BE4C90DF4F59A00DD3F3A /* highlight.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = highlight.js; sourceTree = "<group>"; };
+		676BE4C90DF4F59A00DD3F3A /* javascript-logic.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "javascript-logic.js"; sourceTree = "<group>"; };
 		6770EA510DCADCEF00A1857F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/CHMDocument.xib; sourceTree = "<group>"; };
 		677652730DEF5BA400996307 /* CHMIndexSearchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMIndexSearchOperation.h; sourceTree = "<group>"; };
 		677652740DEF5BA400996307 /* CHMIndexSearchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMIndexSearchOperation.m; sourceTree = "<group>"; };
@@ -142,6 +143,8 @@
 		67AA632B0E2813F500CB7CF8 /* BDAlias.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDAlias.m; sourceTree = "<group>"; };
 		67AA632C0E2813F600CB7CF8 /* BDAlias.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = BDAlias.rtf; sourceTree = "<group>"; };
 		67AA632D0E2813F700CB7CF8 /* License.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = License.rtf; sourceTree = "<group>"; };
+		67ABBEB60E2C58D000F16851 /* CHMJavaScriptConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMJavaScriptConsole.h; sourceTree = "<group>"; };
+		67ABBEB70E2C58D000F16851 /* CHMJavaScriptConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMJavaScriptConsole.m; sourceTree = "<group>"; };
 		67ADAF090DE694030063D2A4 /* TableOfContentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableOfContentsViewController.h; sourceTree = "<group>"; };
 		67ADAF0A0DE694030063D2A4 /* TableOfContentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableOfContentsViewController.m; sourceTree = "<group>"; };
 		67ADAF0D0DE6949C0063D2A4 /* TableOfContentsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableOfContentsView.xib; sourceTree = "<group>"; };
@@ -269,7 +272,7 @@
 				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
 				8D15AC360486D014006FF6A4 /* Info.plist */,
 				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
-				676BE4C90DF4F59A00DD3F3A /* highlight.js */,
+				676BE4C90DF4F59A00DD3F3A /* javascript-logic.js */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -299,6 +302,8 @@
 			children = (
 				673861960DCEA9AC00BEA1DE /* CHMURLProtocol.h */,
 				673861970DCEA9AC00BEA1DE /* CHMURLProtocol.m */,
+				67ABBEB60E2C58D000F16851 /* CHMJavaScriptConsole.h */,
+				67ABBEB70E2C58D000F16851 /* CHMJavaScriptConsole.m */,
 			);
 			name = Operations;
 			sourceTree = "<group>";
@@ -463,7 +468,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				676BE4CB0DF5A42C00DD3F3A /* highlight.js in Resources */,
+				676BE4CB0DF5A42C00DD3F3A /* javascript-logic.js in Resources */,
 				67AA361D0E11854C000CF9CA /* prototype-1.6.0.2-scriptaculous-1.8.1-effects-shrinkvars.js in Resources */,
 				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
 				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
@@ -531,6 +536,7 @@
 				67D0D0DF0E29AEF5000FD146 /* CHMDocumentSettings.m in Sources */,
 				67CBAA3D0E2AC6BF00B5997B /* CHMApplicationSettings.m in Sources */,
 				674CB4E30E2AE9D300169AFA /* CHMDocumentWindowSettings.m in Sources */,
+				67ABBEB80E2C58D000F16851 /* CHMJavaScriptConsole.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

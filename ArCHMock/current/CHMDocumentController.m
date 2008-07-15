@@ -78,6 +78,7 @@
         CHMDocument *document = (CHMDocument *)[super openDocumentWithContentsOfURL:fileURL
                                                                             display:YES 
                                                                               error:&error];
+        document.currentSectionScrollOffset = bookmark.documentSettings.currentSectionScrollOffset;
         document.currentSectionPath = bookmark.documentSettings.currentSectionPath;
         return;
     }
@@ -95,6 +96,7 @@
         document.windowSettings = bookmark.documentSettings.windowSettings;
         [document makeWindowControllers];
         [document showWindows];
+        document.currentSectionScrollOffset = bookmark.documentSettings.currentSectionScrollOffset;
         document.currentSectionPath = bookmark.documentSettings.currentSectionPath;
     }
 }
@@ -129,19 +131,20 @@
             settings = [CHMDocumentSettings settingsWithCurrentSectionPath:document.homeSectionPath
                                                        sectionScrollOffset:nil
                                                             windowSettings:[CHMApplicationDelegate settings].lastDocumentWindowSettings];
-            NSLog(@"DEBUG: Can not find document settings document with title '%@'. \
-Will use last document settings: %@", [document title], settings);
+//            NSLog(@"DEBUG: Can not find document settings document with title '%@'. \
+//Will use last document settings: %@", [document title], settings);
             
         }
         
         document.windowSettings = settings.windowSettings;
         
-        NSLog(@"DEBUG: Opening document '%@' with settings: %@", document.title, settings);
+//        NSLog(@"DEBUG: Opening document '%@' with settings: %@", document.title, settings);
         if (displayDocument) {
             [document makeWindowControllers];
             [document showWindows];
         }
         
+        document.currentSectionScrollOffset = settings.currentSectionScrollOffset;
         document.currentSectionPath = settings.currentSectionPath;
     }
     

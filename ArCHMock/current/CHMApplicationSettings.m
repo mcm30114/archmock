@@ -95,7 +95,7 @@
 
 - (void)addRecentSettingsForDocument:(CHMDocument *)document {
     CHMDocumentSettings *settings = [CHMDocumentSettings settingsWithCurrentSectionPath:document.currentSectionPath
-                                                                    sectionScrollOffset:nil
+                                                                    sectionScrollOffset:document.currentSectionScrollOffset
                                                                          windowSettings:document.windowSettings];
 
     settings.date = [NSDate date];

@@ -233,7 +233,7 @@
     
     CHMDocument *document = self.chmDocument;
     CHMDocumentSettings *settings = [CHMDocumentSettings settingsWithCurrentSectionPath:document.currentSectionPath
-                                                                    sectionScrollOffset:nil
+                                                                    sectionScrollOffset:document.currentSectionScrollOffset
                                                                          windowSettings:document.windowSettings];
     CHMBookmark *bookmark = [CHMBookmark bookmarkWithLabel:bookmarkLabel
                                                    filePath:[[document fileURL] relativePath]
