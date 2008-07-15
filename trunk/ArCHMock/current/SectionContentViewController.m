@@ -2,6 +2,7 @@
 #import "SectionContentViewController.h"
 #import "CHMURLProtocol.h"
 #import "CHMSearchQuery.h"
+#import "CHMJavaScriptConsole.h"
 
 
 @implementation SectionContentViewController
@@ -42,7 +43,7 @@ static NSString *librariesCode = nil;
     if (nil == librariesCode) {
         NSString *prototypeScriptPath = [[NSBundle mainBundle] pathForResource:@"prototype-1.6.0.2-scriptaculous-1.8.1-effects-shrinkvars" 
                                                                         ofType:@"js"];
-        NSString *highlightScriptPath = [[NSBundle mainBundle] pathForResource:@"highlight" 
+        NSString *highlightScriptPath = [[NSBundle mainBundle] pathForResource:@"javascript-logic" 
                                                                         ofType:@"js"];
         
         librariesCode = [[NSString stringWithFormat:@"%@;%@", 
@@ -71,7 +72,7 @@ static NSString *librariesCode = nil;
     return [response isKindOfClass:[NSNumber class]] && [response boolValue] == 1;
 }
 
-- (void)highlightContent {
+- (void)highlightContentIfNeeded {
     CHMSearchQuery *query = [[self chmDocument] currentSearchQuery];
     if (query) {
 //        NSLog(@"DEBUG: Highlighting content");
@@ -161,7 +162,7 @@ static NSString *librariesCode = nil;
         else if ([keyPath isEqualToString:@"currentSearchQuery"]) {
             if (nil != [[self chmDocument] currentSearchQuery]) {
                 [self removeHighlights];
-                [self highlightContent];
+                [self highlightContentIfNeeded];
             }
             else {
                 [self removeHighlights];
@@ -172,13 +173,22 @@ static NSString *librariesCode = nil;
     isPerformingSync = NO;
 }
 
+static CHMJavaScriptConsole *console = nil;
+
 - (void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
+    if (nil == console) {
+        console = [CHMJavaScriptConsole new];
+    }
 //    NSLog(@"DEBUG: Finished load for frame");
-    if ([sender mainFrame] == frame) {
+    if (frame == [sender mainFrame]) {
 //        NSLog(@"DEBUG: Injecting JavaScript into content");
+        [[[self webView] windowScriptObject] setValue:console 
+                                               forKey:@"console"];
+        [[[self webView] windowScriptObject] setValue:self.chmDocument 
+                                               forKey:@"chmDocument"];
         [self injectJavaScriptIntoContent];
 //        NSLog(@"DEBUG: JavaScript injected");
-        [self highlightContent];
+        [self highlightContentIfNeeded];
         
         [self notifyAboutCurrentContentChange];
     }

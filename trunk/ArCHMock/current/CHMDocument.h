@@ -15,6 +15,7 @@
     
     NSString *uniqueID;
     NSString *currentSectionPath;
+    NSString *currentSectionScrollOffset;
     NSString *homeSectionPath;
     BOOL scrollToFirstHighlight;    
     
@@ -30,6 +31,7 @@
 @property (readonly) NSString *title;
 
 @property BOOL scrollToFirstHighlight;
+@property (retain) NSString *currentSectionScrollOffset;
 @property (retain) CHMDocumentWindowSettings *windowSettings;
 
 @property (retain) NSString *uniqueID;

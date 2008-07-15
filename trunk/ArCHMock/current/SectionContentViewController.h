@@ -15,7 +15,7 @@
 
 - (void)injectJavaScriptIntoContent;
 
-- (void)highlightContent;
+- (void)highlightContentIfNeeded;
 
 - (void)removeHighlights;
 

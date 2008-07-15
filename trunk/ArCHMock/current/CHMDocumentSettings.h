@@ -3,14 +3,14 @@
 
 @interface CHMDocumentSettings : NSObject <NSCoding> {
     NSString *currentSectionPath;
-    NSString *sectionScrollOffset;
+    NSString *currentSectionScrollOffset;
     NSDate *date;
     
     CHMDocumentWindowSettings *windowSettings;
 }
 
 @property (retain) NSString *currentSectionPath;
-@property (retain) NSString *sectionScrollOffset;
+@property (retain) NSString *currentSectionScrollOffset;
 @property (retain) NSDate *date;
 
 @property (retain) CHMDocumentWindowSettings *windowSettings;

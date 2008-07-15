@@ -4,7 +4,7 @@
 @implementation CHMDocumentSettings
 
 @synthesize currentSectionPath;
-@synthesize sectionScrollOffset;
+@synthesize currentSectionScrollOffset;
 @synthesize windowSettings;
 @synthesize date;
 
@@ -23,9 +23,9 @@
         self.currentSectionPath = initCurrentSectionPath;
         self.windowSettings = initWindowSettings;
         if (nil == initSectionScrollOffset) {
-            initSectionScrollOffset = @"{left: 0, top: 0}";
+            initSectionScrollOffset = @"[0, 0]";
         }
-        self.sectionScrollOffset = initSectionScrollOffset;
+        self.currentSectionScrollOffset = initSectionScrollOffset;
         self.date = [NSDate date];
     }
     return self;
@@ -35,7 +35,7 @@
     [super init];
     
     self.currentSectionPath = [coder decodeObjectForKey:@"currentSectionPath"];
-    self.sectionScrollOffset = [coder decodeObjectForKey:@"sectionScrollOffset"];
+    self.currentSectionScrollOffset = [coder decodeObjectForKey:@"sectionScrollOffset"];
     self.windowSettings = [coder decodeObjectForKey:@"windowSettings"];
     self.date = [coder decodeObjectForKey:@"date"];
     
@@ -44,22 +44,22 @@
 
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:currentSectionPath forKey:@"currentSectionPath"];
-    [coder encodeObject:sectionScrollOffset forKey:@"sectionScrollOffset"];
+    [coder encodeObject:currentSectionScrollOffset forKey:@"sectionScrollOffset"];
     [coder encodeObject:windowSettings forKey:@"windowSettings"];
     [coder encodeObject:date forKey:@"date"];
 }
 
 - (NSString *)description {
     return [NSString stringWithFormat:@"%@: {date: %@, currentSectionPath: '%@', \
-sectionScrollOffset: %@, windowSettings: %@}", 
-            [super description], date, currentSectionPath, sectionScrollOffset, 
+currentSectionScrollOffset: '%@', windowSettings: %@}", 
+            [super description], date, currentSectionPath, currentSectionScrollOffset, 
             windowSettings];
 }
 
 - (void)dealloc {
     self.date = nil;
     self.currentSectionPath = nil;
-    self.sectionScrollOffset = nil;
+    self.currentSectionScrollOffset = nil;
     
     self.windowSettings = nil;
     
