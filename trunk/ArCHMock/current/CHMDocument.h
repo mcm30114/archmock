@@ -17,7 +17,8 @@
     NSString *currentSectionPath;
     NSString *currentSectionScrollOffset;
     NSString *homeSectionPath;
-    BOOL scrollToFirstHighlight;    
+    BOOL scrollToFirstHighlight;
+    BOOL dontClearContentOffsetOnUnload;
     
     CHMSearchQuery *currentSearchQuery;
     CHMSearchOperation *currentSearchOperation;
@@ -31,6 +32,7 @@
 @property (readonly) NSString *title;
 
 @property BOOL scrollToFirstHighlight;
+@property BOOL dontClearContentOffsetOnUnload;
 @property (retain) NSString *currentSectionScrollOffset;
 @property (retain) CHMDocumentWindowSettings *windowSettings;
 

@@ -72,6 +72,13 @@ static NSString *librariesCode = nil;
     return [response isKindOfClass:[NSNumber class]] && [response boolValue] == 1;
 }
 
+- (IBAction)scrollContentWithOffset:(id)sender {
+    NSString *code = [NSString stringWithFormat:@"window.scrollTo.apply(window, %@);", 
+                      self.chmDocument.currentSectionScrollOffset];
+    [self performJavaScriptCode:code 
+                 asynchronously:YES];
+}
+
 - (void)highlightContentIfNeeded {
     CHMSearchQuery *query = [[self chmDocument] currentSearchQuery];
     if (query) {
@@ -100,6 +107,8 @@ static NSString *librariesCode = nil;
 
 - (NSString *)performJavaScriptCode:(NSString *)codeString 
                      asynchronously:(BOOL)asynchronously {
+    codeString = [NSString stringWithFormat:@"try { %@; } catch(e) { Logger.error(e.toString()); }", 
+                  codeString];
     WebScriptObject *scriptObject = [[self webView] windowScriptObject];
     if (asynchronously) {
         codeString = [NSString stringWithFormat:@"setTimeout(function() { %@; }, 0);", codeString];
