@@ -4,18 +4,19 @@
 #import "CHMIndex.h"
 #import "CHMSection.h"
 #import "CHMSearchOperation.h";
-
 #import "CHMSearchQuery.h"
+#import "CHMDocumentWindowSettings.h"
 
 @interface CHMDocument : NSDocument {
     CHMContainer *container;
     CHMTableOfContents *tableOfContents;
     CHMIndex *index;
+    CHMDocumentWindowSettings *windowSettings;
     
     NSString *uniqueID;
     NSString *currentSectionPath;
     NSString *homeSectionPath;
-    BOOL scrollToFirstHighlight;
+    BOOL scrollToFirstHighlight;    
     
     CHMSearchQuery *currentSearchQuery;
     CHMSearchOperation *currentSearchOperation;
@@ -26,11 +27,10 @@
 }
 
 @property (readonly) NSString *containerID;
-
 @property (readonly) NSString *title;
 
-
 @property BOOL scrollToFirstHighlight;
+@property (retain) CHMDocumentWindowSettings *windowSettings;
 
 @property (retain) NSString *uniqueID;
 
@@ -52,21 +52,13 @@
 - (CHMSection *)locateSectionByPath:(NSString *)sectionPath;
 
 - (void)searchForText:(NSString *)text;
-
 - (void)startSearchOperation:(CHMSearchOperation *)operation;
-
 - (void)scheduleSearchOperation:(CHMSearchOperation *)operation;
-
 - (void)searchOperationStarted:(CHMSearchQuery *)query;
-
 - (void)clearCurrentSearchResults;
-
 - (void)processAccumulatingSearchResults:(NSArray *)accumulatingResults;
-
 - (void)cancelSearch;
-
 - (void)cancelCurrentSearchOperation;
-
 - (void)searchOperationEnded:(CHMSearchQuery *)query;
 
 @end

@@ -11,16 +11,44 @@
 @synthesize isSidebarCollapsing;
 @synthesize tableOfContentsViewController, sectionContentViewController, searchViewController;
 
+#define SIDEBAR_MIN_WIDTH 200.0
+
+- (float)sidebarWidth {
+    if (nil == sidebarView) {
+        return SIDEBAR_MIN_WIDTH;
+    }
+    
+    return [sidebarView frame].size.width;
+}
+
 - (void)windowDidLoad {
     [super windowDidLoad];
+
     self.chmDocument = [self document];
+
+    CHMDocumentWindowSettings *windowSettings = self.chmDocument.windowSettings;
+    NSLog(@"DEBUG: DocumentWindowController: window settings: %@", windowSettings);
+    
+    BOOL sidebarShouldBeCollapsed = windowSettings.isSidebarCollapsed;
+
+    [[self window] setFrame:windowSettings.frame 
+                    display:NO
+                    animate:NO];
+    
+    if (sidebarShouldBeCollapsed || nil == chmDocument.tableOfContents) {
+        [self hideSidebarWithAnimation:NO];
+    }
+    else {
+        [self showSidebarWithAnimation:NO];
+    }
+    
+    [self adjustSplitViewDivider];
     
     sectionContentViewController = [SectionContentViewController new];
     [sectionContentViewController setRepresentedObject:chmDocument];
     [contentView setContentView:[sectionContentViewController view]];
     
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    
     [notificationCenter addObserver:self 
                            selector:@selector(sectionContentLoaded:) 
                                name:@"SectionContentLoaded" 
@@ -39,23 +67,33 @@
                                name:@"SearchCancelled" 
                              object:chmDocument];
     
-    if (chmDocument.tableOfContents) {
+    if (nil != chmDocument.tableOfContents) {
         tableOfContentsViewController = [TableOfContentsViewController new];
         [tableOfContentsViewController setRepresentedObject:chmDocument];
         [sidebarView setContentView:[tableOfContentsViewController view]];
-        
-        [self showSidebarWithAnimation:NO];
-    }
-    else {
-        [self hideSidebarWithAnimation:NO];
     }
     
     if (chmDocument.index) {
         searchViewController = [SearchViewController new];
         [searchViewController setRepresentedObject:chmDocument];
     }
-    
+}
+
+- (void)updateWindowSettings {
+    self.chmDocument.windowSettings.frame = [[self window] frame];
+    if (![self isSidebarCollapsed] && ![self isSidebarCollapsing]) {
+        self.chmDocument.windowSettings.sidebarWidth = [self sidebarWidth];
+    }
+    self.chmDocument.windowSettings.isSidebarCollapsed = [self isSidebarCollapsed];
+}
+
+- (void)windowDidResize:(NSNotification *)notification {
+    [self updateWindowSettings];
     [self adjustSplitViewDivider];
+}
+
+- (void)windowDidMove:(NSNotification *)notification {
+    [self updateWindowSettings];
 }
 
 - (void)setToggleSidebarButtonImage {
@@ -80,6 +118,8 @@
         [self switchToSearchResultsView];
         [self showSidebarWithAnimation:YES];
     }
+
+    [toolbar validateVisibleItems];
 }
 
 - (BOOL)switchToSearchResultsView {
@@ -190,13 +230,15 @@
     [self closeAddCurrentSectionToBookmarksWindow:self];
 
     NSString *bookmarkLabel = [bookmarkNameForCurrentSectionField stringValue];
-//    NSLog(@"DEBUG: Adding current section to bookmarks. Bookmark label: '%@'", bookmarkLabel);
     
     CHMDocument *document = self.chmDocument;
+    CHMDocumentSettings *settings = [CHMDocumentSettings settingsWithCurrentSectionPath:document.currentSectionPath
+                                                                    sectionScrollOffset:nil
+                                                                         windowSettings:document.windowSettings];
     CHMBookmark *bookmark = [CHMBookmark bookmarkWithLabel:bookmarkLabel
                                                    filePath:[[document fileURL] relativePath]
-                                              sectionLabel:document.currentSectionLabel 
-                                               sectionPath:document.currentSectionPath];
+                                              sectionLabel:document.currentSectionLabel
+                                          documentSettings:settings];
     
     [[CHMApplicationDelegate settings] addBookmark:bookmark];
 }
@@ -270,19 +312,12 @@
     return YES;    
 }
 
-- (IBAction)toggleSidebar:(id)sender {
-    self.isSidebarCollapsed ? [self showSidebarWithAnimation:YES] : [self hideSidebarWithAnimation:YES];
-}
-
 - (IBAction)printDocument:(id)sender {
     NSView *currentSectionView = [[[sectionContentViewController.webView mainFrame] frameView] documentView];
     NSPrintOperation *printOperation = [NSPrintOperation printOperationWithView:currentSectionView
                                                                       printInfo:[[self document] printInfo]];
     
     [printOperation setShowPanels:YES];
-    // With modalPrintOperation "Print" button on toolbar won't unstick immediately 
-//    [printOperation runOperation];
-    
     [[self document] runModalPrintOperation:printOperation
                                    delegate:nil
                              didRunSelector:nil
@@ -307,7 +342,9 @@
 }
 
 // SplitView delegate logic
-#define SIDEBAR_MIN_WIDTH 200.0
+- (IBAction)toggleSidebar:(id)sender {
+    self.isSidebarCollapsed ? [self showSidebarWithAnimation:YES] : [self hideSidebarWithAnimation:YES];
+}
 
 - (void)showSidebarWithAnimation:(BOOL)animate {
     if ([splitView isSplitterAnimating] || !self.isSidebarCollapsed) {
@@ -315,7 +352,7 @@
     }
     
     float splitViewWidth = [splitView frame].size.width;
-    float sidebarWidth = [[NSUserDefaults standardUserDefaults] floatForKey:@"sidebarWidth"];
+    float sidebarWidth = self.chmDocument.windowSettings.sidebarWidth;
     if (!sidebarWidth) {
         sidebarWidth = SIDEBAR_MIN_WIDTH;
     }
@@ -329,19 +366,16 @@
         return;
     }
     
-    self.isSidebarCollapsing = YES;
+    [self updateWindowSettings];
     
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setFloat:[sidebarView frame].size.width
-                forKey:@"sidebarWidth"];
+    self.isSidebarCollapsing = YES;
     [splitView setSplitterPosition:[splitView maxPossiblePositionOfDividerAtIndex:0] 
                            animate:animate];        
-    
     self.isSidebarCollapsing = NO;
 }
 
 - (BOOL)isSidebarCollapsed {
-    return ![self isSidebarCollapsing] && [sidebarView frame].size.width < SIDEBAR_MIN_WIDTH;
+    return ![self isSidebarCollapsing] && [sidebarView frame].size.width < 1;
 }
 
 - (void)sectionContentLoaded:(NSNotification *)notification {
@@ -358,7 +392,6 @@
     }
 }
 
-
 - (void)adjustSplitViewDivider {
     splitView.dividerThickness = self.isSidebarCollapsed ? 0.0 : 1.0;
     [splitView adjustSubviews];
@@ -374,13 +407,14 @@
     return self.isSidebarCollapsing ? proposedMax : proposedMax - SIDEBAR_MIN_WIDTH - [splitView dividerThickness];
 }
 
-- (void)splitViewWillResizeSubviews:(NSNotification *)aNotification {
+- (void)splitViewWillResizeSubviews:(NSNotification *)notification {
     [self adjustSplitViewDivider];
 }
 
-- (void)splitViewDidResizeSubviews:(NSNotification *)aNotification {
+- (void)splitViewDidResizeSubviews:(NSNotification *)notification {
     if (![splitView isSplitterAnimating]) {
         [self adjustSplitViewDivider];
+        [self updateWindowSettings];
     }
 }
 

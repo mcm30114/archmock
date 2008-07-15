@@ -1,7 +1,6 @@
 #import <Cocoa/Cocoa.h>
 #import "CHMDocument.h"
 
-#import "CHMSection.h"
 #import "CHMDocumentSplitView.h"
 #import "TableOfContentsViewController.h";
 #import "SectionContentViewController.h"
@@ -72,5 +71,6 @@
 - (void)showSidebarWithAnimation:(BOOL)animate;
 - (void)hideSidebarWithAnimation:(BOOL)animate;
 - (void)adjustSplitViewDivider;
+- (void)updateWindowSettings;
 
 @end

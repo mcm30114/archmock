@@ -4,6 +4,7 @@
 @implementation CHMApplicationSettings
 
 @synthesize applicationSupportFolderPath, bookmarksFilePath, recentDocumentsSettingsFilePath;
+@synthesize lastDocumentWindowSettings;
 @synthesize bookmarks, recentDocumentsSettings;
 
 - (id)init {
@@ -34,11 +35,22 @@
 - (void)load {
     [self loadBookmarks];
     [self loadRecentDocumentsSettings];
+    
+    self.lastDocumentWindowSettings = [CHMDocumentWindowSettings settingsWithData:[[NSUserDefaults standardUserDefaults] 
+                                                                                   objectForKey:@"lastDocumentWindowSettings"]];
+    if (nil == lastDocumentWindowSettings) {
+        self.lastDocumentWindowSettings = [[CHMDocumentWindowSettings new] autorelease];
+    }
+    
+    NSLog(@"DEBUG: Last document window settings: %@", lastDocumentWindowSettings);
 }
 
 - (void)save {
     [self saveBookmarks];
     [self saveRecentDocumentsSettings];
+    
+    [[NSUserDefaults standardUserDefaults] setObject:[self.lastDocumentWindowSettings data]
+                                              forKey:@"lastDocumentWindowSettings"];
 }
 
 - (void)loadBookmarks {
@@ -82,8 +94,23 @@
 }
 
 - (void)addRecentSettingsForDocument:(CHMDocument *)document {
-    CHMDocumentSettings *settings = [CHMDocumentSettings settingsWithCurrentSectionPath:document.currentSectionPath];
-    [recentDocumentsSettings setObject:settings forKey:document.containerID];
+    CHMDocumentSettings *settings = [CHMDocumentSettings settingsWithCurrentSectionPath:document.currentSectionPath
+                                                                    sectionScrollOffset:nil
+                                                                         windowSettings:document.windowSettings];
+
+    settings.date = [NSDate date];
+    [recentDocumentsSettings setObject:settings 
+                                forKey:document.containerID];
+    NSLog(@"DEBUG: Saved recent settings for document with title '%@': %@", 
+          [document title], settings);
+    
+    if (nil != document.tableOfContents) {
+        self.lastDocumentWindowSettings = document.windowSettings;
+    }
+    else {
+        self.lastDocumentWindowSettings.frame = document.windowSettings.frame;
+    }
+    NSLog(@"DEBUG: Saved last document window settings: %@", self.lastDocumentWindowSettings);
 }
 
 - (void)saveRecentDocumentsSettings {
@@ -101,6 +128,8 @@
     
     self.bookmarks = nil;
     self.recentDocumentsSettings = nil;
+    
+    self.lastDocumentWindowSettings = nil;
     
     [super dealloc];
 }

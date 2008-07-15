@@ -22,7 +22,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@ String '%@' at position %i", 
+    return [NSString stringWithFormat:@"%@: {string: '%@', position: %i}", 
             [super description],
             string,
             position];

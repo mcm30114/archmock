@@ -25,7 +25,7 @@
         self.query = initQuery;
         
         self.wordsInSectionsFound = 0;
-        self.flushWordsThreshold = 500;
+        self.flushWordsThreshold = 1000;
         self.searchResultBySectionPath = [NSMutableDictionary dictionary];
     }
     
@@ -69,7 +69,7 @@
  occurencesNumber:(int)occurencesNumber 
      sectionLabel:(NSString *)sectionLabel 
       sectionPath:(NSString *)sectionPath {
-//    NSLog(@"DEBUG: Word '%@' found %d time(s)\nin section '%@'\nwith path '%@'", 
+//    NSLog(@"DEBUG: Word '%@' found %d time(s) in section '%@' with path '%@'", 
 //          word,
 //          occurencesNumber,
 //          sectionLabel,
@@ -103,7 +103,7 @@
     }
     
     if (0 == (self.wordsInSectionsFound % self.flushWordsThreshold)) {
-        self.flushWordsThreshold = self.flushWordsThreshold * 20;
+        self.flushWordsThreshold = self.flushWordsThreshold * 2;
         [self flushSearchResults];
 //        NSLog(@"DEBUG: Making little pause");
         [NSThread sleepForTimeInterval:1];
@@ -120,10 +120,14 @@
     NSArray *results = [searchResultBySectionPath allValues];
     NSMutableArray *filteredResults = [NSMutableArray array];
     for (CHMSectionAccumulatingSearchResult *result in results) {
+        BOOL shouldReject = NO;
         for (NSNumber *occurencesNumber in result.tokensOccurences) {
             if (0 == [occurencesNumber intValue]) {
-                continue;
+                shouldReject = YES;
+                break;
             }
+        }
+        if (!shouldReject) {
             [filteredResults addObject:result];
         }
     }
@@ -134,14 +138,14 @@
         if ([self isCancelled]) {
             return;
         }
-        for (int j = 0; j < [result.tokensOccurences count]; j++) {
+        for (int i = 0; i < [result.tokensOccurences count]; i++) {
             if ([self isCancelled]) {
                 return;
             }
-            int oldMaxCount = [[tokensMaxCounts objectAtIndex:j] intValue];
-            int currentCount = [[result.tokensOccurences objectAtIndex:j] intValue];
+            int oldMaxCount = [[tokensMaxCounts objectAtIndex:i] intValue];
+            int currentCount = [[result.tokensOccurences objectAtIndex:i] intValue];
             if (currentCount > oldMaxCount) {
-                [tokensMaxCounts replaceObjectAtIndex:j 
+                [tokensMaxCounts replaceObjectAtIndex:i 
                                            withObject:[NSNumber numberWithInt:currentCount]];
             }
         }
@@ -154,7 +158,8 @@
         return;
     }
     
-//    NSLog(@"DEBUG: Accumulating search results to flush: %d", [results count]);
+//    NSLog(@"DEBUG: Accumulating search results to flush: %@", results);
+    
     [document performSelectorOnMainThread:@selector(processAccumulatingSearchResults:)
                                withObject:results 
                             waitUntilDone:YES];

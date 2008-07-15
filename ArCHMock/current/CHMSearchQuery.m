@@ -73,9 +73,8 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@ Search string: '%@';\n\
-Tokens: %@;\n\
-Unique substrings: %@",
+    return [NSString stringWithFormat:@"%@: {searchString: '%@', \
+tokens: %@, uniqueSubstrings: %@}",
             [super description],
             searchString,
             tokens,

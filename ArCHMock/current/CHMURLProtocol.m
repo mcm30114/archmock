@@ -41,7 +41,7 @@
         objectPath = [NSString stringWithFormat:@"%@;%@", objectPath, parameters];
     }
     
-    NSData   *objectData  = [container dataForObjectWithPath:objectPath];
+    NSData *objectData = [container dataForObjectWithPath:objectPath];
     NSString *contentType = @"application/octet-stream";
 
     if (objectData) {

@@ -16,7 +16,6 @@
     if (![super initWithNibName:@"ContentView" bundle:nil]) {
         return nil;
     }
-    
     [self setTitle:@"Content View"];
     
     return self;

@@ -4,7 +4,7 @@
 
 
 @interface CHMTableOfContents : NSObject {
-    CHMSection          *root;
+    CHMSection *root;
     NSMutableDictionary *sectionsByPath;
 }
 
