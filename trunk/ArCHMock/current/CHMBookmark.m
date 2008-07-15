@@ -3,32 +3,32 @@
 
 @implementation CHMBookmark
 
-@synthesize label, sectionLabel, sectionPath;
+@synthesize label, sectionLabel;
+@synthesize documentSettings;
 @synthesize filePath, fileAlias;
-@synthesize containerID;
 @dynamic fileRelativePath;
 
 + (CHMBookmark *)bookmarkWithLabel:(NSString *)label 
                           filePath:(NSString *)filePath
                       sectionLabel:(NSString *)sectionLabel
-                       sectionPath:(NSString *)sectionPath {
+                  documentSettings:(CHMDocumentSettings *)documentSettings {
     return [[[CHMBookmark alloc] initWithLabel:label
                                       filePath:filePath
                                   sectionLabel:sectionLabel
-                                   sectionPath:sectionPath] autorelease];
+                              documentSettings:documentSettings] autorelease];
 }
 
 - (id)initWithLabel:(NSString *)initLabel
            filePath:(NSString *)initFilePath
        sectionLabel:(NSString *)initSectionLabel
-        sectionPath:(NSString *)initSectionPath {
+   documentSettings:(CHMDocumentSettings *)initDocumentSettings {
     if (self = [super init]) {
         self.fileAlias = [BDAlias aliasWithPath:initFilePath];
 
         self.label = initLabel;
         self.filePath = initFilePath;
         self.sectionLabel = initSectionLabel;
-        self.sectionPath = initSectionPath;
+        self.documentSettings = initDocumentSettings;
     }
     
     return self;
@@ -39,7 +39,7 @@
     
     self.label = [coder decodeObjectForKey:@"label"];
     self.sectionLabel = [coder decodeObjectForKey:@"sectionLabel"];
-    self.sectionPath = [coder decodeObjectForKey:@"sectionPath"];
+    self.documentSettings = [coder decodeObjectForKey:@"documentSettings"];
     self.filePath = [coder decodeObjectForKey:@"filePath"];
     self.fileAlias = [BDAlias aliasWithData:[coder decodeObjectForKey:@"fileAliasData"]];
     
@@ -51,21 +51,17 @@
     [coder encodeObject:filePath forKey:@"filePath"];
     [coder encodeObject:[fileAlias aliasData] forKey:@"fileAliasData"];
     [coder encodeObject:sectionLabel forKey:@"sectionLabel"];
-    [coder encodeObject:sectionPath forKey:@"sectionPath"];
+    [coder encodeObject:documentSettings forKey:@"documentSettings"];
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@: {\n\
-    label: '%@',\n\
-    file relative path: '%@',\n\
-    Section label: '%@',\n\
-    Section path: '%@'\n\
-}",
+    return [NSString stringWithFormat:@"%@: {label: '%@',\
+fileRelativePath: '%@', sectionLabel: '%@', documentSettings: '%@'}",
             [super description],
             label,
             self.fileRelativePath,
             sectionLabel,
-            sectionPath
+            documentSettings
             ];
 }
 
@@ -109,9 +105,10 @@ static BOOL doesFileExist(NSString *filePath) {
 - (void)dealloc {
     self.label = nil;
     self.sectionLabel = nil;
-    self.sectionPath = nil;
     self.filePath = nil;
     self.fileAlias = nil;
+    
+    self.documentSettings = nil;
     
     [super dealloc];
 }

@@ -1,5 +1,6 @@
 #import "CHMDocumentController.h"
 #import "CHMDocumentSettings.h"
+#import "CHMDocumentWindowSettings.h"
 #import "CHMApplicationDelegate.h"
 
 @implementation CHMDocumentController
@@ -56,7 +57,7 @@
 
 - (BOOL)validateUserInterfaceItem:(id <NSValidatedUserInterfaceItem>)item {
     SEL action = [item action];
-    if (@selector(editBookmarks:) == action) {
+    if (@selector(openBookmarksEditor:) == action) {
         return [[CHMApplicationDelegate settings].bookmarks count] > 0;
     }
     
@@ -73,17 +74,28 @@
     NSURL *fileURL = [NSURL URLWithString:fileURLString];
     
     NSError *error;
+    if (nil != [self documentForURL:fileURL]) {
+        CHMDocument *document = (CHMDocument *)[super openDocumentWithContentsOfURL:fileURL
+                                                                            display:YES 
+                                                                              error:&error];
+        document.currentSectionPath = bookmark.documentSettings.currentSectionPath;
+        return;
+    }
+    
     CHMDocument *document = (CHMDocument *)[super openDocumentWithContentsOfURL:fileURL
-                                                                        display:YES
+                                                                        display:NO
                                                                           error:&error];
     if (nil == document) {
-        NSString *errorMessage = [NSString stringWithFormat:@"The bookmark “%@” could not be opened.", bookmark.label];
+        NSString *errorMessage = [NSString stringWithFormat:@"The bookmark “%@” could not be opened.", 
+                                  bookmark.label];
 //        NSLog(@"ERROR: %@", errorMessage);
         NSRunCriticalAlertPanel(errorMessage, @"", @"OK", nil, nil);
     }
     else {
-        document.currentSectionPath = bookmark.sectionPath;
-//        NSLog(@"DEBUG: Window controllers: %@", [document windowControllers]);
+        document.windowSettings = bookmark.documentSettings.windowSettings;
+        [document makeWindowControllers];
+        [document showWindows];
+        document.currentSectionPath = bookmark.documentSettings.currentSectionPath;
     }
 }
 
@@ -100,17 +112,37 @@
 - (id)openDocumentWithContentsOfURL:(NSURL *)absoluteURL 
                             display:(BOOL)displayDocument 
                               error:(NSError **)outError {
+    if (nil != [self documentForURL:absoluteURL]) {
+        return [super openDocumentWithContentsOfURL:absoluteURL 
+                                            display:displayDocument
+                                              error:outError];
+    }
+    
     CHMDocument *document = (CHMDocument *)[super openDocumentWithContentsOfURL:absoluteURL 
-                                                                        display:displayDocument 
+                                                                        display:NO 
                                                                           error:outError];
+    
     if (nil != document) {
-        CHMDocumentSettings *settings = [[CHMApplicationDelegate settings].recentDocumentsSettings objectForKey:document.containerID];
-        if (nil != settings) {
-            document.currentSectionPath = settings.currentSectionPath;
+        CHMDocumentSettings *settings = [[CHMApplicationDelegate settings].recentDocumentsSettings
+                                         objectForKey:document.containerID];
+        if (nil == settings) {
+            settings = [CHMDocumentSettings settingsWithCurrentSectionPath:document.homeSectionPath
+                                                       sectionScrollOffset:nil
+                                                            windowSettings:[CHMApplicationDelegate settings].lastDocumentWindowSettings];
+            NSLog(@"DEBUG: Can not find document settings document with title '%@'. \
+Will use last document settings: %@", [document title], settings);
+            
         }
-        else {
-            document.currentSectionPath = document.homeSectionPath;
+        
+        document.windowSettings = settings.windowSettings;
+        
+        NSLog(@"DEBUG: Opening document '%@' with settings: %@", document.title, settings);
+        if (displayDocument) {
+            [document makeWindowControllers];
+            [document showWindows];
         }
+        
+        document.currentSectionPath = settings.currentSectionPath;
     }
     
     return document;
@@ -144,7 +176,8 @@
 
 - (IBAction)openBookmarksEditor:(id)sender {
     if (nil == self.bookmarksWindowController) {
-        self.bookmarksWindowController = [[[NSWindowController alloc] initWithWindowNibName:@"Bookmarks"] autorelease];
+        self.bookmarksWindowController = [[[NSWindowController alloc] 
+                                           initWithWindowNibName:@"BookmarksEditor"] autorelease];
     }
     [self.bookmarksWindowController showWindow:self];
     [[self.bookmarksWindowController window] makeKeyWindow];

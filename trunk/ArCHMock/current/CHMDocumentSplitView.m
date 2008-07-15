@@ -62,6 +62,7 @@ whenever -isSplitterAnimating returns YES.
                                                                                       subview0Animation, 
                                                                                       subview1Animation, 
                                                                                       nil]];
+        [animation setDelegate:self];
         
  //       [animation setAnimationBlockingMode:NSAnimationBlocking];
         [animation setAnimationBlockingMode:NSAnimationNonblocking];
@@ -70,7 +71,7 @@ whenever -isSplitterAnimating returns YES.
         
         isSplitterAnimating = YES;
         [animation startAnimation];
-        isSplitterAnimating = NO;
+//        isSplitterAnimating = NO;
         
         [animation release];
     } 
@@ -79,6 +80,10 @@ whenever -isSplitterAnimating returns YES.
         [subview1 setFrame:subview1EndFrame];
     }
     [self adjustSubviews];
+}
+
+- (void)animationDidEnd:(NSAnimation *)animation {
+    self.isSplitterAnimating = NO;
 }
 
 // Only works with two subviews.

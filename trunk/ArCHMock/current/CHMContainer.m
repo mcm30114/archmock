@@ -60,8 +60,7 @@
                           @"/default.html", 
                           @"/index.htm", 
                           @"/default.htm", nil];
-    for (int i = 0; i < [testPaths count]; i++) {
-        NSString *testPath = [testPaths objectAtIndex:i];
+    for (NSString *testPath in testPaths) {
         if ([self doesObjectWithPathExist:testPath]) {
             return [testPath stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@""];
         }
@@ -126,7 +125,7 @@
 - (NSString *)findMetadataStringInStringsObjectWithOffset:(unsigned long)offset {
     if (windowsData && stringsData) {
         unsigned long entryCount = [windowsData longFromOffset:0];
-        unsigned long entrySize  = [windowsData longFromOffset:4];
+        unsigned long entrySize = [windowsData longFromOffset:4];
         
         NSString *string;
         for (int entryIndex = 0; entryIndex < entryCount; entryIndex++) {

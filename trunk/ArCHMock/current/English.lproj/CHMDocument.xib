@@ -8,6 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
+			<integer value="6"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -24,7 +25,7 @@
 			<object class="NSWindowTemplate" id="275939982">
 				<int key="NSWindowStyleMask">15</int>
 				<int key="NSWindowBacking">2</int>
-				<string key="NSWindowRect">{{148, 194}, {711, 562}}</string>
+				<string key="NSWindowRect">{{112, 124}, {900, 600}}</string>
 				<int key="NSWTFlags">813180928</int>
 				<string key="NSWindowTitle">Window</string>
 				<string key="NSWindowClass">NSWindow</string>
@@ -517,7 +518,7 @@
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<string key="NSWindowContentMinSize">{700, 500}</string>
 				<object class="NSView" key="NSWindowView" id="568628114">
-					<nil key="NSNextResponder"/>
+					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
 					<object class="NSMutableArray" key="NSSubviews">
 						<bool key="EncodedWithXMLCoder">YES</bool>
@@ -539,11 +540,11 @@
 												<object class="NSView" id="22258716">
 													<reference key="NSNextResponder" ref="208314209"/>
 													<int key="NSvFlags">256</int>
-													<string key="NSFrameSize">{485, 562}</string>
+													<string key="NSFrameSize">{614, 600}</string>
 													<reference key="NSSuperview" ref="208314209"/>
 												</object>
 											</object>
-											<string key="NSFrameSize">{485, 562}</string>
+											<string key="NSFrameSize">{614, 600}</string>
 											<reference key="NSSuperview" ref="1007122375"/>
 											<string key="NSOffsets">{0, 0}</string>
 											<object class="NSTextFieldCell" key="NSTitleCell">
@@ -569,7 +570,7 @@
 											<bool key="NSFullyTransparent">YES</bool>
 										</object>
 									</object>
-									<string key="NSFrameSize">{485, 562}</string>
+									<string key="NSFrameSize">{614, 600}</string>
 									<reference key="NSSuperview" ref="83598423"/>
 									<string key="NSClassName">NSView</string>
 								</object>
@@ -586,11 +587,11 @@
 												<object class="NSView" id="289059889">
 													<reference key="NSNextResponder" ref="244750782"/>
 													<int key="NSvFlags">256</int>
-													<string key="NSFrameSize">{225, 562}</string>
+													<string key="NSFrameSize">{285, 600}</string>
 													<reference key="NSSuperview" ref="244750782"/>
 												</object>
 											</object>
-											<string key="NSFrameSize">{225, 562}</string>
+											<string key="NSFrameSize">{285, 600}</string>
 											<reference key="NSSuperview" ref="72956409"/>
 											<string key="NSOffsets">{0, 0}</string>
 											<object class="NSTextFieldCell" key="NSTitleCell">
@@ -612,24 +613,24 @@
 											<bool key="NSFullyTransparent">YES</bool>
 										</object>
 									</object>
-									<string key="NSFrame">{{486, 0}, {225, 562}}</string>
+									<string key="NSFrame">{{615, 0}, {285, 600}}</string>
 									<reference key="NSSuperview" ref="83598423"/>
 									<string key="NSClassName">NSView</string>
 								</object>
 							</object>
-							<string key="NSFrameSize">{711, 562}</string>
+							<string key="NSFrameSize">{900, 600}</string>
 							<reference key="NSSuperview" ref="568628114"/>
 							<bool key="NSIsVertical">YES</bool>
 							<int key="NSDividerStyle">2</int>
-							<string key="NSAutosaveName">splitViewFrames</string>
 						</object>
 					</object>
-					<string key="NSFrameSize">{711, 562}</string>
+					<string key="NSFrameSize">{900, 600}</string>
+					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
 				<string key="NSMinSize">{700, 571}</string>
 				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
-				<string key="NSFrameAutosaveName">windowDimensions</string>
+				<string key="NSFrameAutosaveName"/>
 			</object>
 			<object class="NSCustomObject" id="796877042">
 				<string key="NSClassName">NSApplication</string>
@@ -1425,7 +1426,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>CHMToolbar</string>
-					<string>{{533, 450}, {617, 227}}</string>
+					<string>{{383, 677}, {617, 0}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="0" id="8"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1485,13 +1486,13 @@
 					</object>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{486, 115}, {711, 562}}</string>
+					<string>{{311, 96}, {900, 600}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="8"/>
 					<reference ref="9"/>
-					<string>{{486, 115}, {711, 562}}</string>
+					<string>{{311, 96}, {900, 600}}</string>
 					<reference ref="9"/>
-					<reference ref="9"/>
+					<reference ref="8"/>
 					<string>{{201, 387}, {507, 413}}</string>
 					<reference ref="9"/>
 					<string>{3.40282e+38, 3.40282e+38}</string>
@@ -1520,7 +1521,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">100362</int>
+			<int key="maxID">100381</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1610,6 +1611,14 @@
 							<string>NSToolbar</string>
 						</object>
 					</object>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">CHMDocumentWindowController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">CHMDocumentWindowController</string>
+					<string key="superclassName">NSWindowController</string>
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBUserSource</string>
 						<string key="minorKey"/>

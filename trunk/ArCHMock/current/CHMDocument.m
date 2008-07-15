@@ -16,7 +16,9 @@
 @synthesize homeSectionPath;
 @synthesize currentSearchQuery, currentSearchOperation, scheduledSearchOperation;
 @synthesize currentSearchResults, searchResultBySectionPath;
+
 @synthesize scrollToFirstHighlight;
+@synthesize windowSettings;
 
 - (NSString *)containerID {
     return self.container.uniqueID;
@@ -81,24 +83,6 @@
     CHMDocumentWindowController *controller = [[[CHMDocumentWindowController alloc] 
                                         initWithWindowNibName:@"CHMDocument"] autorelease];
     [self addWindowController:controller];
-}
-
-- (void)dealloc {
-//    NSLog(@"DEBUG: Deallocating CHMDocument");
-    self.container = nil;
-    self.tableOfContents = nil;
-    self.index = nil;
-    
-    self.currentSectionPath = nil;
-    
-    self.currentSearchQuery = nil;
-    self.currentSearchOperation = nil;
-    self.scheduledSearchOperation = nil;
-    
-    self.currentSearchResults = nil;
-    self.searchResultBySectionPath = nil;
-    
-    [super dealloc];
 }
 
 - (void)searchForText:(NSString *)text {
@@ -192,8 +176,7 @@
     
     NSMutableArray *newAccumulatedResults = [NSMutableArray array];
     
-    for (int i = 0; i < [accumulatingResults count]; i++) {
-        CHMSectionAccumulatingSearchResult *accumulatingResult = [accumulatingResults objectAtIndex:i];
+    for (CHMSectionAccumulatingSearchResult *accumulatingResult in accumulatingResults) {
         CHMSectionAccumulatedSearchResult *accumulatedResult = [searchResultBySectionPath objectForKey:accumulatingResult.sectionPath];
         
         if (!accumulatedResult) {
@@ -249,8 +232,28 @@
 //    NSLog(@"DEBUG: Closing CHM document: '%@'", [self fileURL]);
     self.scheduledSearchOperation = nil;
     self.currentSearchOperation = nil;
-    
+
     [super close];
+}
+
+- (void)dealloc {
+    //    NSLog(@"DEBUG: Deallocating CHMDocument");
+    self.container = nil;
+    self.tableOfContents = nil;
+    self.index = nil;
+    
+    self.currentSectionPath = nil;
+    
+    self.currentSearchQuery = nil;
+    self.currentSearchOperation = nil;
+    self.scheduledSearchOperation = nil;
+    
+    self.currentSearchResults = nil;
+    self.searchResultBySectionPath = nil;
+    
+    self.windowSettings = nil;
+    
+    [super dealloc];
 }
 
 @end

@@ -35,8 +35,7 @@
 }
 
 - (NSString *)description {
-    return [NSString 
-            stringWithFormat:@"%@ Label: '%@', path: '%@', indexPath: %@", 
+    return [NSString stringWithFormat:@"%@ Label: '%@', path: '%@', indexPath: %@", 
             [super description],
             label, 
             path, 

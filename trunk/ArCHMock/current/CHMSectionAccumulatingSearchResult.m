@@ -47,8 +47,8 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@ Section label: '%@', \
-path: '%@', search relevancy: %i;\ntokens occurences: %@",
+    return [NSString stringWithFormat:@"%@: {sectionLabel: '%@', \
+sectionPath: '%@', relevancy: %i, tokensOccurences: %@}",
             [super description],
             sectionLabel,
             sectionPath,

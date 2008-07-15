@@ -18,6 +18,7 @@
 		674288590DCADE3000848DA0 /* chm_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = 674288550DCADE3000848DA0 /* chm_lib.c */; };
 		6742885A0DCADE3000848DA0 /* lzx.c in Sources */ = {isa = PBXBuildFile; fileRef = 674288570DCADE3000848DA0 /* lzx.c */; };
 		674B8E170DFBAE1500A48CF2 /* CHMDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 674B8E160DFBAE1500A48CF2 /* CHMDocumentController.m */; };
+		674CB4E30E2AE9D300169AFA /* CHMDocumentWindowSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 674CB4E20E2AE9D300169AFA /* CHMDocumentWindowSettings.m */; };
 		674EBEF90E233235002907A6 /* CHMBookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 674EBEF80E233235002907A6 /* CHMBookmark.m */; };
 		675895880DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 675895870DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.m */; };
 		675895C40DF7A86E000CDC91 /* CHMSearchToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 675895C30DF7A86E000CDC91 /* CHMSearchToken.m */; };
@@ -99,6 +100,8 @@
 		674288580DCADE3000848DA0 /* lzx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lzx.h; sourceTree = "<group>"; };
 		674B8E150DFBAE1500A48CF2 /* CHMDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMDocumentController.h; sourceTree = "<group>"; };
 		674B8E160DFBAE1500A48CF2 /* CHMDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMDocumentController.m; sourceTree = "<group>"; };
+		674CB4E10E2AE9D300169AFA /* CHMDocumentWindowSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMDocumentWindowSettings.h; sourceTree = "<group>"; };
+		674CB4E20E2AE9D300169AFA /* CHMDocumentWindowSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMDocumentWindowSettings.m; sourceTree = "<group>"; };
 		674EBEF70E233235002907A6 /* CHMBookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMBookmark.h; sourceTree = "<group>"; };
 		674EBEF80E233235002907A6 /* CHMBookmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMBookmark.m; sourceTree = "<group>"; };
 		675895860DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMSectionAccumulatingSearchResult.h; sourceTree = "<group>"; };
@@ -226,6 +229,7 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				67898C980E2B08D900715B92 /* Settings */,
 				677652720DEF5B7F00996307 /* Views */,
 				677652700DEF5B7200996307 /* Operations */,
 				67ADAF080DE693BD0063D2A4 /* Controllers */,
@@ -318,6 +322,19 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		67898C980E2B08D900715B92 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				67CBAA3B0E2AC6BF00B5997B /* CHMApplicationSettings.h */,
+				67CBAA3C0E2AC6BF00B5997B /* CHMApplicationSettings.m */,
+				67D0D0DD0E29AEF5000FD146 /* CHMDocumentSettings.h */,
+				67D0D0DE0E29AEF5000FD146 /* CHMDocumentSettings.m */,
+				674CB4E10E2AE9D300169AFA /* CHMDocumentWindowSettings.h */,
+				674CB4E20E2AE9D300169AFA /* CHMDocumentWindowSettings.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		67909AAE0DDBA55700B68688 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -335,10 +352,6 @@
 				677C0A660DD2A06F0073A016 /* CHMSection.m */,
 				674EBEF70E233235002907A6 /* CHMBookmark.h */,
 				674EBEF80E233235002907A6 /* CHMBookmark.m */,
-				67CBAA3B0E2AC6BF00B5997B /* CHMApplicationSettings.h */,
-				67CBAA3C0E2AC6BF00B5997B /* CHMApplicationSettings.m */,
-				67D0D0DD0E29AEF5000FD146 /* CHMDocumentSettings.h */,
-				67D0D0DE0E29AEF5000FD146 /* CHMDocumentSettings.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -517,6 +530,7 @@
 				67D0D0690E298F07000FD146 /* SSCrypto.m in Sources */,
 				67D0D0DF0E29AEF5000FD146 /* CHMDocumentSettings.m in Sources */,
 				67CBAA3D0E2AC6BF00B5997B /* CHMApplicationSettings.m in Sources */,
+				674CB4E30E2AE9D300169AFA /* CHMDocumentWindowSettings.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
