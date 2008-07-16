@@ -133,33 +133,50 @@
     }
     results = [NSArray arrayWithArray:filteredResults];
     
-    NSMutableArray *tokensMaxCounts = [query tokensInfoArray];
+//    NSMutableArray *tokensMaxCounts = [query tokensInfoArray];
+//    for (CHMSectionAccumulatingSearchResult *result in results) {
+//        if ([self isCancelled]) {
+//            return;
+//        }
+//        for (int i = 0; i < [result.tokensOccurences count]; i++) {
+//            if ([self isCancelled]) {
+//                return;
+//            }
+//            int oldMaxCount = [[tokensMaxCounts objectAtIndex:i] intValue];
+//            int currentCount = [[result.tokensOccurences objectAtIndex:i] intValue];
+//            if (currentCount > oldMaxCount) {
+//                [tokensMaxCounts replaceObjectAtIndex:i 
+//                                           withObject:[NSNumber numberWithInt:currentCount]];
+//            }
+//        }
+//    }
+    
+//    [results makeObjectsPerformSelector:@selector(calculateRelevancyPerTokenWithTokensMaxCounts:)
+//                             withObject:tokensMaxCounts];
+    int maxCount = 0;
     for (CHMSectionAccumulatingSearchResult *result in results) {
         if ([self isCancelled]) {
             return;
         }
-        for (int i = 0; i < [result.tokensOccurences count]; i++) {
-            if ([self isCancelled]) {
-                return;
-            }
-            int oldMaxCount = [[tokensMaxCounts objectAtIndex:i] intValue];
-            int currentCount = [[result.tokensOccurences objectAtIndex:i] intValue];
-            if (currentCount > oldMaxCount) {
-                [tokensMaxCounts replaceObjectAtIndex:i 
-                                           withObject:[NSNumber numberWithInt:currentCount]];
-            }
+        int currentTotalCount = result.tokensOccurencesTotalCount;
+        if (currentTotalCount > maxCount) {
+            maxCount = currentTotalCount;
         }
     }
-    
-    [results makeObjectsPerformSelector:@selector(calculateRelevancy:)
-                             withObject:tokensMaxCounts];
-    
+    if (0 == maxCount) {
+        NSLog(@"ERROR: Max tokens occurences number is 0");
+        return;
+    }
     if ([self isCancelled]) {
         return;
     }
-    
+    for (CHMSectionAccumulatingSearchResult *result in results) {
+        [result calculateTotalRelevancyWithMaxTokensCount:maxCount];
+    }
+    if ([self isCancelled]) {
+        return;
+    }
 //    NSLog(@"DEBUG: Accumulating search results to flush: %@", results);
-    
     [document performSelectorOnMainThread:@selector(processAccumulatingSearchResults:)
                                withObject:results 
                             waitUntilDone:YES];
