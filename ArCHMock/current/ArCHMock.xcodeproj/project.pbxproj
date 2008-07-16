@@ -10,6 +10,7 @@
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		6703B6520DFED7E700E6DD20 /* CHMSearchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6703B6510DFED7E700E6DD20 /* CHMSearchOperation.m */; };
 		6710921A0DD772A200DA5EF0 /* CHMDocumentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 671092190DD772A200DA5EF0 /* CHMDocumentWindowController.m */; };
+		6725C57E0E2D49DD007075B3 /* AddToBookmarks.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 6725C57D0E2D49DD007075B3 /* AddToBookmarks.tiff */; };
 		67380E0B0DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 67380E0A0DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.m */; };
 		673861980DCEA9AC00BEA1DE /* CHMURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 673861970DCEA9AC00BEA1DE /* CHMURLProtocol.m */; };
 		673861B00DCEAB5E00BEA1DE /* CHMApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 673861AF0DCEAB5E00BEA1DE /* CHMApplicationDelegate.m */; };
@@ -86,6 +87,7 @@
 		6703B6510DFED7E700E6DD20 /* CHMSearchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMSearchOperation.m; sourceTree = "<group>"; };
 		671092180DD772A200DA5EF0 /* CHMDocumentWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMDocumentWindowController.h; sourceTree = "<group>"; };
 		671092190DD772A200DA5EF0 /* CHMDocumentWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMDocumentWindowController.m; sourceTree = "<group>"; };
+		6725C57D0E2D49DD007075B3 /* AddToBookmarks.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = AddToBookmarks.tiff; sourceTree = "<group>"; };
 		67380E090DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMSectionAccumulatedSearchResult.h; sourceTree = "<group>"; };
 		67380E0A0DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMSectionAccumulatedSearchResult.m; sourceTree = "<group>"; };
 		673861960DCEA9AC00BEA1DE /* CHMURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMURLProtocol.h; sourceTree = "<group>"; };
@@ -262,6 +264,7 @@
 				67AA37EF0E12831B000CF9CA /* ShowSidebar.png */,
 				67DEDCA90E26C9E60018C6EE /* AddBookmark.png */,
 				6789D2C20E135AC00045F174 /* Home.tiff */,
+				6725C57D0E2D49DD007075B3 /* AddToBookmarks.tiff */,
 				67AA37F00E12831B000CF9CA /* HideSidebar.png */,
 				67AA374E0E120511000CF9CA /* SmallerFont.tiff */,
 				67AA374C0E120503000CF9CA /* BiggerFont.tiff */,
@@ -493,6 +496,7 @@
 				67AA63310E2813F700CB7CF8 /* License.rtf in Resources */,
 				67D0CF0C0E2875F2000FD146 /* bDistributed-license in Resources */,
 				67D0D1CE0E2A643B000FD146 /* BookmarksEditor.xib in Resources */,
+				6725C57E0E2D49DD007075B3 /* AddToBookmarks.tiff in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

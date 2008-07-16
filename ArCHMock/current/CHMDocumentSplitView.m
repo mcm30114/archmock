@@ -67,7 +67,7 @@ whenever -isSplitterAnimating returns YES.
  //       [animation setAnimationBlockingMode:NSAnimationBlocking];
         [animation setAnimationBlockingMode:NSAnimationNonblocking];
         [animation setDuration:0.3];
-        // Use default animation curve, NSAnimationEaseInOut.
+        [animation setAnimationCurve:NSAnimationEaseInOut];
         
         isSplitterAnimating = YES;
         [animation startAnimation];

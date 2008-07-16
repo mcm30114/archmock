@@ -4,6 +4,7 @@
 @implementation CHMSectionAccumulatingSearchResult
 
 @synthesize sectionLabel, sectionPath, tokensOccurences, relevancy;
+@dynamic tokensOccurencesTotalCount;
 
 + (CHMSectionAccumulatingSearchResult *)resultWithSectionLabel:(NSString *)sectionLabel 
                                               sectionPath:(NSString *)sectionPath
@@ -26,7 +27,15 @@
     return self;
 }
 
-- (void)calculateRelevancy:(NSArray *)tokensMaximumCounts {
+- (int)tokensOccurencesTotalCount {
+    int totalCount = 0;
+    for (NSNumber *currentTokenCount in tokensOccurences) {
+        totalCount += [currentTokenCount intValue];
+    }
+    return totalCount;
+}
+
+- (void)calculateRelevancyPerTokenWithTokensMaxCounts:(NSArray *)tokensMaximumCounts {
 //    NSLog(@"DEBUG: Local token counts: %@", tokensOccurences);
 //    NSLog(@"DEBUG: Maximum token counts: %@", tokensMaximumCounts);
     float myRelevancy = 0;
@@ -43,6 +52,10 @@
     }
 //    NSLog(@"DEBUG: Relevancy '%f'", myRelevancy);
     self.relevancy = myRelevancy;
+}
+
+- (void)calculateTotalRelevancyWithMaxTokensCount:(int)maxCount {
+    self.relevancy = ceil(100 * self.tokensOccurencesTotalCount / maxCount);
 }
 
 

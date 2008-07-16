@@ -26,15 +26,17 @@
 
     self.chmDocument = [self document];
 
-    CHMDocumentWindowSettings *windowSettings = self.chmDocument.windowSettings;
+    CHMDocumentWindowSettings *windowSettings = chmDocument.windowSettings;
 //    NSLog(@"DEBUG: DocumentWindowController: window settings: %@", windowSettings);
     
-    BOOL sidebarShouldBeCollapsed = windowSettings.isSidebarCollapsed;
-
-    [[self window] setFrame:windowSettings.frame 
-                    display:NO
-                    animate:NO];
+    NSWindow *window = [self window];
+    [window setFrame:windowSettings.frame 
+             display:NO];
+    if (nil == [window screen]) {
+        [window center];
+    }
     
+    BOOL sidebarShouldBeCollapsed = windowSettings.isSidebarCollapsed;
     if (sidebarShouldBeCollapsed || nil == chmDocument.tableOfContents) {
         [self hideSidebarWithAnimation:NO];
     }
