@@ -1,5 +1,6 @@
 #import "CHMTableOfContents.h"
 #import <Foundation/NSXMLDocument.h>
+#import "NSData-CHMChunks.h"
 
 @implementation CHMTableOfContents
 
@@ -21,7 +22,8 @@
 
         tableOfContentsPath = [NSString stringWithFormat:@"/%@", tableOfContentsPath];
 //        NSLog(@"DEBUG: Table of contents path: '%@'", tableOfContentsPath);
-
+        
+        
         NSData *data = [container dataForObjectWithPath:tableOfContentsPath];
         
         if (!data) {
@@ -30,9 +32,22 @@
         }
         
         NSError *error = nil;
-        NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithData:data
-                                                          options:NSXMLDocumentTidyHTML
-                                                            error:&error] autorelease];
+        NSXMLDocument *doc = nil;
+        if (65536 != container.encoding) {
+            NSString *xmlString = [[[NSString alloc] initWithData:data encoding:container.encoding] autorelease];
+            if (nil != xmlString) {
+                doc =[[[NSXMLDocument alloc] initWithXMLString:xmlString
+                                                       options:NSXMLDocumentTidyHTML
+                                                         error:&error] autorelease];
+            }
+        }
+        
+        if (!doc) {
+            NSLog(@"WARN: Failed to open table of contents with provided encoding: %@", [error localizedDescription]);
+            doc = [[[NSXMLDocument alloc] initWithData:data
+                                               options:NSXMLDocumentTidyHTML
+                                                 error:&error] autorelease];
+        }
         if (!doc) {
             NSLog(@"WARN: Can't parse table of contents: %@", [error localizedDescription]);
             return nil;

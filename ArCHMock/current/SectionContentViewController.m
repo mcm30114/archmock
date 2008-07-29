@@ -31,9 +31,30 @@
                             context:nil];
 }
 
+- (void)awakeFromNib {
+    NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+    [notificationCenter addObserver:self 
+                           selector:@selector(jumpToAnchorIfNeeded:) 
+                               name:@"URLHandled" 
+                             object:nil];
+}
+
+// TODO: Remove
+- (void)jumpToAnchorIfNeeded:(NSNotification *)notification {
+    if ([notification object] == self.chmDocument) {
+//        NSURL *url = [[notification userInfo] objectForKey:@"url"];
+//        NSString *fragment = [url fragment];
+//        if (fragment) {
+//            NSLog(@"DEBUG: URL handled: %@. Jumping to fragment: '%@'", url, [url fragment]);
+//        }
+    }
+}
+
 - (void)dealloc {
     [[self chmDocument] removeObserver:self 
                             forKeyPath:@"currentSearchQuery"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
     [super dealloc];
 }
 
@@ -51,31 +72,32 @@ static NSString *librariesCode = nil;
                           [NSString stringWithContentsOfFile:highlightScriptPath]] retain];
     }
     
-    [self performJavaScriptCode:librariesCode 
+    [self executeJavaScriptCode:librariesCode 
                  asynchronously:NO];
 }
 
 - (IBAction)scrollToNextHighlight:(id)sender {
-    [self performJavaScriptCode:@"highlighter.scrollToNextHighlight()"
+    [self executeJavaScriptCode:@"highlighter.scrollToNextHighlight()"
                  asynchronously:YES];
 }
 
 - (IBAction)scrollToPreviousHighlight:(id)sender {
-    [self performJavaScriptCode:@"highlighter.scrollToPreviousHighlight()"
+    [self executeJavaScriptCode:@"highlighter.scrollToPreviousHighlight()"
                  asynchronously:YES];
 }
 
 - (BOOL)canScrollBetweenHighlights {
-    id response = [self performJavaScriptCode:@"highlighter.canScrollBetweenHighlights()"
+    id response = [self executeJavaScriptCode:@"highlighter.canScrollBetweenHighlights()"
                                asynchronously:NO];
     
     return [response isKindOfClass:[NSNumber class]] && [response boolValue] == 1;
 }
 
 - (IBAction)scrollContentWithOffset:(id)sender {
-    NSString *code = [NSString stringWithFormat:@"window.scrollTo.apply(window, %@);", 
+//    NSLog(@"DEBUG: Scrolling content with offset");
+    NSString *codeString = [NSString stringWithFormat:@"window.scrollTo.apply(window, %@);", 
                       self.chmDocument.currentSectionScrollOffset];
-    [self performJavaScriptCode:code 
+    [self executeJavaScriptCode:codeString 
                  asynchronously:YES];
 }
 
@@ -84,7 +106,7 @@ static NSString *librariesCode = nil;
     if (query) {
 //        NSLog(@"DEBUG: Highlighting content");
         NSString *searchString = [query.searchString stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
-        [self performJavaScriptCode:[NSString stringWithFormat:@"highlighter.highlight('%@')", searchString]
+        [self executeJavaScriptCode:[NSString stringWithFormat:@"highlighter.highlight('%@')", searchString]
                      asynchronously:NO];
 
         if (self.chmDocument.scrollToFirstHighlight) {
@@ -92,7 +114,7 @@ static NSString *librariesCode = nil;
                 self.chmDocument.scrollToFirstHighlight = NO;
             }
 //            NSLog(@"DEBUG: Scheduling highlight scrolling");
-            [self performJavaScriptCode:@"highlighter.scheduleScrollingToHighlight()"
+            [self executeJavaScriptCode:@"highlighter.scheduleScrollingToHighlight()"
                          asynchronously:YES];
         }
     }
@@ -101,11 +123,11 @@ static NSString *librariesCode = nil;
 - (void)removeHighlights {
 //    NSLog(@"DEBUG: Removing content highlights");
     
-    [self performJavaScriptCode:@"highlighter.removeHighlights()"
+    [self executeJavaScriptCode:@"highlighter.removeHighlights()"
                  asynchronously:NO];
 }
 
-- (NSString *)performJavaScriptCode:(NSString *)codeString 
+- (NSString *)executeJavaScriptCode:(NSString *)codeString 
                      asynchronously:(BOOL)asynchronously {
     codeString = [NSString stringWithFormat:@"try { %@; } catch(e) { Logger.error(e.toString()); }", 
                   codeString];
@@ -159,7 +181,7 @@ static NSString *librariesCode = nil;
     
     isPerformingSync = YES;
 
-    // TODO: use exceptions try/catch
+    // TODO: Use exceptions try/catch
     if (object == self.chmDocument) {
         if ([keyPath isEqualToString:@"currentSectionPath"]) {
             NSString *path = self.chmDocument.currentSectionPath;
@@ -199,6 +221,26 @@ static CHMJavaScriptConsole *console = nil;
 //        NSLog(@"DEBUG: JavaScript injected");
         [self highlightContentIfNeeded];
         
+        // TODO: Factor out
+        NSString *currentSectionScrollOffset = self.chmDocument.currentSectionScrollOffset;
+        
+        if (nil == currentSectionScrollOffset || 
+            [@"[0, 0]" isEqualToString:self.chmDocument.currentSectionScrollOffset]) {
+            NSURL *sectionURL = [NSURL URLWithString:[self.webView mainFrameURL]];
+            NSString *urlFragment = [sectionURL fragment];
+            
+            if (urlFragment) {
+//                NSLog(@"DEBUG: Jumping to anchor: '%@'", urlFragment);
+                NSString *jumpToAnchorCodeString = [NSString stringWithFormat:@"jumpToAnchor('%@');", urlFragment];
+                
+                [self executeJavaScriptCode:jumpToAnchorCodeString 
+                             asynchronously:NO];
+            }
+        }
+        else {
+            [self scrollContentWithOffset:self];
+        }
+
         [self notifyAboutCurrentContentChange];
     }
 }

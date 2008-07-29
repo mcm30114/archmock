@@ -11,7 +11,7 @@
 - (IBAction)scrollContentWithOffset:(id)sender;
 - (BOOL)canScrollBetweenHighlights;
 
-- (NSString *)performJavaScriptCode:(NSString *)codeString 
+- (NSString *)executeJavaScriptCode:(NSString *)codeString 
                        asynchronously:(BOOL)asynchronously;
 
 - (void)injectJavaScriptIntoContent;
