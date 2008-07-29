@@ -45,26 +45,21 @@
     NSString *contentType = @"application/octet-stream";
 
     if (objectData) {
-        NSPredicate *htmlPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*?\\\\.(?i)html?($|#.*)'"];
-        if ([htmlPredicate evaluateWithObject:objectPath]) {
-            NSString *objectString = [[[NSString alloc] initWithData:objectData encoding:NSUTF8StringEncoding] autorelease];
-            if (objectString) {
-                contentType = @"text/html";
-//                NSError *error = nil;
-//                
-//                NSString *debugFilePath = [[NSString stringWithFormat:@"~/Temp/%@/%@", [url host], [url path]] stringByExpandingTildeInPath];
-//                [[NSFileManager defaultManager] createDirectoryAtPath:[debugFilePath stringByDeletingLastPathComponent]
-//                                          withIntermediateDirectories:YES
-//                                                           attributes:nil
-//                                                                error:&error];
-//                
-//                [objectString writeToFile:debugFilePath
-//                               atomically:YES
-//                                 encoding:NSUTF8StringEncoding
-//                                    error:&error];
-//                if (error) {
-//                    NSLog(@"WARN: Error while saving current file '%@': %@", debugFilePath, error);
-//                }
+//        NSPredicate *htmlPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*?\\\\.(?i)html?($|#.*)'"];
+//        if ([htmlPredicate evaluateWithObject:objectPath]) {
+//            NSString *debugFilePath = [[NSString stringWithFormat:@"~/Temp/%@/%@", [url host], [url path]] stringByExpandingTildeInPath];
+//
+//            NSError *error = nil;
+//            [[NSFileManager defaultManager] createDirectoryAtPath:[debugFilePath stringByDeletingLastPathComponent]
+//                                      withIntermediateDirectories:YES
+//                                                       attributes:nil
+//                                                            error:&error];
+//            [objectData writeToFile:debugFilePath 
+//                         atomically:YES];
+            
+//            NSString *objectString = [[[NSString alloc] initWithData:objectData encoding:NSUTF8StringEncoding] autorelease];
+//            if (objectString) {
+//                contentType = @"text/html";
 //            NSLog(@"DEBUG: Object data is a string: '%@'", objectString);
 //            NSError *error;
 //            NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:objectString
@@ -78,8 +73,8 @@
 //            else {
 //                NSLog(@"WARN: Error while parsing HTML: %@", error);
 //            }
-            }
-        }
+//            }
+//        }
         
         NSURLResponse *response = [[[NSURLResponse alloc] initWithURL:url 
                                                              MIMEType:contentType
@@ -95,8 +90,8 @@
         
         //        NSLog(@"INFO: URL '%@' handled", url);
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"URL handled" 
-                                                            object:container 
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"URLHandled" 
+                                                            object:document 
                                                           userInfo:[NSDictionary dictionaryWithObject:url
                                                                                                forKey:@"url"]];
     }

@@ -9,6 +9,8 @@
     NSData *systemData;
     NSData *stringsData;
     NSData *windowsData;
+    
+    NSUInteger encoding;
 }
 
 @property (retain) NSString *filePath, *uniqueID;
@@ -17,11 +19,15 @@
 @property (readonly) NSString *title;
 @property (retain) NSString *homeSectionPath;
 
+@property NSUInteger encoding;
+
 + (CHMContainer *)containerWithFilePath:(NSString*)filePath;
 
 - (id)initWithFilePath:(NSString *)path;
 
-- (NSString *)locateHomeSectionPath;
+- (NSString *)findHomeSectionPath;
+
+- (NSUInteger)findEncoding;
 
 - (BOOL)doesObjectWithPathExist:(NSString *)path;
     
@@ -31,6 +37,8 @@
                              orInStringsObjectWithOffset:(unsigned long)stringsUnitOffset;
 
 - (NSString *)findMetadataStringInSystemObjectWithOffset:(unsigned long)offset;
+
+- (unsigned long)findMetadataCharInSystemObjectWithOffset:(unsigned long)offset;
 
 - (NSString *)findMetadataStringInStringsObjectWithOffset:(unsigned long)offset;
 

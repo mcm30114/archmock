@@ -20,6 +20,15 @@ $w('debug info warn error').each(function(level) {
                                  : function(logString) {};
                                  });
 
+function jumpToAnchor(anchor) {
+//    Logger.debug('Jumping to anchor: "' + anchor + '"');
+    
+    var anchors = $$('a[name="' + anchor + '"]');
+    if (anchors.length > 0) {
+        anchors[0].scrollTo();
+    }
+};
+
 var highlighter = new function Highlighter() {
 	Event.observe(window, 'scroll', function(event) { 
                   this.isPaused = true;
@@ -355,4 +364,4 @@ Event.observe(window, 'unload', function(event) {
               }
               highlighter.removeHighlights();
               });
-window.scrollTo.apply(window, chmDocument.currentSectionScrollOffset().evalJSON(true));
+//window.scrollTo.apply(window, chmDocument.currentSectionScrollOffset().evalJSON(true));
