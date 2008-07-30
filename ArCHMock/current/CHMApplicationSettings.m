@@ -7,20 +7,29 @@
 @synthesize lastDocumentWindowSettings;
 @synthesize bookmarks, recentDocumentsSettings;
 
+#define COMMON_APPLICATION_SUPPORT_FOLDER @"~/Library/Application Support"
+
+- (BOOL)migrate {
+    return NO;
+}
+
 - (id)init {
     if (self = [super init]) {
         NSDictionary *mainInfoDictionary = [[NSBundle mainBundle] infoDictionary];
         NSString *applicationName = [mainInfoDictionary objectForKey:@"CFBundleName"];
         NSString *applicationVersion = [mainInfoDictionary objectForKey:@"CFBundleVersion"];
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        self.applicationSupportFolderPath = [[NSString stringWithFormat:@"~/Library/Application Support/%@ %@", 
+        self.applicationSupportFolderPath = [[NSString stringWithFormat:@"%@/%@ %@", 
+                                              COMMON_APPLICATION_SUPPORT_FOLDER,
                                               applicationName, 
                                               applicationVersion] stringByExpandingTildeInPath];
         BOOL isDirectory;
         if (![fileManager fileExistsAtPath:applicationSupportFolderPath 
                                isDirectory:&isDirectory] || !isDirectory) {
-            [fileManager createDirectoryAtPath:applicationSupportFolderPath
-                                    attributes:nil];
+            if (![self migrate]) {
+                [fileManager createDirectoryAtPath:applicationSupportFolderPath
+                                        attributes:nil];
+            }
         }
         
         self.bookmarksFilePath = [NSString stringWithFormat:@"%@/bookmarks.binary", 
