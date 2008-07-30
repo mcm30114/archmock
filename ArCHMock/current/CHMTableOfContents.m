@@ -34,7 +34,8 @@
         NSError *error = nil;
         NSXMLDocument *doc = nil;
         if (65536 != container.encoding) {
-            NSString *xmlString = [[[NSString alloc] initWithData:data encoding:container.encoding] autorelease];
+            NSString *xmlString = [[[NSString alloc] initWithData:data
+                                                         encoding:container.encoding] autorelease];
             if (nil != xmlString) {
                 doc =[[[NSXMLDocument alloc] initWithXMLString:xmlString
                                                        options:NSXMLDocumentTidyHTML

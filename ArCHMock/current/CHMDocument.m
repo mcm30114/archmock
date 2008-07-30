@@ -145,6 +145,7 @@
     
     NSOperationQueue *queue = [CHMDocumentController sharedCHMDocumentController].operationQueue;
     [queue addOperation:operation];
+//    NSLog(@"DEBUG: Operation is put into queue");
 //    [operation start];
     
     self.currentSearchOperation = operation;

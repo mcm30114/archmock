@@ -44,7 +44,8 @@
     @try {
         NSEnumerator *strings = [query.uniqueSubstrings objectEnumerator];
         while (![self isCancelled] && (self.currentString = [strings nextObject])) {
-            [index searchForTextChunk:currentString forOperation:self];
+            [index searchForTextChunk:currentString 
+                         forOperation:self];
         }
     }
     @catch (NSException *e) {
