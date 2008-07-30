@@ -165,7 +165,7 @@
         }
     }
     if (0 == maxCount) {
-        NSLog(@"ERROR: Max tokens occurences number is 0");
+//        NSLog(@"ERROR: Max tokens occurences number is 0");
         return;
     }
     if ([self isCancelled]) {
