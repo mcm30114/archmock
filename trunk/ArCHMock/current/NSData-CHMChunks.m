@@ -33,7 +33,10 @@
     unsigned char value;
     
     [self getBytes:(void *)&value range:valueRange];
-    return NSSwapLittleLongToHost(value);
+//    NSLog(@"DEBUG: Raw char: %02X", value);
+    // TODO: Find out why this swaping caused segmentation faults on Power PC and under Rosetta
+//    return NSSwapLittleLongToHost(value);
+    return value;
 }
 
 - (NSString *)stringFromOffset:(NSUInteger)offset {
@@ -47,6 +50,11 @@
 - (NSString *)stringFromOffset:(NSUInteger)offset 
                         length:(NSUInteger)length {
     if (![self isOffsetValid:offset]) {
+        return nil;
+    }
+    
+    if (length < 0) {
+        NSLog(@"ERROR: stringFromOffset with invalid length: %i", length);
         return nil;
     }
     
@@ -78,12 +86,15 @@
                      previousWord:(NSString *)previousWord 
                    wordPartLength:(long long *)wordPartLength {
     unsigned char indexWordPartLength = [self charFromOffset:offset];
+//    NSLog(@"DEBUG: indexWordPartLength: '%04X'", indexWordPartLength);
     unsigned char previousWordPartPosition = [self charFromOffset:offset + 1];
+//    NSLog(@"DEBUG: previousWordPartPosition: '%04X'", previousWordPartPosition);
+    
     NSString *word = [self stringFromOffset:offset + 2 
                                      length:indexWordPartLength - 1];
     
     if (0 != previousWordPartPosition) {
-        //        NSLog(@"DEBUG: Taking part from previous index word '%@' up to position: '%i'", previousWord, previousWordPartPosition);
+//        NSLog(@"DEBUG: Taking part from previous index word '%@' up to position: '%i'", previousWord, previousWordPartPosition);
         word = [[previousWord substringToIndex:previousWordPartPosition] stringByAppendingString:word];
     }
     

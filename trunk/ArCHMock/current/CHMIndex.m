@@ -64,7 +64,7 @@
 
 - (void)searchForTextChunk:(NSString *)textChunk 
               forOperation:(CHMSearchOperation *)operation {
-//    NSLog(@"INFO: Searching through index for text: '%@'", textChunk);
+    NSLog(@"INFO: Searching through index for text: '%@'", textChunk);
     
     u_int32_t currentOffset = [self firstIndexWordNodeOffset];
 
@@ -179,20 +179,20 @@
     u_int16_t currentTreeDepth = treeDepth;
     NSString *indexWord;
     while (--currentTreeDepth) {
-        //        NSLog(@"DEBUG: Testing node with offset: '%02X', depth: '%i'", indexNodeOffset, currentTreeDepth);
+//        NSLog(@"DEBUG: Testing node with offset: '%02X', depth: '%i'", indexNodeOffset, currentTreeDepth);
         
         NSData *indexNodeData = [indexData dataFromOffset:indexNodeOffset 
                                                    length:nodeLength]; 
         u_int16_t freeSpaceLength = [indexNodeData shortFromOffset:0];
-        //        NSLog(@"DEBUG: freeSpaceLength: '%02X'", freeSpaceLength);
+//        NSLog(@"DEBUG: freeSpaceLength: '%04X'", freeSpaceLength);
         u_int32_t nodeEntryOffset = sizeof(u_int16_t);
         if (nodeEntryOffset < nodeLength - freeSpaceLength) {
-            //            NSLog(@"DEBUG: entryOffset: '%02X'", entryOffset);
+//            NSLog(@"DEBUG: nodeEntryOffset: '%04X'", nodeEntryOffset);
             long long wordPartLength = 0;
             indexWord = [indexNodeData indexWordFromOffset:nodeEntryOffset 
                                               previousWord:indexWord 
                                             wordPartLength:&wordPartLength];
-            
+//            NSLog(@"DEBUG: Index word: '%@'", indexWord);
             indexNodeOffset = [indexNodeData longFromOffset:nodeEntryOffset + wordPartLength + 1];
             if (indexNodeOffset != leafNodeOffset) {
                 return indexNodeOffset;

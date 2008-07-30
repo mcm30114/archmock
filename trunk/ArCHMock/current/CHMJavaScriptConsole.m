@@ -14,7 +14,7 @@
     return YES;
 }
 
-+ (NSString *) webScriptNameForSelector:(SEL)selector {
++ (NSString *)webScriptNameForSelector:(SEL)selector {
     if (@selector(log:)) {
         return @"log";
     }
