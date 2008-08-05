@@ -22,6 +22,7 @@
 		674EBEF90E233235002907A6 /* CHMBookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 674EBEF80E233235002907A6 /* CHMBookmark.m */; };
 		675895880DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 675895870DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.m */; };
 		675895C40DF7A86E000CDC91 /* CHMSearchToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 675895C30DF7A86E000CDC91 /* CHMSearchToken.m */; };
+		675CEF870E4819F30000724A /* Print.png in Resources */ = {isa = PBXBuildFile; fileRef = 675CEF860E4819F30000724A /* Print.png */; };
 		6761DFF30E18991400DBF296 /* script.aculo.us MIT-license in Resources */ = {isa = PBXBuildFile; fileRef = 6761DFF20E18991400DBF296 /* script.aculo.us MIT-license */; };
 		6761DFF50E18999100DBF296 /* prototype MIT-license in Resources */ = {isa = PBXBuildFile; fileRef = 6761DFF40E18999100DBF296 /* prototype MIT-license */; };
 		676BE4CB0DF5A42C00DD3F3A /* javascript-logic.js in Resources */ = {isa = PBXBuildFile; fileRef = 676BE4C90DF4F59A00DD3F3A /* javascript-logic.js */; };
@@ -109,6 +110,7 @@
 		675895870DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMSectionAccumulatingSearchResult.m; sourceTree = "<group>"; };
 		675895C20DF7A86E000CDC91 /* CHMSearchToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMSearchToken.h; sourceTree = "<group>"; };
 		675895C30DF7A86E000CDC91 /* CHMSearchToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMSearchToken.m; sourceTree = "<group>"; };
+		675CEF860E4819F30000724A /* Print.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Print.png; sourceTree = "<group>"; };
 		6761DFF20E18991400DBF296 /* script.aculo.us MIT-license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "script.aculo.us MIT-license"; sourceTree = "<group>"; };
 		6761DFF40E18999100DBF296 /* prototype MIT-license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "prototype MIT-license"; sourceTree = "<group>"; };
 		676BE4C90DF4F59A00DD3F3A /* javascript-logic.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "javascript-logic.js"; sourceTree = "<group>"; };
@@ -260,6 +262,7 @@
 				6761DFF20E18991400DBF296 /* script.aculo.us MIT-license */,
 				6761DFF40E18999100DBF296 /* prototype MIT-license */,
 				67AA37EF0E12831B000CF9CA /* ShowSidebar.png */,
+				675CEF860E4819F30000724A /* Print.png */,
 				67DEDCA90E26C9E60018C6EE /* AddBookmark.png */,
 				6789D2C20E135AC00045F174 /* Home.tiff */,
 				67AA37F00E12831B000CF9CA /* HideSidebar.png */,
@@ -493,6 +496,7 @@
 				67AA63310E2813F700CB7CF8 /* License.rtf in Resources */,
 				67D0CF0C0E2875F2000FD146 /* bDistributed-license in Resources */,
 				67D0D1CE0E2A643B000FD146 /* BookmarksEditor.xib in Resources */,
+				675CEF870E4819F30000724A /* Print.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

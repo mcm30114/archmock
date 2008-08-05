@@ -329,10 +329,12 @@
                                                                       printInfo:[[self document] printInfo]];
     
     [printOperation setShowPanels:YES];
-    [[self document] runModalPrintOperation:printOperation
-                                   delegate:nil
-                             didRunSelector:nil
-                                contextInfo:nil];
+    [printOperation runOperation];
+
+//    [[self document] runModalPrintOperation:printOperation
+//                                   delegate:nil
+//                             didRunSelector:nil
+//                                contextInfo:nil];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
