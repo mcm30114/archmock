@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="100384"/>
+			<integer value="100317"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -109,7 +109,7 @@
 								</object>
 								<string key="NSToolbarItemLabel">Print</string>
 								<string key="NSToolbarItemPaletteLabel">Print</string>
-								<nil key="NSToolbarItemToolTip"/>
+								<string key="NSToolbarItemToolTip">Print Current Section</string>
 								<object class="NSButton" key="NSToolbarItemView" id="185034763">
 									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
@@ -920,22 +920,6 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBActionConnection" key="connection">
-						<string key="label">changeTextSize:</string>
-						<reference key="source" ref="613418571"/>
-						<reference key="destination" ref="5144177"/>
-					</object>
-					<int key="connectionID">100319</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
-						<string key="label">changeTextSize:</string>
-						<reference key="source" ref="613418571"/>
-						<reference key="destination" ref="1028108001"/>
-					</object>
-					<int key="connectionID">100320</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBActionConnection" key="connection">
 						<string key="label">toggleSidebar:</string>
 						<reference key="source" ref="613418571"/>
 						<reference key="destination" ref="390631010"/>
@@ -1061,6 +1045,14 @@
 						<reference key="destination" ref="185034763"/>
 					</object>
 					<int key="connectionID">100388</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBActionConnection" key="connection">
+						<string key="label">changeContentTextSize:</string>
+						<reference key="source" ref="613418571"/>
+						<reference key="destination" ref="5144177"/>
+					</object>
+					<int key="connectionID">100391</int>
 				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1607,7 +1599,7 @@
 				</object>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">100388</int>
+			<int key="maxID">100391</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -1629,16 +1621,16 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<string>activateSearch:</string>
 							<string>addCurrentSectionToBookmarks:</string>
-							<string>changeTextSize:</string>
+							<string>changeContentTextSize:</string>
 							<string>clearSearchText:</string>
 							<string>closeAddCurrentSectionToBookmarksWindow:</string>
 							<string>goBack:</string>
 							<string>goBackOrForward:</string>
 							<string>goForward:</string>
 							<string>goToHomeSection:</string>
-							<string>makeTextLarger:</string>
-							<string>makeTextSmaller:</string>
-							<string>makeTextStandardSize:</string>
+							<string>makeContentTextLarger:</string>
+							<string>makeContentTextSmaller:</string>
+							<string>makeContentTextStandardSize:</string>
 							<string>openAddCurrentSectionToBookmarksWindow:</string>
 							<string>scrollContentWithOffset:</string>
 							<string>scrollToNextHighlight:</string>

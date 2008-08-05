@@ -45,23 +45,10 @@ whenever -isSplitterAnimating returns YES.
     
     // Update subviewEndFrame.origin so that the frame is positioned
     if (animate) {
-        NSDictionary *subview0Animation = [NSDictionary dictionaryWithObjectsAndKeys:
-                                           subview0, 
-                                           NSViewAnimationTargetKey,
-                                           [NSValue valueWithRect:subview0EndFrame], 
-                                           NSViewAnimationEndFrameKey, 
-                                           nil];
-        NSDictionary *subview1Animation = [NSDictionary dictionaryWithObjectsAndKeys:
-                                           subview1,
-                                           NSViewAnimationTargetKey,
-                                           [NSValue valueWithRect:subview1EndFrame], 
-                                           NSViewAnimationEndFrameKey, 
-                                           nil];
+        NSDictionary *subview0Animation = [NSDictionary dictionaryWithObjectsAndKeys: subview0, NSViewAnimationTargetKey, [NSValue valueWithRect:subview0EndFrame], NSViewAnimationEndFrameKey, nil];
+        NSDictionary *subview1Animation = [NSDictionary dictionaryWithObjectsAndKeys:subview1, NSViewAnimationTargetKey, [NSValue valueWithRect:subview1EndFrame], NSViewAnimationEndFrameKey, nil];
         
-        NSViewAnimation *animation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects:
-                                                                                      subview0Animation, 
-                                                                                      subview1Animation, 
-                                                                                      nil]];
+        NSViewAnimation *animation = [[NSViewAnimation alloc] initWithViewAnimations:[NSArray arrayWithObjects: subview0Animation, subview1Animation, nil]];
         [animation setDelegate:self];
         
  //       [animation setAnimationBlockingMode:NSAnimationBlocking];

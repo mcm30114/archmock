@@ -5,14 +5,11 @@
 
 @synthesize string, position;
 
-+ (CHMSearchToken *)tokenWithString:(NSString *)string 
-                           position:(int)position {
-    return [[[CHMSearchToken alloc] initWithString:string 
-                                          position:position] autorelease];
++ (CHMSearchToken *)tokenWithString:(NSString *)string position:(int)position {
+    return [[[CHMSearchToken alloc] initWithString:string position:position] autorelease];
 }
 
-- (id)initWithString:(NSString *)initString 
-            position:(int)initPosition {
+- (id)initWithString:(NSString *)initString position:(int)initPosition {
     if (self = [super init]) {
         self.string = initString;
         self.position = initPosition;
@@ -22,10 +19,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@: {string: '%@', position: %i}", 
-            [super description],
-            string,
-            position];
+    return [NSString stringWithFormat:@"%@: {string: '%@', position: %i}", [super description], string, position];
 }
 
 - (BOOL)isEqual:(id)object {

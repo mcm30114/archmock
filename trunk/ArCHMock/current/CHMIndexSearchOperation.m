@@ -11,14 +11,11 @@
 @synthesize flushWordsThreshold;
 @synthesize searchResultBySectionPath;
 
-+ (id)operationWithDocument:(CHMDocument *)document 
-                      query:(CHMSearchQuery *)query {
-    return [[[CHMIndexSearchOperation alloc] initWithDocument:document 
-                                                        query:query] autorelease];
++ (id)operationWithDocument:(CHMDocument *)document query:(CHMSearchQuery *)query {
+    return [[[CHMIndexSearchOperation alloc] initWithDocument:document query:query] autorelease];
 }
 
-- (id)initWithDocument:(CHMDocument *)initDocument
-                 query:(CHMSearchQuery *)initQuery {
+- (id)initWithDocument:(CHMDocument *)initDocument query:(CHMSearchQuery *)initQuery {
     if (self = [super init]) {
         self.document = initDocument;
         self.index = document.index;
@@ -37,15 +34,12 @@
 //    NSLog(@"DEBUG: Search operation: search started");
     [NSThread setThreadPriority:0.5];
     
-    [document performSelectorOnMainThread:@selector(searchOperationStarted:)
-                               withObject:self.query
-                            waitUntilDone:YES];
+    [document performSelectorOnMainThread:@selector(searchOperationStarted:) withObject:self.query waitUntilDone:YES];
     
     @try {
         NSEnumerator *strings = [query.uniqueSubstrings objectEnumerator];
         while (![self isCancelled] && (self.currentString = [strings nextObject])) {
-            [index searchForTextChunk:currentString 
-                         forOperation:self];
+            [index searchForTextChunk:currentString forOperation:self];
         }
     }
     @catch (NSException *e) {
@@ -59,44 +53,30 @@
 //            NSLog(@"DEBUG: Search operation cancelled");
         }
 //        NSLog(@"DEBUG: Search operation: search ended");
-        [document performSelectorOnMainThread:@selector(searchOperationEnded:)
-                                   withObject:query 
-                                waitUntilDone:YES];
+        [document performSelectorOnMainThread:@selector(searchOperationEnded:) withObject:query waitUntilDone:YES];
         self.searchResultBySectionPath = nil;
     }
 }
 
-- (void)foundWord:(NSString *)word 
- occurencesNumber:(int)occurencesNumber 
-     sectionLabel:(NSString *)sectionLabel 
-      sectionPath:(NSString *)sectionPath {
-//    NSLog(@"DEBUG: Word '%@' found %d time(s) in section '%@' with path '%@'", 
-//          word,
-//          occurencesNumber,
-//          sectionLabel,
-//          sectionPath);
+- (void)foundWord:(NSString *)word occurencesNumber:(int)occurencesNumber sectionLabel:(NSString *)sectionLabel sectionPath:(NSString *)sectionPath {
+//    NSLog(@"DEBUG: Word '%@' found %d time(s) in section '%@' with path '%@'", word, occurencesNumber, sectionLabel, sectionPath);
     
-    if ([self isCancelled] || [self shouldSkipSectionWithLabel:sectionLabel 
-                                                          path:sectionPath]) {
+    if ([self isCancelled] || [self shouldSkipSectionWithLabel:sectionLabel path:sectionPath]) {
         return;
     }
     
     self.wordsInSectionsFound = self.wordsInSectionsFound + 1;
     CHMSectionAccumulatingSearchResult *result = [searchResultBySectionPath objectForKey:sectionPath];
     if (!result) {
-        result = [CHMSectionAccumulatingSearchResult resultWithSectionLabel:sectionLabel 
-                                                                sectionPath:sectionPath
-                                                                 tokensInfo:[query tokensInfoArray]];
-        [searchResultBySectionPath setObject:result 
-                                      forKey:sectionPath];
+        result = [CHMSectionAccumulatingSearchResult resultWithSectionLabel:sectionLabel sectionPath:sectionPath tokensInfo:[query tokensInfoArray]];
+        [searchResultBySectionPath setObject:result forKey:sectionPath];
     }
     
     NSArray *tokens = [query.tokensBySubstrings objectForKey:self.currentString];
     for (CHMSearchToken *token in tokens) {
         NSNumber *previousOccurences = [result.tokensOccurences objectAtIndex:token.position];
         int currentOccurences = [previousOccurences intValue] + occurencesNumber;
-        [result.tokensOccurences replaceObjectAtIndex:token.position 
-                                           withObject:[NSNumber numberWithInt:currentOccurences]];
+        [result.tokensOccurences replaceObjectAtIndex:token.position withObject:[NSNumber numberWithInt:currentOccurences]];
     }
     
     if ([self isCancelled]) {
@@ -146,14 +126,13 @@
 //            int oldMaxCount = [[tokensMaxCounts objectAtIndex:i] intValue];
 //            int currentCount = [[result.tokensOccurences objectAtIndex:i] intValue];
 //            if (currentCount > oldMaxCount) {
-//                [tokensMaxCounts replaceObjectAtIndex:i 
-//                                           withObject:[NSNumber numberWithInt:currentCount]];
+//                [tokensMaxCounts replaceObjectAtIndex:i withObject:[NSNumber numberWithInt:currentCount]];
 //            }
 //        }
 //    }
     
-//    [results makeObjectsPerformSelector:@selector(calculateRelevancyPerTokenWithTokensMaxCounts:)
-//                             withObject:tokensMaxCounts];
+//    [results makeObjectsPerformSelector:@selector(calculateRelevancyPerTokenWithTokensMaxCounts:) withObject:tokensMaxCounts];
+    
     int maxCount = 0;
     for (CHMSectionAccumulatingSearchResult *result in results) {
         if ([self isCancelled]) {
@@ -178,9 +157,7 @@
         return;
     }
 //    NSLog(@"DEBUG: Accumulating search results to flush: %@", results);
-    [document performSelectorOnMainThread:@selector(processAccumulatingSearchResults:)
-                               withObject:results 
-                            waitUntilDone:YES];
+    [document performSelectorOnMainThread:@selector(processAccumulatingSearchResults:) withObject:results waitUntilDone:YES];
 }
 
 - (void)dealloc {

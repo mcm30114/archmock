@@ -14,26 +14,14 @@
 @synthesize uniqueID;
 @synthesize container, tableOfContents, index;
 @synthesize currentSectionPath;
-@synthesize currentSectionScrollOffset;
-@synthesize textSizeMultiplierToSet;
-@synthesize textSizeMultiplier;
 @synthesize homeSectionPath;
 @synthesize currentSearchQuery, currentSearchOperation, scheduledSearchOperation;
 @synthesize currentSearchResults, searchResultBySectionPath;
 
-@synthesize scrollToFirstHighlight;
-@synthesize dontClearContentOffsetOnUnload;
+@synthesize contentViewSettings;
 @synthesize windowSettings;
-
-+ (BOOL)isSelectorExcludedFromWebScript:(SEL)selector {
-    if (@selector(currentSectionScrollOffset) == selector ||
-        @selector(setCurrentSectionScrollOffset:) == selector || 
-        @selector(dontClearContentOffsetOnUnload) == selector ||
-        @selector(setDontClearContentOffsetOnUnload:) == selector) {
-        return NO;
-    }
-    return YES;
-}
+@synthesize contentViewSettingsToApply;
+@synthesize windowInitialSettings;
 
 - (NSString *)containerID {
     return self.container.uniqueID;
@@ -64,8 +52,7 @@
     return nil;
 }
 
-- (BOOL)readFromFile:(NSString *)filePath 
-              ofType:(NSString *)typeName {
+- (BOOL)readFromFile:(NSString *)filePath ofType:(NSString *)typeName {
 //    NSLog(@"INFO: Reading CHM from file '%@', of type: '%@'", filePath, typeName);
     
     self.container = [CHMContainer containerWithFilePath:filePath];
@@ -89,14 +76,16 @@
         }
     }
     
+    windowSettings = [CHMDocumentWindowSettings new];
+    contentViewSettings = [CHMContentViewSettings new];
+    
 //    NSLog(@"DEBUG: Opening CHM document: '%@'", [self fileURL]);
     
     return YES;
 }
 
 - (void)makeWindowControllers {
-    CHMDocumentWindowController *controller = [[[CHMDocumentWindowController alloc] 
-                                        initWithWindowNibName:@"CHMDocument"] autorelease];
+    CHMDocumentWindowController *controller = [[[CHMDocumentWindowController alloc] initWithWindowNibName:@"CHMDocument"] autorelease];
     [self addWindowController:controller];
 }
 
@@ -106,15 +95,13 @@
     
     if (!query) {
         [self cancelSearch];
-        self.scrollToFirstHighlight = NO;
         return;
     }
     
     if (index) {
 //        NSLog(@"INFO: Searching using index: %@", query);
         [self clearCurrentSearchResults];
-        CHMSearchOperation *operation = [CHMSearchOperation indexSearchOperationWithDocument:self
-                                                                                       query:query];
+        CHMSearchOperation *operation = [CHMSearchOperation indexSearchOperationWithDocument:self query:query];
         if ([currentSearchOperation isExecuting]) {
             [self scheduleSearchOperation:operation];
             [self cancelCurrentSearchOperation];
@@ -126,20 +113,17 @@
     else {
         NSLog(@"WARN: Index search is not available for this document");
         self.currentSearchQuery = query;
-        self.scrollToFirstHighlight = YES;
     }
 }
 
 - (void)clearCurrentSearchResults {
 //    NSLog(@"DEBUG: Clearing current search results");
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"CurrentSearchResultsAboutToBeCleared" 
-                                                        object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CurrentSearchResultsAboutToBeCleared" object:self];
     [currentSearchResults removeAllObjects];
     [searchResultBySectionPath removeAllObjects];
     self.currentSearchQuery = nil;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"CurrentSearchResultsCleared" 
-                                                        object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"CurrentSearchResultsCleared" object:self];
 }
 
 - (void)startSearchOperation:(CHMSearchOperation *)operation {
@@ -161,8 +145,7 @@
 - (void)searchOperationStarted:(CHMSearchQuery *)query {
 //    NSLog(@"DEBUG: Search operation started: %@", query);
     self.currentSearchQuery = query;
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchOperationStarted" 
-                                                        object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchOperationStarted" object:self];
 }
 
 - (void)cancelSearch {
@@ -173,8 +156,7 @@
     self.currentSearchQuery = nil;
     [self clearCurrentSearchResults];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchCancelled" 
-                                                        object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SearchCancelled" object:self];
 }
                 
 - (void)cancelCurrentSearchOperation {
@@ -186,8 +168,7 @@
 
 - (void)processAccumulatingSearchResults:(NSArray *)accumulatingResults {
 //    NSLog(@"DEBUG: Processing search results: %i", [accumulatingResults count]);
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"AccumulatingSearchResultsAboutToBeProcessed" 
-                                                        object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"AccumulatingSearchResultsAboutToBeProcessed" object:self];
 
     
     NSMutableArray *newAccumulatedResults = [NSMutableArray array];
@@ -196,17 +177,14 @@
         CHMSectionAccumulatedSearchResult *accumulatedResult = [searchResultBySectionPath objectForKey:accumulatingResult.sectionPath];
         
         if (!accumulatedResult) {
-            accumulatedResult = [CHMSectionAccumulatedSearchResult resultWithSectionLabel:accumulatingResult.sectionLabel
-                                                                              sectionPath:accumulatingResult.sectionPath
-                                                                                relevancy:accumulatingResult.relevancy];
+            accumulatedResult = [CHMSectionAccumulatedSearchResult resultWithSectionLabel:accumulatingResult.sectionLabel sectionPath:accumulatingResult.sectionPath relevancy:accumulatingResult.relevancy];
             
             CHMSection *section = [self locateSectionByPath:accumulatedResult.sectionPath];
             if (section) {
                 accumulatedResult.sectionLabel = section.label;
             }
             
-            [searchResultBySectionPath setObject:accumulatedResult 
-                                          forKey:accumulatedResult.sectionPath];
+            [searchResultBySectionPath setObject:accumulatedResult forKey:accumulatedResult.sectionPath];
             [newAccumulatedResults addObject:accumulatedResult];
         }
         
@@ -219,8 +197,7 @@
         [currentSearchResultsProxy addObjectsFromArray:newAccumulatedResults];
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"AccumulatingSearchResultsProcessed" 
-                                                        object:self];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"AccumulatingSearchResultsProcessed" object:self];
 }
 
 - (void)searchOperationEnded:(CHMSearchQuery *)query {
@@ -267,7 +244,11 @@
     self.currentSearchResults = nil;
     self.searchResultBySectionPath = nil;
     
-    self.windowSettings = nil;
+    [contentViewSettings release];
+    [windowSettings release];
+    
+    self.contentViewSettingsToApply = nil;
+    self.windowInitialSettings = nil;
     
     [super dealloc];
 }

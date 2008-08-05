@@ -9,7 +9,6 @@
 @property CGFloat dividerThickness;
 @property BOOL isSplitterAnimating;
 
-- (void)setSplitterPosition:(float)newSplitterPosition 
-                    animate:(BOOL)animate;
+- (void)setSplitterPosition:(float)newSplitterPosition animate:(BOOL)animate;
 
 @end

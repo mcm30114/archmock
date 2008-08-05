@@ -61,7 +61,7 @@
 //            if (objectString) {
 //                contentType = @"text/html";
 //            NSLog(@"DEBUG: Object data is a string: '%@'", objectString);
-//            NSError *error;
+//            NSError *error = nil;
 //            NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:objectString
 //                                                                   options:NSXMLDocumentTidyHTML
 //                                                                     error:&error] autorelease];

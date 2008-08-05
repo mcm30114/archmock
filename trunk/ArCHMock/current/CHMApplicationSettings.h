@@ -1,6 +1,7 @@
 #import <Cocoa/Cocoa.h>
 #import "CHMBookmark.h"
 #import "CHMDocumentSettings.h"
+#import "CHMContentViewSettings.h"
 #import "CHMDocumentWindowSettings.h"
 #import "CHMDocument.h"
 

@@ -31,15 +31,12 @@
     return [NSString stringWithFormat:@"%@/recent documents settings.binary", [self applicationSupportFolderPathForVersion:version]];
 }
 
-static inline BOOL migrateDocumentTextSizeMultiplierFromVersion1_1to1_2(CHMDocumentSettings *settings) {
-    if (.0 == settings.textSizeMultiplier) {
-        settings.textSizeMultiplier = 1.;
-        return YES;
+static inline void migrateDocumentSettingsFromVersion1_1to1_2(CHMDocumentSettings *settings) {
+    CHMContentViewSettings *contentViewSettings = [[CHMContentViewSettings new] autorelease];
+    if (nil != settings.currentSectionScrollOffset) {
+        contentViewSettings.scrollOffset = settings.currentSectionScrollOffset;
     }
-    else {
-        NSLog(@"WARN: Document settings %@ from version 1.1 have incorrect text size multiplier: %f", settings, settings.textSizeMultiplier);
-        return NO;
-    }
+    settings.contentViewSettings = contentViewSettings;
 }
 
 - (BOOL)migrate {
@@ -53,13 +50,10 @@ static inline BOOL migrateDocumentTextSizeMultiplierFromVersion1_1to1_2(CHMDocum
         [self loadRecentDocumentsSettingsForVersion:previousVersion];
         
         for (CHMBookmark *bookmark in bookmarks) {
-            if (!migrateDocumentTextSizeMultiplierFromVersion1_1to1_2(bookmark.documentSettings)) {
-                NSLog(@"WARN: Bookmark %@ from version 1.1 has problem with text size multiplier", 
-                      bookmark, previousVersion);
-            }
+            migrateDocumentSettingsFromVersion1_1to1_2(bookmark.documentSettings);
         }
         for (CHMDocumentSettings *settings in [recentDocumentsSettings allValues]) {
-            migrateDocumentTextSizeMultiplierFromVersion1_1to1_2(settings);
+            migrateDocumentSettingsFromVersion1_1to1_2(settings);
         }
         
         NSError *error = nil;
@@ -169,17 +163,11 @@ static inline BOOL migrateDocumentTextSizeMultiplierFromVersion1_1to1_2(CHMDocum
 }
 
 - (void)addRecentSettingsForDocument:(CHMDocument *)document {
-    CHMDocumentSettings *settings = [CHMDocumentSettings settingsWithCurrentSectionPath:document.currentSectionPath
-                                                                    sectionScrollOffset:document.currentSectionScrollOffset
-                                                                         windowSettings:document.windowSettings];
-
+    CHMDocumentSettings *settings = [CHMDocumentSettings settingsWithCurrentSectionPath:document.currentSectionPath contentViewSettings:document.contentViewSettings windowSettings:document.windowSettings];
     settings.date = [NSDate date];
-    settings.textSizeMultiplier = document.textSizeMultiplier;
     
-    [recentDocumentsSettings setObject:settings 
-                                forKey:document.containerID];
-//    NSLog(@"DEBUG: Saved recent settings for document with title '%@': %@", 
-//          [document title], settings);
+    [recentDocumentsSettings setObject:settings forKey:document.containerID];
+    NSLog(@"DEBUG: Saved recent settings for document with title '%@': %@", [document title], settings);
     
     if (nil != document.tableOfContents) {
         self.lastDocumentWindowSettings = document.windowSettings;
@@ -191,10 +179,8 @@ static inline BOOL migrateDocumentTextSizeMultiplierFromVersion1_1to1_2(CHMDocum
 }
 
 - (void)saveRecentDocumentsSettings {
-    if (![NSKeyedArchiver archiveRootObject:recentDocumentsSettings 
-                                     toFile:[self recentDocumentsSettingsFilePathForVersion:nil]]) {
-        NSLog(@"ERROR: Can't save recent documents settings into file '%@'", 
-              [self recentDocumentsSettingsFilePathForVersion:nil]);
+    if (![NSKeyedArchiver archiveRootObject:recentDocumentsSettings toFile:[self recentDocumentsSettingsFilePathForVersion:nil]]) {
+        NSLog(@"ERROR: Can't save recent documents settings into file '%@'", [self recentDocumentsSettingsFilePathForVersion:nil]);
     }
 }
 
