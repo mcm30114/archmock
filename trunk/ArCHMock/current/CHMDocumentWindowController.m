@@ -173,15 +173,18 @@
 }
 
 - (IBAction)makeTextLarger:(id)sender {
-    return [sectionContentViewController.webView makeTextLarger:sender];
+    [sectionContentViewController.webView makeTextLarger:sender];
+    self.chmDocument.textSizeMultiplier = [sectionContentViewController.webView textSizeMultiplier];
 }
 
 - (IBAction)makeTextStandardSize:(id)sender {
-    return [sectionContentViewController.webView makeTextStandardSize:sender];
+    [sectionContentViewController.webView makeTextStandardSize:sender];
+    self.chmDocument.textSizeMultiplier = [sectionContentViewController.webView textSizeMultiplier];
 }
 
 - (IBAction)makeTextSmaller:(id)sender {
-    return [sectionContentViewController.webView makeTextSmaller:sender];
+    [sectionContentViewController.webView makeTextSmaller:sender];
+    self.chmDocument.textSizeMultiplier = [sectionContentViewController.webView textSizeMultiplier];
 }
 
 - (IBAction)goToHomeSection:(id)sender {
@@ -241,6 +244,8 @@
     CHMDocumentSettings *settings = [CHMDocumentSettings settingsWithCurrentSectionPath:document.currentSectionPath
                                                                     sectionScrollOffset:document.currentSectionScrollOffset
                                                                          windowSettings:document.windowSettings];
+    settings.textSizeMultiplier = document.textSizeMultiplier;
+    
     CHMBookmark *bookmark = [CHMBookmark bookmarkWithLabel:bookmarkLabel
                                                    filePath:[[document fileURL] relativePath]
                                               sectionLabel:document.currentSectionLabel

@@ -221,11 +221,17 @@ static CHMJavaScriptConsole *console = nil;
 //        NSLog(@"DEBUG: JavaScript injected");
         [self highlightContentIfNeeded];
         
-        // TODO: Factor out
+        
+        if (.0 != self.chmDocument.textSizeMultiplierToSet) {
+            [[self webView] setTextSizeMultiplier:self.chmDocument.textSizeMultiplierToSet];
+            self.chmDocument.textSizeMultiplier = [[self webView] textSizeMultiplier];
+            self.chmDocument.textSizeMultiplierToSet = .0;
+        }
+        
+        // TODO: Refactor
         NSString *currentSectionScrollOffset = self.chmDocument.currentSectionScrollOffset;
         
-        if (nil == currentSectionScrollOffset || 
-            [@"[0, 0]" isEqualToString:self.chmDocument.currentSectionScrollOffset]) {
+        if (nil == currentSectionScrollOffset || [@"[0, 0]" isEqualToString:self.chmDocument.currentSectionScrollOffset]) {
             NSURL *sectionURL = [NSURL URLWithString:[self.webView mainFrameURL]];
             NSString *urlFragment = [sectionURL fragment];
             

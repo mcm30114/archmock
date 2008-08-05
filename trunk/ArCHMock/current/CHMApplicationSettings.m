@@ -174,6 +174,8 @@ static inline BOOL migrateDocumentTextSizeMultiplierFromVersion1_1to1_2(CHMDocum
                                                                          windowSettings:document.windowSettings];
 
     settings.date = [NSDate date];
+    settings.textSizeMultiplier = document.textSizeMultiplier;
+    
     [recentDocumentsSettings setObject:settings 
                                 forKey:document.containerID];
 //    NSLog(@"DEBUG: Saved recent settings for document with title '%@': %@", 
