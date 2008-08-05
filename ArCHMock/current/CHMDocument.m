@@ -15,6 +15,8 @@
 @synthesize container, tableOfContents, index;
 @synthesize currentSectionPath;
 @synthesize currentSectionScrollOffset;
+@synthesize textSizeMultiplierToSet;
+@synthesize textSizeMultiplier;
 @synthesize homeSectionPath;
 @synthesize currentSearchQuery, currentSearchOperation, scheduledSearchOperation;
 @synthesize currentSearchResults, searchResultBySectionPath;

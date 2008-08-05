@@ -80,9 +80,7 @@
                                                                               error:&error];
         document.currentSectionScrollOffset = bookmark.documentSettings.currentSectionScrollOffset;
         if ([document.currentSectionPath isEqualToString:bookmark.documentSettings.currentSectionPath]) {
-            [NSApp sendAction:@selector(scrollContentWithOffset:) 
-                           to:nil 
-                         from:self];
+            [NSApp sendAction:@selector(scrollContentWithOffset:) to:nil from:self];
         }
         else {
             document.dontClearContentOffsetOnUnload = YES;
@@ -105,6 +103,7 @@
         document.windowSettings = bookmark.documentSettings.windowSettings;
         [document makeWindowControllers];
         [document showWindows];
+        document.textSizeMultiplierToSet = bookmark.documentSettings.textSizeMultiplier;
         document.currentSectionScrollOffset = bookmark.documentSettings.currentSectionScrollOffset;
         document.currentSectionPath = bookmark.documentSettings.currentSectionPath;
     }
@@ -153,6 +152,7 @@
             [document showWindows];
         }
         
+        document.textSizeMultiplierToSet = settings.textSizeMultiplier;
         document.currentSectionScrollOffset = settings.currentSectionScrollOffset;
         document.currentSectionPath = settings.currentSectionPath;
     }

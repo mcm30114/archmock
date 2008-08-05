@@ -17,6 +17,8 @@
     NSString *currentSectionPath;
     NSString *currentSectionScrollOffset;
     NSString *homeSectionPath;
+    float textSizeMultiplierToSet;
+    float textSizeMultiplier;
     BOOL scrollToFirstHighlight;
     BOOL dontClearContentOffsetOnUnload;
     
@@ -34,6 +36,8 @@
 @property BOOL scrollToFirstHighlight;
 @property BOOL dontClearContentOffsetOnUnload;
 @property (retain) NSString *currentSectionScrollOffset;
+@property float textSizeMultiplierToSet;
+@property float textSizeMultiplier;
 @property (retain) CHMDocumentWindowSettings *windowSettings;
 
 @property (retain) NSString *uniqueID;
