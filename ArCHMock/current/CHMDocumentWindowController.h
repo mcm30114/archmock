@@ -41,6 +41,7 @@
 @property (retain) SearchViewController *searchViewController;
 
 - (IBAction)searchForText:(id)sender;
+- (IBAction)scheduleScrollingToHighlight:(id)sender;
 - (IBAction)scrollToNextHighlight:(id)sender;
 - (IBAction)scrollToPreviousHighlight:(id)sender;
 - (IBAction)scrollContentWithOffset:(id)sender;
@@ -48,10 +49,10 @@
 - (IBAction)activateSearch:(id)sender;
 - (IBAction)toggleSidebar:(id)sender;
 - (IBAction)clearSearchText:(id)sender;
-- (IBAction)makeTextLarger:(id)sender;
-- (IBAction)makeTextStandardSize:(id)sender;
-- (IBAction)makeTextSmaller:(id)sender;
-- (IBAction)changeTextSize:(id)sender;
+- (IBAction)makeContentTextLarger:(id)sender;
+- (IBAction)makeContentTextStandardSize:(id)sender;
+- (IBAction)makeContentTextSmaller:(id)sender;
+- (IBAction)changeContentTextSize:(id)sender;
 - (IBAction)goToHomeSection:(id)sender;
 - (IBAction)goBack:(id)sender;
 - (IBAction)goForward:(id)sender;

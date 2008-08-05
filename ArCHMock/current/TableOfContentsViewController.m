@@ -31,24 +31,17 @@
 }
 
 - (void)awakeFromNib {
-    [treeController addObserver:self
-                     forKeyPath:@"selectedObjects"
-                        options:NSKeyValueChangeSetting
-                        context:nil];
+    [treeController addObserver:self forKeyPath:@"selectedObjects" options:NSKeyValueChangeSetting context:nil];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (isPerformingSync) {
         return;
     }
     
     isPerformingSync = YES;
     // TODO: use exceptions try/catch
-    if (object == [self representedObject] && 
-        [keyPath isEqualToString:@"currentSectionPath"]) {
+    if (object == [self representedObject] && [keyPath isEqualToString:@"currentSectionPath"]) {
         [self selectSectionInTableOfContentsTree:self.chmDocument.currentSectionPath];
     }
     else if (object == treeController) {
@@ -61,8 +54,7 @@
 }
 
 - (void)dealloc {
-    [treeController removeObserver:self
-                        forKeyPath:@"selectedObjects"];
+    [treeController removeObserver:self forKeyPath:@"selectedObjects"];
 
     [super dealloc];
 }

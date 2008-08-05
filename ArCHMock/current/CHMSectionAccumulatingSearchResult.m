@@ -6,18 +6,11 @@
 @synthesize sectionLabel, sectionPath, tokensOccurences, relevancy;
 @dynamic tokensOccurencesTotalCount;
 
-+ (CHMSectionAccumulatingSearchResult *)resultWithSectionLabel:(NSString *)sectionLabel 
-                                              sectionPath:(NSString *)sectionPath
-                                               tokensInfo:(NSMutableArray *)tokensInfo {
-    return [[[CHMSectionAccumulatingSearchResult alloc] initWithSectionLabel:sectionLabel
-                                                            sectionPath:sectionPath
-                                                             tokensInfo:tokensInfo] autorelease];
++ (CHMSectionAccumulatingSearchResult *)resultWithSectionLabel:(NSString *)sectionLabel sectionPath:(NSString *)sectionPath tokensInfo:(NSMutableArray *)tokensInfo {
+    return [[[CHMSectionAccumulatingSearchResult alloc] initWithSectionLabel:sectionLabel sectionPath:sectionPath tokensInfo:tokensInfo] autorelease];
 }
 
-- (id)initWithSectionLabel:(NSString *)initSectionLabel
-               sectionPath:(NSString *)initSectionPath
-                tokensInfo:(NSMutableArray *)initTokensInfo {
-
+- (id)initWithSectionLabel:(NSString *)initSectionLabel sectionPath:(NSString *)initSectionPath tokensInfo:(NSMutableArray *)initTokensInfo {
     if (self = [super init]) {
         self.sectionLabel = initSectionLabel;
         self.sectionPath = initSectionPath;
@@ -60,13 +53,7 @@
 
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@: {sectionLabel: '%@', \
-sectionPath: '%@', relevancy: %i, tokensOccurences: %@}",
-            [super description],
-            sectionLabel,
-            sectionPath,
-            relevancy,
-            tokensOccurences];
+    return [NSString stringWithFormat:@"%@: {sectionLabel: '%@', sectionPath: '%@', relevancy: %i, tokensOccurences: %@}", [super description], sectionLabel, sectionPath, relevancy, tokensOccurences];
 }
 
 - (void) dealloc {

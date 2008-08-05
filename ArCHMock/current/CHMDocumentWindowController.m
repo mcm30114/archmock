@@ -1,6 +1,7 @@
 #import "CHMDocumentWindowController.h"
 #import "CHMApplicationDelegate.h"
 #import "CHMBookmark.h"
+#import "CHMDocumentSettings.h"
 #import "CHMDocumentController.h"
 
 @implementation CHMDocumentWindowController
@@ -9,7 +10,9 @@
 @synthesize chmDocument;
 
 @synthesize isSidebarCollapsing;
-@synthesize tableOfContentsViewController, sectionContentViewController, searchViewController;
+@synthesize tableOfContentsViewController;
+@synthesize sectionContentViewController;
+@synthesize searchViewController;
 
 #define SIDEBAR_MIN_WIDTH 200.0
 
@@ -23,20 +26,21 @@
 
 - (void)windowDidLoad {
     [super windowDidLoad];
-
-    self.chmDocument = [self document];
-
-    CHMDocumentWindowSettings *windowSettings = chmDocument.windowSettings;
-//    NSLog(@"DEBUG: DocumentWindowController: window settings: %@", windowSettings);
     
-    NSWindow *window = [self window];
-    [window setFrame:windowSettings.frame 
-             display:NO];
-    if (nil == [window screen]) {
-        [window center];
+    self.chmDocument = [self document];
+    
+    CHMDocumentWindowSettings *windowInitialSettings = chmDocument.windowInitialSettings;
+    BOOL sidebarShouldBeCollapsed = NO;
+    NSLog(@"DEBUG: DocumentWindowController: initial window settings: %@", windowInitialSettings);
+    if (nil != windowInitialSettings) {
+        NSWindow *window = [self window];
+        [window setFrame:windowInitialSettings.frame display:NO];
+        if (nil == [window screen]) {
+            [window center];
+        }
+        sidebarShouldBeCollapsed = windowInitialSettings.isSidebarCollapsed;
     }
     
-    BOOL sidebarShouldBeCollapsed = windowSettings.isSidebarCollapsed;
     if (sidebarShouldBeCollapsed || nil == chmDocument.tableOfContents) {
         [self hideSidebarWithAnimation:NO];
     }
@@ -51,23 +55,11 @@
     [contentView setContentView:[sectionContentViewController view]];
     
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter addObserver:self 
-                           selector:@selector(sectionContentLoaded:) 
-                               name:@"SectionContentLoaded" 
-                             object:sectionContentViewController];
-    [chmDocument addObserver:self 
-                  forKeyPath:@"currentSectionPath" 
-                     options:NSKeyValueChangeSetting
-                     context:nil];
+    [notificationCenter addObserver:self selector:@selector(sectionContentLoaded:) name:@"SectionContentLoaded" object:sectionContentViewController];
+    [chmDocument addObserver:self forKeyPath:@"currentSectionPath" options:NSKeyValueChangeSetting context:nil];
     
-    [notificationCenter addObserver:self 
-                           selector:@selector(switchSidebarView:) 
-                               name:@"SearchOperationStarted" 
-                             object:chmDocument];
-    [notificationCenter addObserver:self 
-                           selector:@selector(switchSidebarView:) 
-                               name:@"SearchCancelled" 
-                             object:chmDocument];
+    [notificationCenter addObserver:self selector:@selector(switchSidebarView:) name:@"SearchOperationStarted" object:chmDocument];
+    [notificationCenter addObserver:self selector:@selector(switchSidebarView:) name:@"SearchCancelled" object:chmDocument];
     
     if (nil != chmDocument.tableOfContents) {
         tableOfContentsViewController = [TableOfContentsViewController new];
@@ -79,6 +71,8 @@
         searchViewController = [SearchViewController new];
         [searchViewController setRepresentedObject:chmDocument];
     }
+    
+    [self updateWindowSettings];
 }
 
 - (void)updateWindowSettings {
@@ -120,12 +114,12 @@
         [self switchToSearchResultsView];
         [self showSidebarWithAnimation:YES];
     }
-
+    
     [toolbar validateVisibleItems];
 }
 
 - (BOOL)switchToSearchResultsView {
-//    NSLog(@"DEBUG: Window controller: switching to search results view");
+    //    NSLog(@"DEBUG: Window controller: switching to search results view");
     NSView *searchResultsView = [searchViewController view];
     if ([sidebarView contentView] != searchResultsView) {
         [sidebarView setContentView:searchResultsView];
@@ -136,7 +130,7 @@
 }
 
 - (BOOL)switchToTableOfContentsView {
-//    NSLog(@"DEBUG: Window controller: switching to table of contents view");
+    //    NSLog(@"DEBUG: Window controller: switching to table of contents view");
     NSView *tableOfContentsView = [tableOfContentsViewController view];
     if ([sidebarView contentView] != tableOfContentsView) {
         [sidebarView setContentView:tableOfContentsView];
@@ -151,6 +145,10 @@
     [self.chmDocument searchForText:text];
 }
 
+- (IBAction)scheduleScrollingToHighlight:(id)sender {
+    [sectionContentViewController scheduleScrollingToHighlight:sender];
+}
+
 - (IBAction)scrollToNextHighlight:(id)sender {
     [sectionContentViewController scrollToNextHighlight:sender];
 }
@@ -160,7 +158,7 @@
 }
 
 - (IBAction)scrollContentWithOffset:(id)sender {
-    [sectionContentViewController scrollContentWithOffset:sender];
+    [sectionContentViewController scrollContentWithSuppliedOffset:sender];
 }
 
 - (IBAction)clearSearchText:(id)sender {
@@ -172,19 +170,16 @@
     [[self window] makeFirstResponder:searchPatternField];
 }
 
-- (IBAction)makeTextLarger:(id)sender {
-    [sectionContentViewController.webView makeTextLarger:sender];
-    self.chmDocument.textSizeMultiplier = [sectionContentViewController.webView textSizeMultiplier];
+- (IBAction)makeContentTextLarger:(id)sender {
+    [sectionContentViewController makeContentTextLarger:sender];
 }
 
-- (IBAction)makeTextStandardSize:(id)sender {
-    [sectionContentViewController.webView makeTextStandardSize:sender];
-    self.chmDocument.textSizeMultiplier = [sectionContentViewController.webView textSizeMultiplier];
+- (IBAction)makeContentTextStandardSize:(id)sender {
+    [sectionContentViewController makeContentTextStandardSize:sender];
 }
 
-- (IBAction)makeTextSmaller:(id)sender {
-    [sectionContentViewController.webView makeTextSmaller:sender];
-    self.chmDocument.textSizeMultiplier = [sectionContentViewController.webView textSizeMultiplier];
+- (IBAction)makeContentTextSmaller:(id)sender {
+    [sectionContentViewController makeContentTextSmaller:sender];
 }
 
 - (IBAction)goToHomeSection:(id)sender {
@@ -209,13 +204,13 @@
     }
 }
 
-- (IBAction)changeTextSize:(id)sender {
+- (IBAction)changeContentTextSize:(id)sender {
     int clickedSegment = [sender selectedSegment];
     if (0 == [[sender cell] tagForSegment:clickedSegment]) {
-        return [self makeTextSmaller:self];
+        return [self makeContentTextSmaller:self];
     }
     else if (1 == [[sender cell] tagForSegment:clickedSegment]) {
-        return [self makeTextLarger:self];
+        return [self makeContentTextLarger:self];
     }
 }
 - (IBAction)openAddCurrentSectionToBookmarksWindow:(id)sender {
@@ -223,11 +218,7 @@
     [bookmarkNameForCurrentSectionField setStringValue:bookmarkLabel];
     [bookmarkNameForCurrentSectionField selectText:self];
     
-    [NSApp beginSheet:addCurrentSectionToBookmarksWindow 
-       modalForWindow:[self window] 
-        modalDelegate:nil 
-       didEndSelector:NULL 
-          contextInfo:NULL];
+    [NSApp beginSheet:addCurrentSectionToBookmarksWindow modalForWindow:[self window] modalDelegate:nil didEndSelector:NULL contextInfo:NULL];
 }
 
 - (IBAction)closeAddCurrentSectionToBookmarksWindow:(id)sender {
@@ -237,19 +228,12 @@
 
 - (IBAction)addCurrentSectionToBookmarks:(id)sender {
     [self closeAddCurrentSectionToBookmarksWindow:self];
-
+    
     NSString *bookmarkLabel = [bookmarkNameForCurrentSectionField stringValue];
-    
+
     CHMDocument *document = self.chmDocument;
-    CHMDocumentSettings *settings = [CHMDocumentSettings settingsWithCurrentSectionPath:document.currentSectionPath
-                                                                    sectionScrollOffset:document.currentSectionScrollOffset
-                                                                         windowSettings:document.windowSettings];
-    settings.textSizeMultiplier = document.textSizeMultiplier;
-    
-    CHMBookmark *bookmark = [CHMBookmark bookmarkWithLabel:bookmarkLabel
-                                                   filePath:[[document fileURL] relativePath]
-                                              sectionLabel:document.currentSectionLabel
-                                          documentSettings:settings];
+    CHMDocumentSettings *settings = [CHMDocumentSettings settingsWithCurrentSectionPath:document.currentSectionPath contentViewSettings:document.contentViewSettings windowSettings:document.windowSettings];
+    CHMBookmark *bookmark = [CHMBookmark bookmarkWithLabel:bookmarkLabel filePath:[[document fileURL] relativePath] sectionLabel:document.currentSectionLabel documentSettings:settings];
     
     [[CHMApplicationDelegate settings] addBookmark:bookmark];
 }
@@ -263,13 +247,13 @@
 }
 
 - (BOOL)validateInterfaceItem:(SEL)action {
-    if (@selector(makeTextLarger:) == action) {
+    if (@selector(makeContentTextLarger:) == action) {
         return [sectionContentViewController.webView canMakeTextLarger];
     }
-    else if (@selector(makeTextSmaller:) == action) {
+    else if (@selector(makeContentTextSmaller:) == action) {
         return [sectionContentViewController.webView canMakeTextSmaller];
     }
-    else if (@selector(makeTextStandardSize:) == action) {
+    else if (@selector(makeContentTextStandardSize:) == action) {
         return [sectionContentViewController.webView canMakeTextStandardSize];
     }
     else if (@selector(goBack:) == action) {
@@ -278,33 +262,28 @@
     else if (@selector(goForward:) == action) {
         return [sectionContentViewController.webView canGoForward];
     }
-    else if (@selector(scrollToNextHighlight:) == action || 
-             @selector(scrollToPreviousHighlight:) == action) {
+    else if (@selector(scrollToNextHighlight:) == action || @selector(scrollToPreviousHighlight:) == action) {
         return [sectionContentViewController canScrollBetweenHighlights];
     }
     else if (@selector(goBackOrForward:) == action) {
         BOOL goBackEnabled = [self validateInterfaceItem:@selector(goBack:)];
         BOOL goForwardEnabled = [self validateInterfaceItem:@selector(goForward:)];
         
-        [goBackOrForwardControl setEnabled:goBackEnabled
-                                forSegment:0];
-        [goBackOrForwardControl setEnabled:goForwardEnabled 
-                                forSegment:1];
+        [goBackOrForwardControl setEnabled:goBackEnabled forSegment:0];
+        [goBackOrForwardControl setEnabled:goForwardEnabled forSegment:1];
         
         return goBackEnabled || goForwardEnabled;
     }
-    else if (@selector(changeTextSize:) == action) {
-        [changeTextSizeControl setEnabled:[self validateInterfaceItem:@selector(makeTextSmaller:)] 
-                               forSegment:0];
-        [changeTextSizeControl setEnabled:[self validateInterfaceItem:@selector(makeTextLarger:)] 
-                               forSegment:1];
+    else if (@selector(changeContentTextSize:) == action) {
+        [changeTextSizeControl setEnabled:[self validateInterfaceItem:@selector(makeContentTextSmaller:)] forSegment:0];
+        [changeTextSizeControl setEnabled:[self validateInterfaceItem:@selector(makeContentTextLarger:)] forSegment:1];
     }
     else if (@selector(goToHomeSection:) == action) {
         NSString *homeSectionPath = self.chmDocument.homeSectionPath;
         NSString *currentSectionPath =  self.chmDocument.currentSectionPath;
         BOOL isEnabled = nil != homeSectionPath && ![currentSectionPath isEqualToString:homeSectionPath];
         [goToHomeSectionButton setEnabled:isEnabled];
-
+        
         return isEnabled;
     }
     else if (@selector(toggleSidebar:) == action) {
@@ -325,16 +304,12 @@
 
 - (IBAction)printDocument:(id)sender {
     NSView *currentSectionView = [[[sectionContentViewController.webView mainFrame] frameView] documentView];
-    NSPrintOperation *printOperation = [NSPrintOperation printOperationWithView:currentSectionView
-                                                                      printInfo:[[self document] printInfo]];
+    NSPrintOperation *printOperation = [NSPrintOperation printOperationWithView:currentSectionView printInfo:[[self document] printInfo]];
     
     [printOperation setShowPanels:YES];
     [printOperation runOperation];
-
-//    [[self document] runModalPrintOperation:printOperation
-//                                   delegate:nil
-//                             didRunSelector:nil
-//                                contextInfo:nil];
+    
+//    [[self document] runModalPrintOperation:printOperation delegate:nil didRunSelector:nil contextInfo:nil];
 }
 
 - (NSString *)windowTitleForDocumentDisplayName:(NSString *)displayName {
@@ -345,13 +320,9 @@
         documentTitle = displayName;
     }
     
-    NSString *windowTitle = nil != sectionLabel && [sectionLabel length] > 0 
-                            ? [NSString stringWithFormat:@"%@ - %@", sectionLabel, documentTitle] 
-                            : documentTitle;
+    NSString *windowTitle = (nil != sectionLabel && [sectionLabel length] > 0) ? [NSString stringWithFormat:@"%@ - %@", sectionLabel, documentTitle] : documentTitle;
     
-    return [(NSString *)CFXMLCreateStringByUnescapingEntities(kCFAllocatorDefault, 
-                                                              (CFStringRef)windowTitle,
-                                                              NULL) autorelease];
+    return [(NSString *)CFXMLCreateStringByUnescapingEntities(kCFAllocatorDefault, (CFStringRef)windowTitle, NULL) autorelease];
 }
 
 // SplitView delegate logic
@@ -370,8 +341,7 @@
         sidebarWidth = SIDEBAR_MIN_WIDTH;
     }
     
-    [splitView setSplitterPosition:splitViewWidth - sidebarWidth
-                           animate:animate];
+    [splitView setSplitterPosition:splitViewWidth - sidebarWidth animate:animate];
 }
 
 - (void)hideSidebarWithAnimation:(BOOL)animate {
@@ -382,8 +352,7 @@
     [self updateWindowSettings];
     
     self.isSidebarCollapsing = YES;
-    [splitView setSplitterPosition:[splitView maxPossiblePositionOfDividerAtIndex:0] 
-                           animate:animate];        
+    [splitView setSplitterPosition:[splitView maxPossiblePositionOfDividerAtIndex:0] animate:animate];        
     self.isSidebarCollapsing = NO;
 }
 
@@ -396,10 +365,7 @@
     [self adjustSplitViewDivider];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (object == [self document] && [keyPath isEqualToString:@"currentSectionPath"]) {
         [self synchronizeWindowTitleWithDocumentName];
     }
@@ -415,8 +381,7 @@
     return [splitView frame].size.width * 0.6;
 }
 
-- (CGFloat)splitView:(NSSplitView *)sender constrainMaxCoordinate:(CGFloat)proposedMax 
-         ofSubviewAt:(NSInteger)offset {
+- (CGFloat)splitView:(NSSplitView *)sender constrainMaxCoordinate:(CGFloat)proposedMax ofSubviewAt:(NSInteger)offset {
     return self.isSidebarCollapsing ? proposedMax : proposedMax - SIDEBAR_MIN_WIDTH - [splitView dividerThickness];
 }
 
@@ -443,9 +408,8 @@
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [chmDocument removeObserver:self 
-                     forKeyPath:@"currentSectionPath"];
-
+    [chmDocument removeObserver:self forKeyPath:@"currentSectionPath"];
+    
     self.chmDocument = nil;
     self.sectionContentViewController = nil;
     self.tableOfContentsViewController = nil;

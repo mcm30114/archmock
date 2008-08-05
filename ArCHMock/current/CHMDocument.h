@@ -3,24 +3,27 @@
 #import "CHMTableOfContents.h"
 #import "CHMIndex.h"
 #import "CHMSection.h"
+
 #import "CHMSearchOperation.h";
 #import "CHMSearchQuery.h"
+
+#import "CHMContentViewSettings.h"
 #import "CHMDocumentWindowSettings.h"
 
 @interface CHMDocument : NSDocument {
     CHMContainer *container;
     CHMTableOfContents *tableOfContents;
     CHMIndex *index;
+    
+    CHMContentViewSettings *contentViewSettings;
     CHMDocumentWindowSettings *windowSettings;
+    
+    CHMContentViewSettings *contentViewSettingsToApply;
+    CHMDocumentWindowSettings *windowInitialSettings;
     
     NSString *uniqueID;
     NSString *currentSectionPath;
-    NSString *currentSectionScrollOffset;
     NSString *homeSectionPath;
-    float textSizeMultiplierToSet;
-    float textSizeMultiplier;
-    BOOL scrollToFirstHighlight;
-    BOOL dontClearContentOffsetOnUnload;
     
     CHMSearchQuery *currentSearchQuery;
     CHMSearchOperation *currentSearchOperation;
@@ -33,12 +36,10 @@
 @property (readonly) NSString *containerID;
 @property (readonly) NSString *title;
 
-@property BOOL scrollToFirstHighlight;
-@property BOOL dontClearContentOffsetOnUnload;
-@property (retain) NSString *currentSectionScrollOffset;
-@property float textSizeMultiplierToSet;
-@property float textSizeMultiplier;
-@property (retain) CHMDocumentWindowSettings *windowSettings;
+@property (readonly) CHMContentViewSettings *contentViewSettings;
+@property (readonly) CHMDocumentWindowSettings *windowSettings;
+@property (retain) CHMContentViewSettings *contentViewSettingsToApply;
+@property (retain) CHMDocumentWindowSettings *windowInitialSettings;
 
 @property (retain) NSString *uniqueID;
 

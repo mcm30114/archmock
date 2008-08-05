@@ -12,10 +12,7 @@
     if (self = [super init]) {
         self.searchString = initString;
         
-        NSMutableArray *substrings = [NSMutableArray 
-                                      arrayWithArray:[searchString 
-                                                      componentsSeparatedByCharactersInSet:[NSCharacterSet 
-                                                                                            whitespaceAndNewlineCharacterSet]]];
+        NSMutableArray *substrings = [NSMutableArray arrayWithArray:[searchString componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]]];
         NSPredicate *emptyStringPredicate = [NSPredicate predicateWithFormat:@"SELF != ''"];
         substrings = [NSMutableArray arrayWithArray:[substrings filteredArrayUsingPredicate:emptyStringPredicate]];
         
@@ -36,21 +33,16 @@
             [substrings removeObjectAtIndex:0];
             
 //            if (wordsCount > 1) {
-                NSArray *alphaNumericSubstrings = [substring 
-                                                   componentsSeparatedByCharactersInSet:[[NSCharacterSet 
-                                                                                          alphanumericCharacterSet] invertedSet]];
+                NSArray *alphaNumericSubstrings = [substring componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]];
                 alphaNumericSubstrings = [alphaNumericSubstrings filteredArrayUsingPredicate:emptyStringPredicate];
                 if ([alphaNumericSubstrings count] > 0 && 
                     ([alphaNumericSubstrings count] != 1 || ![alphaNumericSubstrings containsObject:substring])) {
-                    [substrings insertObjects:alphaNumericSubstrings 
-                                    atIndexes:[NSIndexSet 
-                                               indexSetWithIndexesInRange:NSMakeRange(0, [alphaNumericSubstrings count])]];
+                    [substrings insertObjects:alphaNumericSubstrings atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [alphaNumericSubstrings count])]];
                     continue;
                 }
 //            }
             
-            CHMSearchToken *token = [CHMSearchToken tokenWithString:[NSString stringWithString:substring] 
-                                                           position:i++];
+            CHMSearchToken *token = [CHMSearchToken tokenWithString:[NSString stringWithString:substring] position:i++];
             if (![self.tokensBySubstrings objectForKey:substring]) {
                 [uniqueSubstrings addObject:substring];
                 [self.tokensBySubstrings setObject:[NSMutableArray array] forKey:substring];
@@ -73,12 +65,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@: {searchString: '%@', \
-tokens: %@, uniqueSubstrings: %@}",
-            [super description],
-            searchString,
-            tokens,
-            uniqueSubstrings];
+    return [NSString stringWithFormat:@"%@: {searchString: '%@', tokens: %@, uniqueSubstrings: %@}", [super description], searchString, tokens, uniqueSubstrings];
 }
 
 - (void) dealloc {

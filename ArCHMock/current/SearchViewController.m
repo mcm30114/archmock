@@ -13,44 +13,22 @@
 }
 
 - (void)awakeFromNib {
-    NSData *sortDescriptorsData = [[NSUserDefaults standardUserDefaults] 
-                                   objectForKey:@"SectionAccumulatedSearchResultsSortDescriptors"];
+    NSData *sortDescriptorsData = [[NSUserDefaults standardUserDefaults] objectForKey:@"SectionAccumulatedSearchResultsSortDescriptors"];
     if (sortDescriptorsData) {
         [tableView setSortDescriptors:[NSKeyedUnarchiver unarchiveObjectWithData:sortDescriptorsData]];
     }
     
-    [tableController addObserver:self
-                      forKeyPath:@"selectedObjects"
-                         options:NSKeyValueChangeSetting
-                         context:nil];
-    [tableView addObserver:self 
-                forKeyPath:@"sortDescriptors" 
-                   options:NSKeyValueChangeSetting
-                   context:nil];
+    [tableController addObserver:self forKeyPath:@"selectedObjects" options:NSKeyValueChangeSetting context:nil];
+    [tableView addObserver:self forKeyPath:@"sortDescriptors" options:NSKeyValueChangeSetting context:nil];
 
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-    [notificationCenter addObserver:self 
-                           selector:@selector(disableRearrangement:) 
-                               name:@"CurrentSearchResultsAboutToBeCleared" 
-                             object:self.chmDocument];
-    [notificationCenter addObserver:self 
-                           selector:@selector(enableRearrangement:) 
-                               name:@"CurrentSearchResultsCleared" 
-                             object:self.chmDocument];
-    [notificationCenter addObserver:self 
-                           selector:@selector(disableRearrangement:)
-                               name:@"AccumulatingSearchResultsAboutToBeProcessed" 
-                             object:self.chmDocument];
-    [notificationCenter addObserver:self 
-                           selector:@selector(enableRearrangement:) 
-                               name:@"AccumulatingSearchResultsProcessed" 
-                             object:self.chmDocument];
+    [notificationCenter addObserver:self selector:@selector(disableRearrangement:) name:@"CurrentSearchResultsAboutToBeCleared" object:self.chmDocument];
+    [notificationCenter addObserver:self selector:@selector(enableRearrangement:) name:@"CurrentSearchResultsCleared" object:self.chmDocument];
+    [notificationCenter addObserver:self selector:@selector(disableRearrangement:) name:@"AccumulatingSearchResultsAboutToBeProcessed" object:self.chmDocument];
+    [notificationCenter addObserver:self selector:@selector(enableRearrangement:) name:@"AccumulatingSearchResultsProcessed" object:self.chmDocument];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary *)change
-                       context:(void *)context {
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if (isPerformingSync) {
         return;
     }
@@ -67,8 +45,8 @@
                 CHMSectionAccumulatedSearchResult *selectedResult = [[tableController selectedObjects] lastObject];
                 NSString *selectedSectionPath = selectedResult.sectionPath;
                 if (![selectedSectionPath isEqualToString:self.chmDocument.currentSectionPath]) {
-                    self.chmDocument.scrollToFirstHighlight = YES;
                     self.chmDocument.currentSectionPath = selectedSectionPath;
+                    [NSApp sendAction:@selector(scheduleScrollingToHighlight:) to:nil from:self];
                 }
             }
         }
@@ -76,8 +54,7 @@
     else if (object == tableView) {
         if ([keyPath isEqualToString:@"sortDescriptors"]) {
             NSData *sortDescriptorsData = [NSKeyedArchiver archivedDataWithRootObject:[tableView sortDescriptors]];
-            [[NSUserDefaults standardUserDefaults] setObject:sortDescriptorsData
-                                                      forKey:@"SectionAccumulatedSearchResultsSortDescriptors"];
+            [[NSUserDefaults standardUserDefaults] setObject:sortDescriptorsData forKey:@"SectionAccumulatedSearchResultsSortDescriptors"];
         }
     }
     isPerformingSync = NO;
@@ -86,8 +63,7 @@
 - (void)selectCurrentSectionAndRevealSearchResult:(BOOL)shouldRevealResult {
     NSString *sectionPath = self.chmDocument.currentSectionPath;
     if (sectionPath) {
-        CHMSectionAccumulatedSearchResult *result = [self.chmDocument.searchResultBySectionPath 
-                                                     objectForKey:sectionPath];
+        CHMSectionAccumulatedSearchResult *result = [self.chmDocument.searchResultBySectionPath objectForKey:sectionPath];
         if (result) {
             if ([tableController setSelectedObjects:[NSArray arrayWithObject:result]]) {
                 if (shouldRevealResult) {
@@ -112,8 +88,7 @@
 }
 
 - (void)enableRearrangement:(NSNotification *)notification {
-    NSData *sortDescriptorsData = [[NSUserDefaults standardUserDefaults] 
-                                   objectForKey:@"SectionAccumulatedSearchResultsSortDescriptors"];
+    NSData *sortDescriptorsData = [[NSUserDefaults standardUserDefaults] objectForKey:@"SectionAccumulatedSearchResultsSortDescriptors"];
     if (sortDescriptorsData) {
         [tableView setSortDescriptors:[NSKeyedUnarchiver unarchiveObjectWithData:sortDescriptorsData]];
     }
@@ -123,10 +98,8 @@
 }
 
 - (void)dealloc {
-    [tableController removeObserver:self
-                         forKeyPath:@"selectedObjects"];
-    [tableView removeObserver:self 
-                   forKeyPath:@"sortDescriptors"];
+    [tableController removeObserver:self forKeyPath:@"selectedObjects"];
+    [tableView removeObserver:self forKeyPath:@"sortDescriptors"];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     

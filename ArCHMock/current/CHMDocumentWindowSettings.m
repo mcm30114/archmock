@@ -22,8 +22,7 @@
 - (NSData *)data {
     NSMutableData *data = [NSMutableData data];
     NSKeyedArchiver *archiver = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:data] autorelease];
-    [archiver encodeObject:self 
-                    forKey:@"CHMDocumentWindowSettings"];
+    [archiver encodeObject:self forKey:@"CHMDocumentWindowSettings"];
     [archiver finishEncoding];
 
     return [NSData dataWithData:data];
@@ -40,12 +39,11 @@
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
-    [super init];
-    
-    self.frame = [coder decodeRectForKey:@"frame"];
-    
-    self.sidebarWidth = [coder decodeFloatForKey:@"sidebarWidth"];
-    self.isSidebarCollapsed = [coder decodeBoolForKey:@"isSidebarCollapsed"];
+    if (self = [super init]) {
+        self.frame = [coder decodeRectForKey:@"frame"];
+        self.sidebarWidth = [coder decodeFloatForKey:@"sidebarWidth"];
+        self.isSidebarCollapsed = [coder decodeBoolForKey:@"isSidebarCollapsed"];
+    }
     
     return self;
 }
@@ -58,9 +56,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@: {frame: %@, sidebarWidth: %f \
-isSidebarCollapsed: %@}", [super description], NSStringFromRect(self.frame), 
-            sidebarWidth, isSidebarCollapsed ? @"YES" : @"NO"];
+    return [NSString stringWithFormat:@"%@: {frame: %@, sidebarWidth: %f isSidebarCollapsed: %@}", [super description], NSStringFromRect(self.frame), sidebarWidth, isSidebarCollapsed ? @"YES" : @"NO"];
 }
 
 @end

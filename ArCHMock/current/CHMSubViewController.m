@@ -12,15 +12,11 @@
 - (void)setRepresentedObject:(id)representedObject {
     [super setRepresentedObject:representedObject];
     
-    [self.chmDocument addObserver:self 
-                       forKeyPath:@"currentSectionPath" 
-                         options:NSKeyValueChangeSetting
-                         context:nil];
+    [self.chmDocument addObserver:self forKeyPath:@"currentSectionPath" options:NSKeyValueChangeSetting context:nil];
 }
 
 - (void)dealloc {
-    [self.chmDocument removeObserver:self 
-                          forKeyPath:@"currentSectionPath"];
+    [self.chmDocument removeObserver:self forKeyPath:@"currentSectionPath"];
     
     [super dealloc];
 }
