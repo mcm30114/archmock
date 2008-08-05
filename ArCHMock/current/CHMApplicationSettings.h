@@ -5,19 +5,11 @@
 #import "CHMDocument.h"
 
 @interface CHMApplicationSettings : NSObject {
-    NSString *applicationSupportFolderPath;
-    NSString *bookmarksFilePath;
-    NSString *recentDocumentsSettingsFilePath;
-    
     CHMDocumentWindowSettings *lastDocumentWindowSettings;
 
     NSMutableArray *bookmarks;
     NSMutableDictionary *recentDocumentsSettings;
 }
-
-@property (retain) NSString *applicationSupportFolderPath;
-@property (retain) NSString *bookmarksFilePath;
-@property (retain) NSString *recentDocumentsSettingsFilePath;
 
 @property (retain) CHMDocumentWindowSettings *lastDocumentWindowSettings;
 
@@ -27,11 +19,11 @@
 - (void)load;
 - (void)save;
 
-- (void)loadBookmarks;
+- (void)loadBookmarksForVersion:(NSString *)version;
 - (void)addBookmark:(CHMBookmark *)bookmark;
 - (void)saveBookmarks;
 
-- (void)loadRecentDocumentsSettings;
+- (void)loadRecentDocumentsSettingsForVersion:(NSString *)version;
 - (void)addRecentSettingsForDocument:(CHMDocument *)document;
 - (void)saveRecentDocumentsSettings;    
 

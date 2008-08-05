@@ -3,52 +3,109 @@
 
 @implementation CHMApplicationSettings
 
-@synthesize applicationSupportFolderPath, bookmarksFilePath, recentDocumentsSettingsFilePath;
 @synthesize lastDocumentWindowSettings;
 @synthesize bookmarks, recentDocumentsSettings;
 
-#define COMMON_APPLICATION_SUPPORT_FOLDER @"~/Library/Application Support"
+#define APPLICATIONS_SUPPORT_FOLDER @"~/Library/Application Support"
+
+- (NSString *)applicationName {
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+}
+
+- (NSString *)applicationVersion {
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+}
+
+- (NSString *)applicationSupportFolderPathForVersion:(NSString *)version {
+    if (nil == version) {
+        version = [self applicationVersion];
+    }
+    return [[NSString stringWithFormat:@"%@/%@ %@", APPLICATIONS_SUPPORT_FOLDER, [self applicationName], version] stringByExpandingTildeInPath];
+}
+
+- (NSString *)bookmarksFilePathForVersion:(NSString *)version {
+    return [NSString stringWithFormat:@"%@/bookmarks.binary", [self applicationSupportFolderPathForVersion:version]];
+}
+
+- (NSString *)recentDocumentsSettingsFilePathForVersion:(NSString *)version {
+    return [NSString stringWithFormat:@"%@/recent documents settings.binary", [self applicationSupportFolderPathForVersion:version]];
+}
+
+static inline BOOL migrateDocumentTextSizeMultiplierFromVersion1_1to1_2(CHMDocumentSettings *settings) {
+    if (.0 == settings.textSizeMultiplier) {
+        settings.textSizeMultiplier = 1.;
+        return YES;
+    }
+    else {
+        NSLog(@"WARN: Document settings %@ from version 1.1 have incorrect text size multiplier: %f", settings, settings.textSizeMultiplier);
+        return NO;
+    }
+}
 
 - (BOOL)migrate {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL isDirectory;
+    NSString *previousVersion = @"1.1";
+    if ([fileManager fileExistsAtPath:[self applicationSupportFolderPathForVersion:previousVersion] isDirectory:&isDirectory]
+        && isDirectory) {
+        NSLog(@"INFO: Migrating from version %@", previousVersion);
+        [self loadBookmarksForVersion:previousVersion];
+        [self loadRecentDocumentsSettingsForVersion:previousVersion];
+        
+        for (CHMBookmark *bookmark in bookmarks) {
+            if (!migrateDocumentTextSizeMultiplierFromVersion1_1to1_2(bookmark.documentSettings)) {
+                NSLog(@"WARN: Bookmark %@ from version 1.1 has problem with text size multiplier", 
+                      bookmark, previousVersion);
+            }
+        }
+        for (CHMDocumentSettings *settings in [recentDocumentsSettings allValues]) {
+            migrateDocumentTextSizeMultiplierFromVersion1_1to1_2(settings);
+        }
+        
+        NSError *error = nil;
+        if (![fileManager moveItemAtPath:[self applicationSupportFolderPathForVersion:previousVersion] 
+                             toPath:[self applicationSupportFolderPathForVersion:nil] 
+                                   error:&error]) {
+            self.bookmarks = nil;
+            self.recentDocumentsSettings = nil;
+            NSLog(@"ERROR: Couldn't migrate application from version %@. Please contact developer", previousVersion);
+            return NO;
+        }
+        else {
+            NSLog(@"INFO: Migration from version %@ has succeeded", previousVersion);
+        }
+        return YES;
+    }
+    
     return NO;
 }
 
 - (id)init {
     if (self = [super init]) {
-        NSDictionary *mainInfoDictionary = [[NSBundle mainBundle] infoDictionary];
-        NSString *applicationName = [mainInfoDictionary objectForKey:@"CFBundleName"];
-        NSString *applicationVersion = [mainInfoDictionary objectForKey:@"CFBundleVersion"];
         NSFileManager *fileManager = [NSFileManager defaultManager];
-        self.applicationSupportFolderPath = [[NSString stringWithFormat:@"%@/%@ %@", 
-                                              COMMON_APPLICATION_SUPPORT_FOLDER,
-                                              applicationName, 
-                                              applicationVersion] stringByExpandingTildeInPath];
         BOOL isDirectory;
-        if (![fileManager fileExistsAtPath:applicationSupportFolderPath 
-                               isDirectory:&isDirectory] || !isDirectory) {
+        if (![fileManager fileExistsAtPath:[self applicationSupportFolderPathForVersion:nil] isDirectory:&isDirectory] 
+            || !isDirectory) {
             if (![self migrate]) {
-                [fileManager createDirectoryAtPath:applicationSupportFolderPath
-                                        attributes:nil];
+                [fileManager createDirectoryAtPath:[self applicationSupportFolderPathForVersion:nil] attributes:nil];
             }
         }
-        
-        self.bookmarksFilePath = [NSString stringWithFormat:@"%@/bookmarks.binary", 
-                                  applicationSupportFolderPath];
-        self.recentDocumentsSettingsFilePath = [NSString stringWithFormat:@"%@/recent documents settings.binary",
-                                                applicationSupportFolderPath];
     }
     
     return self;
 }
 
 - (void)load {
-    [self loadBookmarks];
-    [self loadRecentDocumentsSettings];
+    [self loadBookmarksForVersion:nil];
+    [self loadRecentDocumentsSettingsForVersion:nil];
     
-    self.lastDocumentWindowSettings = [CHMDocumentWindowSettings settingsWithData:[[NSUserDefaults standardUserDefaults] 
-                                                                                   objectForKey:@"lastDocumentWindowSettings"]];
+    if (nil != lastDocumentWindowSettings) {
+        return;
+    }
+    
+    self.lastDocumentWindowSettings = [CHMDocumentWindowSettings settingsWithData:[[NSUserDefaults standardUserDefaults] objectForKey:@"lastDocumentWindowSettings"]];
     if (nil == lastDocumentWindowSettings) {
-        self.lastDocumentWindowSettings = [[CHMDocumentWindowSettings new] autorelease];
+        lastDocumentWindowSettings = [CHMDocumentWindowSettings new];
     }
     
 //    NSLog(@"DEBUG: Last document window settings: %@", lastDocumentWindowSettings);
@@ -62,12 +119,17 @@
                                               forKey:@"lastDocumentWindowSettings"];
 }
 
-- (void)loadBookmarks {
+- (void)loadBookmarksForVersion:(NSString *)version {
+    if (self.bookmarks) {
+        return;
+    }
+    
     @try {
-        self.bookmarks = [NSKeyedUnarchiver unarchiveObjectWithFile:bookmarksFilePath];
+        self.bookmarks = [NSKeyedUnarchiver unarchiveObjectWithFile:[self bookmarksFilePathForVersion:version]];
     }
     @catch (NSException *e) {
-        NSLog(@"ERROR: Can't open bookmarks file '%@': %@", bookmarksFilePath, e);
+        NSLog(@"ERROR: Can't open bookmarks file '%@' for app version '%@': %@", 
+              [self bookmarksFilePathForVersion:version], version, e);
     }
     @finally {
         if (nil == bookmarks) {
@@ -82,18 +144,22 @@
 }
 
 - (void)saveBookmarks {
-    if (![NSKeyedArchiver archiveRootObject:bookmarks 
-                                     toFile:bookmarksFilePath]) {
-        NSLog(@"ERROR: Can't save bookmarks into file '%@'", bookmarksFilePath);
+    if (![NSKeyedArchiver archiveRootObject:bookmarks toFile:[self bookmarksFilePathForVersion:nil]]) {
+        NSLog(@"ERROR: Can't save bookmarks into file '%@'", [self bookmarksFilePathForVersion:nil]);
     }
 }
 
-- (void)loadRecentDocumentsSettings {
+- (void)loadRecentDocumentsSettingsForVersion:(NSString *)version {
+    if (self.recentDocumentsSettings) {
+        return;
+    }
+    
     @try {
-        self.recentDocumentsSettings = [NSKeyedUnarchiver unarchiveObjectWithFile:recentDocumentsSettingsFilePath];
+        self.recentDocumentsSettings = [NSKeyedUnarchiver unarchiveObjectWithFile:[self recentDocumentsSettingsFilePathForVersion:nil]];
     }
     @catch (NSException *e) {
-        NSLog(@"ERROR: Can't open recent documents settings file '%@': %@", recentDocumentsSettingsFilePath, e);
+        NSLog(@"ERROR: Can't open recent documents settings file '%@' for app version '%@': %@", 
+              [self recentDocumentsSettingsFilePathForVersion:nil], version, e);
     }
     @finally {
         if (nil == recentDocumentsSettings) {
@@ -124,17 +190,13 @@
 
 - (void)saveRecentDocumentsSettings {
     if (![NSKeyedArchiver archiveRootObject:recentDocumentsSettings 
-                                     toFile:recentDocumentsSettingsFilePath]) {
+                                     toFile:[self recentDocumentsSettingsFilePathForVersion:nil]]) {
         NSLog(@"ERROR: Can't save recent documents settings into file '%@'", 
-              recentDocumentsSettingsFilePath);
+              [self recentDocumentsSettingsFilePathForVersion:nil]);
     }
 }
 
 - (void)dealloc {
-    self.applicationSupportFolderPath = nil;
-    self.bookmarksFilePath = nil;
-    self.recentDocumentsSettingsFilePath = nil;
-    
     self.bookmarks = nil;
     self.recentDocumentsSettings = nil;
     

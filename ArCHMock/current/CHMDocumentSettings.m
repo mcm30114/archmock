@@ -7,6 +7,7 @@
 @synthesize currentSectionScrollOffset;
 @synthesize windowSettings;
 @synthesize date;
+@synthesize textSizeMultiplier;
 
 + (CHMDocumentSettings *)settingsWithCurrentSectionPath:(NSString *)currentSectionPath 
                                     sectionScrollOffset:(NSString *)sectionScrollOffset
@@ -36,6 +37,7 @@
     
     self.currentSectionPath = [coder decodeObjectForKey:@"currentSectionPath"];
     self.currentSectionScrollOffset = [coder decodeObjectForKey:@"sectionScrollOffset"];
+    self.textSizeMultiplier = [coder decodeFloatForKey:@"textSizeMultiplier"];
     self.windowSettings = [coder decodeObjectForKey:@"windowSettings"];
     self.date = [coder decodeObjectForKey:@"date"];
     
@@ -45,6 +47,7 @@
 - (void)encodeWithCoder:(NSCoder *)coder {
     [coder encodeObject:currentSectionPath forKey:@"currentSectionPath"];
     [coder encodeObject:currentSectionScrollOffset forKey:@"sectionScrollOffset"];
+    [coder encodeFloat:textSizeMultiplier forKey:@"textSizeMultiplier"];
     [coder encodeObject:windowSettings forKey:@"windowSettings"];
     [coder encodeObject:date forKey:@"date"];
 }
