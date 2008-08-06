@@ -40,7 +40,6 @@
     }
     
     isPerformingSync = YES;
-    // TODO: use exceptions try/catch
     if (object == [self representedObject] && [keyPath isEqualToString:@"currentSectionPath"]) {
         [self selectSectionInTableOfContentsTree:self.chmDocument.currentSectionPath];
     }

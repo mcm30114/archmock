@@ -47,8 +47,7 @@ static inline void migrateDocumentSettingsFromVersion1_1to1_2(CHMDocumentSetting
     BOOL isDirectory;
     NSString *previousVersion = @"1.1";
     NSString *currentVersion = @"1.2";
-    if ([fileManager fileExistsAtPath:[self applicationSupportFolderPathForVersion:previousVersion] isDirectory:&isDirectory]
-        && isDirectory) {
+    if ([fileManager fileExistsAtPath:[self applicationSupportFolderPathForVersion:previousVersion] isDirectory:&isDirectory] && isDirectory) {
         NSLog(@"INFO: Migrating from version %@ to %@", previousVersion, currentVersion);
         [self loadBookmarksForVersion:previousVersion];
         [self loadRecentDocumentsSettingsForVersion:previousVersion];

@@ -10,6 +10,7 @@
 		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
 		6703B6520DFED7E700E6DD20 /* CHMSearchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6703B6510DFED7E700E6DD20 /* CHMSearchOperation.m */; };
 		6710921A0DD772A200DA5EF0 /* CHMDocumentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 671092190DD772A200DA5EF0 /* CHMDocumentWindowController.m */; };
+		671918BE0E4A29A4001943C3 /* Home.png in Resources */ = {isa = PBXBuildFile; fileRef = 671918BD0E4A29A4001943C3 /* Home.png */; };
 		67380E0B0DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 67380E0A0DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.m */; };
 		673861980DCEA9AC00BEA1DE /* CHMURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 673861970DCEA9AC00BEA1DE /* CHMURLProtocol.m */; };
 		673861B00DCEAB5E00BEA1DE /* CHMApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 673861AF0DCEAB5E00BEA1DE /* CHMApplicationDelegate.m */; };
@@ -33,7 +34,6 @@
 		677C0A670DD2A06F0073A016 /* CHMSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 677C0A660DD2A06F0073A016 /* CHMSection.m */; };
 		677C0A6A0DD2A0940073A016 /* CHMTableOfContents.m in Sources */ = {isa = PBXBuildFile; fileRef = 677C0A690DD2A0940073A016 /* CHMTableOfContents.m */; };
 		6785F14F0E022482000F4094 /* CHMDocumentSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6785F14E0E022482000F4094 /* CHMDocumentSplitView.m */; };
-		6789D2C30E135AC00045F174 /* Home.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 6789D2C20E135AC00045F174 /* Home.tiff */; };
 		679B38730E2733B40034F45E /* CHMBookmarksArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 679B38720E2733B40034F45E /* CHMBookmarksArrayController.m */; };
 		67AA361D0E11854C000CF9CA /* prototype-1.6.0.2-scriptaculous-1.8.1-effects-shrinkvars.js in Resources */ = {isa = PBXBuildFile; fileRef = 67AA360F0E1184C2000CF9CA /* prototype-1.6.0.2-scriptaculous-1.8.1-effects-shrinkvars.js */; };
 		67AA37470E12029B000CF9CA /* BackArrow.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 67AA37460E12029B000CF9CA /* BackArrow.tiff */; };
@@ -87,6 +87,7 @@
 		6703B6510DFED7E700E6DD20 /* CHMSearchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMSearchOperation.m; sourceTree = "<group>"; };
 		671092180DD772A200DA5EF0 /* CHMDocumentWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMDocumentWindowController.h; sourceTree = "<group>"; };
 		671092190DD772A200DA5EF0 /* CHMDocumentWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMDocumentWindowController.m; sourceTree = "<group>"; };
+		671918BD0E4A29A4001943C3 /* Home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Home.png; sourceTree = "<group>"; };
 		67380E090DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMSectionAccumulatedSearchResult.h; sourceTree = "<group>"; };
 		67380E0A0DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMSectionAccumulatedSearchResult.m; sourceTree = "<group>"; };
 		673861960DCEA9AC00BEA1DE /* CHMURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMURLProtocol.h; sourceTree = "<group>"; };
@@ -128,7 +129,6 @@
 		677C0A690DD2A0940073A016 /* CHMTableOfContents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMTableOfContents.m; sourceTree = "<group>"; };
 		6785F14D0E022482000F4094 /* CHMDocumentSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMDocumentSplitView.h; sourceTree = "<group>"; };
 		6785F14E0E022482000F4094 /* CHMDocumentSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMDocumentSplitView.m; sourceTree = "<group>"; };
-		6789D2C20E135AC00045F174 /* Home.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Home.tiff; sourceTree = "<group>"; };
 		679B38710E2733B40034F45E /* CHMBookmarksArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMBookmarksArrayController.h; sourceTree = "<group>"; };
 		679B38720E2733B40034F45E /* CHMBookmarksArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMBookmarksArrayController.m; sourceTree = "<group>"; };
 		67AA360F0E1184C2000CF9CA /* prototype-1.6.0.2-scriptaculous-1.8.1-effects-shrinkvars.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "prototype-1.6.0.2-scriptaculous-1.8.1-effects-shrinkvars.js"; sourceTree = "<group>"; };
@@ -260,11 +260,11 @@
 			isa = PBXGroup;
 			children = (
 				6761DFF20E18991400DBF296 /* script.aculo.us MIT-license */,
+				671918BD0E4A29A4001943C3 /* Home.png */,
 				6761DFF40E18999100DBF296 /* prototype MIT-license */,
 				67AA37EF0E12831B000CF9CA /* ShowSidebar.png */,
 				675CEF860E4819F30000724A /* Print.png */,
 				67DEDCA90E26C9E60018C6EE /* AddBookmark.png */,
-				6789D2C20E135AC00045F174 /* Home.tiff */,
 				67AA37F00E12831B000CF9CA /* HideSidebar.png */,
 				67AA374E0E120511000CF9CA /* SmallerFont.tiff */,
 				67AA374C0E120503000CF9CA /* BiggerFont.tiff */,
@@ -490,7 +490,6 @@
 				67AA374F0E120511000CF9CA /* SmallerFont.tiff in Resources */,
 				67AA37F10E12831B000CF9CA /* ShowSidebar.png in Resources */,
 				67AA37F20E12831B000CF9CA /* HideSidebar.png in Resources */,
-				6789D2C30E135AC00045F174 /* Home.tiff in Resources */,
 				67BD29D20E149BE7001A0FEC /* QuestionMark.icns in Resources */,
 				6761DFF30E18991400DBF296 /* script.aculo.us MIT-license in Resources */,
 				6761DFF50E18999100DBF296 /* prototype MIT-license in Resources */,
@@ -500,6 +499,7 @@
 				67D0CF0C0E2875F2000FD146 /* bDistributed-license in Resources */,
 				67D0D1CE0E2A643B000FD146 /* BookmarksEditor.xib in Resources */,
 				675CEF870E4819F30000724A /* Print.png in Resources */,
+				671918BE0E4A29A4001943C3 /* Home.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
