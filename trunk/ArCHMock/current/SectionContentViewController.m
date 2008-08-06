@@ -9,7 +9,7 @@
 @implementation SectionContentViewController
 
 @dynamic webView;
-@synthesize scheduleScrollingToHighlight;
+@synthesize shouldScheduleScrollingToHighlight;
 
 - (WebView *)webView {
     return (WebView *)[self view];
@@ -29,6 +29,31 @@
     [[self chmDocument] addObserver:self forKeyPath:@"currentSearchQuery" options:NSKeyValueChangeSetting context:nil];
 }
 
+- (IBAction)scheduleScrollingToHighlight:(id)sender {
+    self.shouldScheduleScrollingToHighlight = YES;
+}
+
+- (void)updateContentTextSizeMultiplierSetting {
+    //    NSLog(@"DEBUG: textSizeMultiplier: %f", textSizeMultiplier);
+    float textSizeMultiplier = [[self webView] textSizeMultiplier];
+    self.chmDocument.contentViewSettings.textSizeMultiplier = textSizeMultiplier;
+}
+
+- (IBAction)makeContentTextLarger:(id)sender {
+    [[self webView] makeTextLarger:sender];
+    [self updateContentTextSizeMultiplierSetting];
+}
+
+- (IBAction)makeContentTextStandardSize:(id)sender {
+    [[self webView] makeTextStandardSize:sender];
+    [self updateContentTextSizeMultiplierSetting];
+}
+
+- (IBAction)makeContentTextSmaller:(id)sender {
+    [[self webView] makeTextSmaller:sender];
+    [self updateContentTextSizeMultiplierSetting];
+}
+
 // JavaScript extravaganza
 + (BOOL)isSelectorExcludedFromWebScript:(SEL)selector {
     if (selector == @selector(contentScrolled:)) {
@@ -42,6 +67,15 @@
         return @"contentScrolled";
     }
     return nil;
+}
+
+- (NSString *)executeJavaScriptCode:(NSString *)codeString asynchronously:(BOOL)asynchronously {
+    codeString = [NSString stringWithFormat:@"try { %@; } catch(e) { Logger.error(e.toString()); }", codeString];
+    WebScriptObject *scriptObject = [[self webView] windowScriptObject];
+    if (asynchronously) {
+        codeString = [NSString stringWithFormat:@"setTimeout(function() { %@; }, 0);", codeString];
+    }
+    return [scriptObject evaluateWebScript:codeString];
 }
 
 static CHMJavaScriptConsole *console = nil;
@@ -76,37 +110,12 @@ static NSString *librariesCode = nil;
     [self executeJavaScriptCode:librariesCode asynchronously:NO];
 }
 
-- (IBAction)scheduleScrollingToHighlight:(id)sender {
-    self.scheduleScrollingToHighlight = YES;
-}
-
 - (IBAction)scrollToNextHighlight:(id)sender {
     [self executeJavaScriptCode:@"highlighter.scrollToNextHighlight()" asynchronously:YES];
 }
 
 - (IBAction)scrollToPreviousHighlight:(id)sender {
     [self executeJavaScriptCode:@"highlighter.scrollToPreviousHighlight()" asynchronously:YES];
-}
-
-- (void)updateContentTextSizeMultiplierSetting {
-    //    NSLog(@"DEBUG: textSizeMultiplier: %f", textSizeMultiplier);
-    float textSizeMultiplier = [[self webView] textSizeMultiplier];
-    self.chmDocument.contentViewSettings.textSizeMultiplier = textSizeMultiplier;
-}
-
-- (IBAction)makeContentTextLarger:(id)sender {
-    [[self webView] makeTextLarger:sender];
-    [self updateContentTextSizeMultiplierSetting];
-}
-
-- (IBAction)makeContentTextStandardSize:(id)sender {
-    [[self webView] makeTextStandardSize:sender];
-    [self updateContentTextSizeMultiplierSetting];
-}
-
-- (IBAction)makeContentTextSmaller:(id)sender {
-    [[self webView] makeTextSmaller:sender];
-    [self updateContentTextSizeMultiplierSetting];
 }
 
 - (BOOL)canScrollBetweenHighlights {
@@ -121,43 +130,33 @@ static NSString *librariesCode = nil;
     [self executeJavaScriptCode:codeString asynchronously:YES];
 }
 
-- (void)highlightContentIfNeeded {
+- (void)highlightContentUsingSearchStringFromSearchQuery {
     CHMSearchQuery *query = [[self chmDocument] currentSearchQuery];
     if (query) {
         NSLog(@"DEBUG: Highlighting content");
         NSString *searchString = [query.searchString stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
         [self executeJavaScriptCode:[NSString stringWithFormat:@"highlighter.highlight('%@')", searchString] asynchronously:NO];
-        if (self.scheduleScrollingToHighlight) {
+        if (self.shouldScheduleScrollingToHighlight) {
             [self executeJavaScriptCode:@"highlighter.scheduleScrollingToHighlight()" asynchronously:YES];
-            self.scheduleScrollingToHighlight = NO;
+            self.shouldScheduleScrollingToHighlight = NO;
         }
     }
 }
 
 - (void)removeHighlights {
 //    NSLog(@"DEBUG: Removing content highlights");
-    
     [self executeJavaScriptCode:@"highlighter.removeHighlights()" asynchronously:NO];
-}
-
-- (NSString *)executeJavaScriptCode:(NSString *)codeString asynchronously:(BOOL)asynchronously {
-    codeString = [NSString stringWithFormat:@"try { %@; } catch(e) { Logger.error(e.toString()); }", codeString];
-    WebScriptObject *scriptObject = [[self webView] windowScriptObject];
-    if (asynchronously) {
-        codeString = [NSString stringWithFormat:@"setTimeout(function() { %@; }, 0);", codeString];
-    }
-    return [scriptObject evaluateWebScript:codeString];
 }
 // End of JavaScript extravaganza
 
 - (void)notifyAboutCurrentContentChange {
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SectionContentLoaded" object:self];
-    
     if (isPerformingSync) {
         return;
     }
-    
     isPerformingSync = YES;
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SectionContentLoaded" object:self];
+    
     
     NSURL *sectionURL = [NSURL URLWithString:[self.webView mainFrameURL]];
     NSString *urlPath = [[[sectionURL path] substringFromIndex:1] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -198,7 +197,7 @@ static NSString *librariesCode = nil;
         else if ([keyPath isEqualToString:@"currentSearchQuery"]) {
             if (nil != [[self chmDocument] currentSearchQuery]) {
                 [self removeHighlights];
-                [self highlightContentIfNeeded];
+                [self highlightContentUsingSearchStringFromSearchQuery];
             }
             else {
                 [self removeHighlights];
@@ -216,7 +215,7 @@ static NSString *librariesCode = nil;
         [self injectJavaScriptIntoContent];
         [self updateScrollOffsetSetting];
         
-        [self highlightContentIfNeeded];
+        [self highlightContentUsingSearchStringFromSearchQuery];
         
         if (nil != self.chmDocument.contentViewSettingsToApply) {
             float textSizeMultiplier = self.chmDocument.contentViewSettingsToApply.textSizeMultiplier;
@@ -234,7 +233,7 @@ static NSString *librariesCode = nil;
 }
 
 - (void)webView:(WebView *)sender didChangeLocationWithinPageForFrame:(WebFrame *)frame {
-    NSLog(@"DEBUG: Changed location within page frame");
+//    NSLog(@"DEBUG: Changed location within page frame");
     [self notifyAboutCurrentContentChange];
 }
 
@@ -259,8 +258,7 @@ static inline void openExternalURL(id<WebPolicyDecisionListener> listener, NSURL
     openExternalURL(listener, request);
 }
 
-- (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element
-    defaultMenuItems:(NSArray *)defaultMenuItems {
+- (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element defaultMenuItems:(NSArray *)defaultMenuItems {
     NSURL *url = [element objectForKey:WebElementLinkURLKey];
     
     if (url && [CHMURLProtocol canInitWithRequest:[NSURLRequest requestWithURL:url]]) {

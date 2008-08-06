@@ -2,11 +2,11 @@
 #import "CHMSubViewController.h"
 
 @interface SectionContentViewController : CHMSubViewController {
-    BOOL scheduleScrollingToHighlight;
+    BOOL shouldScheduleScrollingToHighlight;
 }
 
 @property (readonly) WebView *webView;
-@property BOOL scheduleScrollingToHighlight;
+@property BOOL shouldScheduleScrollingToHighlight;
 
 - (IBAction)scheduleScrollingToHighlight:(id)sender;
 - (IBAction)scrollToNextHighlight:(id)sender;
@@ -17,11 +17,5 @@
 - (IBAction)makeContentTextSmaller:(id)sender;
 
 - (BOOL)canScrollBetweenHighlights;
-
-- (NSString *)executeJavaScriptCode:(NSString *)codeString asynchronously:(BOOL)asynchronously;
-
-- (void)injectJavaScriptIntoContent;
-- (void)highlightContentIfNeeded;
-- (void)removeHighlights;
 
 @end

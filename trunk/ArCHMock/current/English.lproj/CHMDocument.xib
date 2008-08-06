@@ -8,7 +8,7 @@
 		<string key="IBDocument.HIToolboxVersion">352.00</string>
 		<object class="NSMutableArray" key="IBDocument.EditedObjectIDs">
 			<bool key="EncodedWithXMLCoder">YES</bool>
-			<integer value="100317"/>
+			<integer value="100326"/>
 		</object>
 		<object class="NSArray" key="IBDocument.PluginDependencies">
 			<bool key="EncodedWithXMLCoder">YES</bool>
@@ -67,7 +67,7 @@
 								<object class="NSButton" key="NSToolbarItemView" id="390631010">
 									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{31, 14}, {25, 25}}</string>
+									<string key="NSFrame">{{30, 14}, {28, 25}}</string>
 									<reference key="NSSuperview"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="940056979">
@@ -95,8 +95,8 @@
 								<reference key="NSToolbarItemImage" ref="1042843987"/>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
-								<string key="NSToolbarItemMinSize">{25, 25}</string>
-								<string key="NSToolbarItemMaxSize">{25, 25}</string>
+								<string key="NSToolbarItemMinSize">{28, 25}</string>
+								<string key="NSToolbarItemMaxSize">{28, 25}</string>
 								<bool key="NSToolbarItemEnabled">YES</bool>
 								<bool key="NSToolbarItemAutovalidates">NO</bool>
 								<int key="NSToolbarItemTag">0</int>
@@ -250,7 +250,7 @@
 								<object class="NSButton" key="NSToolbarItemView" id="749825747">
 									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{28, 14}, {25, 25}}</string>
+									<string key="NSFrame">{{27, 14}, {28, 25}}</string>
 									<reference key="NSSuperview"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="523140591">
@@ -274,8 +274,8 @@
 								<reference key="NSToolbarItemImage" ref="974277696"/>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
-								<string key="NSToolbarItemMinSize">{25, 25}</string>
-								<string key="NSToolbarItemMaxSize">{25, 25}</string>
+								<string key="NSToolbarItemMinSize">{28, 25}</string>
+								<string key="NSToolbarItemMaxSize">{28, 25}</string>
 								<bool key="NSToolbarItemEnabled">YES</bool>
 								<bool key="NSToolbarItemAutovalidates">NO</bool>
 								<int key="NSToolbarItemTag">0</int>
@@ -417,7 +417,7 @@
 								<object class="NSButton" key="NSToolbarItemView" id="1052778407">
 									<reference key="NSNextResponder"/>
 									<int key="NSvFlags">268</int>
-									<string key="NSFrame">{{31, 14}, {25, 25}}</string>
+									<string key="NSFrame">{{29, 14}, {28, 25}}</string>
 									<reference key="NSSuperview"/>
 									<bool key="NSEnabled">YES</bool>
 									<object class="NSButtonCell" key="NSCell" id="569681022">
@@ -441,8 +441,8 @@
 								<reference key="NSToolbarItemImage" ref="916945987"/>
 								<nil key="NSToolbarItemTarget"/>
 								<nil key="NSToolbarItemAction"/>
-								<string key="NSToolbarItemMinSize">{25, 25}</string>
-								<string key="NSToolbarItemMaxSize">{25, 25}</string>
+								<string key="NSToolbarItemMinSize">{28, 25}</string>
+								<string key="NSToolbarItemMaxSize">{28, 25}</string>
 								<bool key="NSToolbarItemEnabled">YES</bool>
 								<bool key="NSToolbarItemAutovalidates">NO</bool>
 								<int key="NSToolbarItemTag">0</int>
@@ -566,7 +566,6 @@
 					</object>
 				</object>
 				<string key="NSWindowContentMaxSize">{3.40282e+38, 3.40282e+38}</string>
-				<string key="NSWindowContentMinSize">{700, 500}</string>
 				<object class="NSView" key="NSWindowView" id="568628114">
 					<reference key="NSNextResponder"/>
 					<int key="NSvFlags">256</int>
@@ -678,7 +677,7 @@
 					<reference key="NSSuperview"/>
 				</object>
 				<string key="NSScreenRect">{{0, 0}, {1280, 778}}</string>
-				<string key="NSMinSize">{700, 571}</string>
+				<string key="NSMinSize">{0, 71}</string>
 				<string key="NSMaxSize">{3.40282e+38, 3.40282e+38}</string>
 				<string key="NSFrameAutosaveName"/>
 			</object>
@@ -1502,7 +1501,7 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>CHMToolbar</string>
-					<string>{{500, 471}, {616, 227}}</string>
+					<string>{{343, 468}, {616, 227}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<integer value="0" id="8"/>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
@@ -1564,11 +1563,11 @@
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
-					<string>{{358, 98}, {900, 600}}</string>
+					<string>{{201, 95}, {900, 600}}</string>
 					<string>com.apple.InterfaceBuilder.CocoaPlugin</string>
 					<reference ref="8"/>
 					<reference ref="9"/>
-					<string>{{358, 98}, {900, 600}}</string>
+					<string>{{201, 95}, {900, 600}}</string>
 					<reference ref="9"/>
 					<reference ref="8"/>
 					<string>{{201, 387}, {507, 413}}</string>
@@ -1632,6 +1631,7 @@
 							<string>makeContentTextSmaller:</string>
 							<string>makeContentTextStandardSize:</string>
 							<string>openAddCurrentSectionToBookmarksWindow:</string>
+							<string>scheduleScrollingToHighlight:</string>
 							<string>scrollContentWithOffset:</string>
 							<string>scrollToNextHighlight:</string>
 							<string>scrollToPreviousHighlight:</string>
@@ -1640,6 +1640,7 @@
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
