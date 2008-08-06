@@ -34,21 +34,19 @@
     
     [self getBytes:(void *)&value range:valueRange];
 //    NSLog(@"DEBUG: Raw char: %02X", value);
-    // TODO: Find out why this swaping caused segmentation faults on Power PC and under Rosetta
+    // TODO: Find out why this swaping caused segmentation faults on Power PC and on Intel under Rosetta
 //    return NSSwapLittleLongToHost(value);
     return value;
 }
 
-- (NSString *)stringFromOffset:(NSUInteger)offset {
+- (NSString *)stringWithEncoding:(NSStringEncoding)encoding fromOffset:(NSUInteger)offset {
     if (![self isOffsetValid:offset]) {
         return nil;
     }
     const char *stringData = (const char *)[self bytes] + offset;
-    return [NSString stringWithUTF8String:stringData];
+    return [NSString stringWithCString:stringData encoding:encoding];
 }
-
-- (NSString *)stringFromOffset:(NSUInteger)offset 
-                        length:(NSUInteger)length {
+- (NSString *)stringWithEncoding:(NSStringEncoding)encoding fromOffset:(NSUInteger)offset length:(NSUInteger)length {
     if (![self isOffsetValid:offset]) {
         return nil;
     }
@@ -59,13 +57,9 @@
     }
     
     char *buffer = malloc(length);
-    [self getBytes:buffer 
-             range:NSMakeRange(offset, length)];
+    [self getBytes:buffer range:NSMakeRange(offset, length)];
     
-    NSString *string = [[[NSString alloc] initWithBytesNoCopy:buffer 
-                                                       length:length 
-                                                     encoding:NSUTF8StringEncoding 
-                                                 freeWhenDone:YES] autorelease];
+    NSString *string = [[[NSString alloc] initWithBytesNoCopy:buffer length:length encoding:encoding freeWhenDone:YES] autorelease];
     if (!string) {
         NSLog(@"WARN: Can't construct string from data with offset: '%20X' and length: '%i'", offset, length);
         free(buffer);
@@ -73,8 +67,7 @@
     return string;
 }
 
-- (NSData *)dataFromOffset:(NSUInteger)offset 
-                    length:(NSUInteger)length {
+- (NSData *)dataFromOffset:(NSUInteger)offset length:(NSUInteger)length {
     if (offset + length > [self length]) {
         length = [self length] - offset;
     }
@@ -82,16 +75,13 @@
     return [self subdataWithRange:NSMakeRange(offset, length)];
 }
 
-- (NSString *)indexWordFromOffset:(NSUInteger)offset 
-                     previousWord:(NSString *)previousWord 
-                   wordPartLength:(long long *)wordPartLength {
+- (NSString *)indexWordWithEncoding:(NSStringEncoding)encoding fromOffset:(NSUInteger)offset previousWord:(NSString *)previousWord wordPartLength:(long long *)wordPartLength {
     unsigned char indexWordPartLength = [self charFromOffset:offset];
 //    NSLog(@"DEBUG: indexWordPartLength: '%04X'", indexWordPartLength);
     unsigned char previousWordPartPosition = [self charFromOffset:offset + 1];
 //    NSLog(@"DEBUG: previousWordPartPosition: '%04X'", previousWordPartPosition);
     
-    NSString *word = [self stringFromOffset:offset + 2 
-                                     length:indexWordPartLength - 1];
+    NSString *word = [self stringWithEncoding:encoding fromOffset:offset + 2 length:indexWordPartLength - 1];
     
     if (0 != previousWordPartPosition) {
 //        NSLog(@"DEBUG: Taking part from previous index word '%@' up to position: '%i'", previousWord, previousWordPartPosition);
@@ -104,8 +94,7 @@
 }
 
 // Algorithm is taken from ffus of ext.c of pyCHM
-- (u_int64_t)encodedIntegerFromOffset:(NSUInteger)offset 
-                 readDataLength:(long long *)readDataLength {
+- (u_int64_t)encodedIntegerFromOffset:(NSUInteger)offset readDataLength:(long long *)readDataLength {
     *readDataLength = 0;
     int shift = 0;
     u_int64_t data = 0;
@@ -124,9 +113,7 @@
 // Finds the first unset bit in memory. Returns the number of set bits found.
 // Returns -1 if the buffer runs out before we find an unset bit.
 // Algorithm is taken from ffus of ext.c of pyCHM
-static inline int firstUnsetBit(unsigned char *byte, 
-                                int *bit, 
-                                long long *readDataLength) {
+static inline int firstUnsetBit(unsigned char *byte, int *bit, long long *readDataLength) {
     int bits = 0;
     *readDataLength = 0;
     
@@ -154,11 +141,7 @@ static inline int firstUnsetBit(unsigned char *byte,
 }
 
 // Algorithm is take from rc_int of ext.c of pyCHM
-- (u_int64_t)decodeIntegerFromOffset:(NSUInteger)offset 
-                               scale:(unsigned char)scale
-                            rootSize:(unsigned char)rootSize
-                                 bit:(int *)bit 
-                      readDataLength:(long long *)readDataLength {
+- (u_int64_t)decodeIntegerFromOffset:(NSUInteger)offset scale:(unsigned char)scale rootSize:(unsigned char)rootSize bit:(int *)bit readDataLength:(long long *)readDataLength {
     *readDataLength = 0;
     
 	if (!bit || *bit > 7 || scale != 2) {
@@ -169,9 +152,7 @@ static inline int firstUnsetBit(unsigned char *byte,
     unsigned char* byte = (unsigned char*)[self bytes] + offset;
     
 	long long readDataLengthFromFirstUnsetBitSearch = 0;
-    int count = firstUnsetBit(byte, 
-                              bit,
-                              &readDataLengthFromFirstUnsetBitSearch);
+    int count = firstUnsetBit(byte, bit, &readDataLengthFromFirstUnsetBitSearch);
 	*readDataLength += readDataLengthFromFirstUnsetBitSearch;
 	byte += *readDataLength;
     

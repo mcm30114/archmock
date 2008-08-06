@@ -20,7 +20,6 @@
             return nil;
         }
         
-        int wordsCount = [substrings count];
         
         self.tokens = [NSMutableArray array];
         self.uniqueSubstrings = [NSMutableArray array];
@@ -32,15 +31,13 @@
             substring = [[substrings objectAtIndex:0] lowercaseString];
             [substrings removeObjectAtIndex:0];
             
-//            if (wordsCount > 1) {
-                NSArray *alphaNumericSubstrings = [substring componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]];
-                alphaNumericSubstrings = [alphaNumericSubstrings filteredArrayUsingPredicate:emptyStringPredicate];
-                if ([alphaNumericSubstrings count] > 0 && 
-                    ([alphaNumericSubstrings count] != 1 || ![alphaNumericSubstrings containsObject:substring])) {
-                    [substrings insertObjects:alphaNumericSubstrings atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [alphaNumericSubstrings count])]];
-                    continue;
-                }
-//            }
+            NSArray *alphaNumericSubstrings = [substring componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]];
+            alphaNumericSubstrings = [alphaNumericSubstrings filteredArrayUsingPredicate:emptyStringPredicate];
+            if ([alphaNumericSubstrings count] > 0 && 
+                ([alphaNumericSubstrings count] != 1 || ![alphaNumericSubstrings containsObject:substring])) {
+                [substrings insertObjects:alphaNumericSubstrings atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [alphaNumericSubstrings count])]];
+                continue;
+            }
             
             CHMSearchToken *token = [CHMSearchToken tokenWithString:[NSString stringWithString:substring] position:i++];
             if (![self.tokensBySubstrings objectForKey:substring]) {

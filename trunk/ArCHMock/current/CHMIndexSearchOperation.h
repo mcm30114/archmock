@@ -11,17 +11,16 @@
     CHMSearchQuery *query;
     NSString *currentString;
     
+    NSStringEncoding containerEncoding;
     int wordsInSectionsFound;
     int flushWordsThreshold;
     NSMutableDictionary *searchResultBySectionPath;
 }
 
-+ (id)operationWithDocument:(CHMDocument *)document 
-                      query:(CHMSearchQuery *)query;
++ (id)operationWithDocument:(CHMDocument *)document query:(CHMSearchQuery *)query;
+- (id)initWithDocument:(CHMDocument *)initDocument query:(CHMSearchQuery *)initQuery;
 
-- (id)initWithDocument:(CHMDocument *)initDocument
-                 query:(CHMSearchQuery *)initQuery;
-
+@property NSStringEncoding containerEncoding;
 @property int wordsInSectionsFound;
 @property int flushWordsThreshold;
 @property (retain) CHMDocument *document;

@@ -10,7 +10,6 @@
 @property int position;
 
 + (CHMSearchToken *)tokenWithString:(NSString *)string position:(int)position;
-
 - (id)initWithString:(NSString *)initString position:(int)initPosition;
 
 @end

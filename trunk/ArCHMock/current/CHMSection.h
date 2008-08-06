@@ -15,11 +15,7 @@
 @property (retain) NSIndexPath *indexPath;
 @property (retain) NSMutableArray *children;
 
-+ (CHMSection *)sectionWithLabel:(NSString *)initName 
-                       path:(NSString *)initPath 
-                     parent:(CHMSection *)parentSection;
++ (CHMSection *)sectionWithLabel:(NSString *)initName path:(NSString *)initPath parent:(CHMSection *)parentSection;
+- (id)initWithLabel:(NSString *)initName path:(NSString *)initPath parent:(CHMSection *)parentSection;
 
-- (id)initWithLabel:(NSString *)initName 
-              path:(NSString *)initPath 
-            parent:(CHMSection *)parentSection;
 @end

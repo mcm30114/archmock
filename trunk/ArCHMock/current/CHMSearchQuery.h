@@ -14,7 +14,6 @@
 @property (retain) NSString *searchString;
 
 + (CHMSearchQuery *)queryWithString:(NSString *)string;
-
 - (id)initWithString:(NSString *)initString;
 
 - (NSMutableArray *)tokensInfoArray;

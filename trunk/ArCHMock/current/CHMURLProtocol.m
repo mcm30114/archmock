@@ -24,7 +24,7 @@
     id client = [self client];
     
     NSURL *url = [[self request] URL];
-//    NSLog(@"INFO: Handling URL '%@'", url);
+    NSLog(@"INFO: Handling URL '%@'", url);
     
     NSString *containerUniqueID = [url host];
     NSString *objectPath = [url path];
@@ -48,55 +48,39 @@
 //        NSPredicate *htmlPredicate = [NSPredicate predicateWithFormat:@"SELF MATCHES '.*?\\\\.(?i)html?($|#.*)'"];
 //        if ([htmlPredicate evaluateWithObject:objectPath]) {
 //            NSString *debugFilePath = [[NSString stringWithFormat:@"~/Temp/%@/%@", [url host], [url path]] stringByExpandingTildeInPath];
-//
+
 //            NSError *error = nil;
-//            [[NSFileManager defaultManager] createDirectoryAtPath:[debugFilePath stringByDeletingLastPathComponent]
-//                                      withIntermediateDirectories:YES
-//                                                       attributes:nil
-//                                                            error:&error];
-//            [objectData writeToFile:debugFilePath 
-//                         atomically:YES];
+//            [[NSFileManager defaultManager] createDirectoryAtPath:[debugFilePath stringByDeletingLastPathComponent] withIntermediateDirectories:YES attributes:nil error:&error];
+//            [objectData writeToFile:debugFilePath atomically:YES];
             
-//            NSString *objectString = [[[NSString alloc] initWithData:objectData encoding:NSUTF8StringEncoding] autorelease];
+//            NSString *objectString = [[[NSString alloc] initWithData:objectData encoding:document.container.encoding] autorelease];
 //            if (objectString) {
 //                contentType = @"text/html";
-//            NSLog(@"DEBUG: Object data is a string: '%@'", objectString);
-//            NSError *error = nil;
-//            NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:objectString
-//                                                                   options:NSXMLDocumentTidyHTML
-//                                                                     error:&error] autorelease];
-//            if (doc != nil) {
-////                NSLog(@"DEBUG: Tidy HTML: '%@'", [doc XMLString]);
-//                objectData = [doc XMLDataWithOptions:NSXMLDocumentIncludeContentTypeDeclaration | NSXMLDocumentTidyXML];
-//                //                NSLog(@"DEBUG: XMLData: '%@'", objectData);
-//            }
-//            else {
-//                NSLog(@"WARN: Error while parsing HTML: %@", error);
-//            }
+//                NSLog(@"DEBUG: Object data is a string: '%@'", objectString);
+//                NSError *error = nil;
+//                NSXMLDocument *doc = [[[NSXMLDocument alloc] initWithXMLString:objectString options:NSXMLDocumentTidyHTML error:&error] autorelease];
+//                if (doc != nil) {
+//    //                NSLog(@"DEBUG: Tidy HTML: '%@'", [doc XMLString]);
+//                    objectData = [doc XMLDataWithOptions:NSXMLDocumentIncludeContentTypeDeclaration | NSXMLDocumentTidyXML];
+//                    //                NSLog(@"DEBUG: XMLData: '%@'", objectData);
+//                }
+//                else {
+//                    NSLog(@"WARN: Error while parsing HTML: %@", error);
+//                }
 //            }
 //        }
         
-        NSURLResponse *response = [[[NSURLResponse alloc] initWithURL:url 
-                                                             MIMEType:contentType
-                                                expectedContentLength:[objectData length]
-                                                     textEncodingName:nil] 
-                                   autorelease];
+        NSURLResponse *response = [[[NSURLResponse alloc] initWithURL:url MIMEType:contentType expectedContentLength:[objectData length] textEncodingName:document.container.encodingName] autorelease];
         
-        [client URLProtocol:self 
-         didReceiveResponse:response 
-         cacheStoragePolicy:NSURLCacheStorageNotAllowed];
-        
+        [client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
         [client URLProtocol:self didLoadData:objectData];
         
         //        NSLog(@"INFO: URL '%@' handled", url);
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"URLHandled" 
-                                                            object:document 
-                                                          userInfo:[NSDictionary dictionaryWithObject:url
-                                                                                               forKey:@"url"]];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"URLHandled" object:document userInfo:[NSDictionary dictionaryWithObject:url forKey:@"url"]];
     }
     else {
-//        NSLog(@"WARN: URL '%@' isn't handled: no data for object with path '%@'", url, objectPath);
+        NSLog(@"WARN: URL '%@' isn't handled: no data for object with path '%@'", url, objectPath);
     }
     
     [client URLProtocolDidFinishLoading:self];

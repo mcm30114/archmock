@@ -5,21 +5,15 @@
 
 @synthesize label, path, parent, indexPath, children;
 
-+ (CHMSection *)sectionWithLabel:(NSString *)initName 
-                            path:(NSString *)initPath
-                          parent:(CHMSection *)parentSection {
-    return [[[CHMSection alloc] initWithLabel:initName 
-                                        path:initPath
-                                      parent:parentSection] autorelease];
++ (CHMSection *)sectionWithLabel:(NSString *)initName path:(NSString *)initPath parent:(CHMSection *)parentSection {
+    return [[[CHMSection alloc] initWithLabel:initName path:initPath parent:parentSection] autorelease];
 }
 
-- (id)initWithLabel:(NSString *)initLabel
-               path:(NSString *)initPath
-             parent:(CHMSection *)parentSection {
+- (id)initWithLabel:(NSString *)initLabel path:(NSString *)initPath parent:(CHMSection *)parentSection {
     if (self = [super init]) {
-        self.label    = initLabel;
-        self.path     = initPath;
-        self.parent   = parentSection;
+        self.label = initLabel;
+        self.path = initPath;
+        self.parent = parentSection;
         self.children = [NSMutableArray array];
         
         if (parentSection) {
@@ -35,17 +29,13 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@ Label: '%@', path: '%@', indexPath: %@", 
-            [super description],
-            label, 
-            path, 
-            indexPath];
+    return [NSString stringWithFormat:@"%@: {label: '%@', path: '%@', indexPath: %@}", [super description], label, path, indexPath];
 }
 
 - (void)dealloc {
-    self.label    = nil;
-    self.path     = nil;
-    self.parent   = nil;
+    self.label = nil;
+    self.path = nil;
+    self.parent = nil;
     self.children = nil;
     
     [super dealloc];

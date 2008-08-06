@@ -10,6 +10,7 @@
 @synthesize wordsInSectionsFound;
 @synthesize flushWordsThreshold;
 @synthesize searchResultBySectionPath;
+@synthesize containerEncoding;
 
 + (id)operationWithDocument:(CHMDocument *)document query:(CHMSearchQuery *)query {
     return [[[CHMIndexSearchOperation alloc] initWithDocument:document query:query] autorelease];
@@ -18,6 +19,7 @@
 - (id)initWithDocument:(CHMDocument *)initDocument query:(CHMSearchQuery *)initQuery {
     if (self = [super init]) {
         self.document = initDocument;
+        self.containerEncoding = initDocument.container.encoding;
         self.index = document.index;
         self.query = initQuery;
         
