@@ -38,15 +38,18 @@ static inline void migrateDocumentSettingsFromVersion1_1to1_2(CHMDocumentSetting
         contentViewSettings.scrollOffset = settings.currentSectionScrollOffset;
     }
     settings.contentViewSettings = contentViewSettings;
+    
+    NSLog(@"DEBUG: Migrated settings: %@", settings);
 }
 
 - (BOOL)migrate {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL isDirectory;
     NSString *previousVersion = @"1.1";
+    NSString *currentVersion = @"1.2";
     if ([fileManager fileExistsAtPath:[self applicationSupportFolderPathForVersion:previousVersion] isDirectory:&isDirectory]
         && isDirectory) {
-        NSLog(@"INFO: Migrating from version %@", previousVersion);
+        NSLog(@"INFO: Migrating from version %@ to %@", previousVersion, currentVersion);
         [self loadBookmarksForVersion:previousVersion];
         [self loadRecentDocumentsSettingsForVersion:previousVersion];
         
@@ -58,16 +61,14 @@ static inline void migrateDocumentSettingsFromVersion1_1to1_2(CHMDocumentSetting
         }
         
         NSError *error = nil;
-        if (![fileManager moveItemAtPath:[self applicationSupportFolderPathForVersion:previousVersion] 
-                             toPath:[self applicationSupportFolderPathForVersion:nil] 
-                                   error:&error]) {
+        if (![fileManager moveItemAtPath:[self applicationSupportFolderPathForVersion:previousVersion] toPath:[self applicationSupportFolderPathForVersion:nil] error:&error]) {
             self.bookmarks = nil;
             self.recentDocumentsSettings = nil;
-            NSLog(@"ERROR: Couldn't migrate application from version %@. Please contact developer", previousVersion);
+            NSLog(@"ERROR: Couldn't migrate application from version %@ to %@. Please contact developer", previousVersion, currentVersion);
             return NO;
         }
         else {
-            NSLog(@"INFO: Migration from version %@ has succeeded", previousVersion);
+            NSLog(@"INFO: Migration from version %@ to %@ has succeeded", previousVersion, currentVersion);
         }
         return YES;
     }
@@ -110,8 +111,7 @@ static inline void migrateDocumentSettingsFromVersion1_1to1_2(CHMDocumentSetting
     [self saveBookmarks];
     [self saveRecentDocumentsSettings];
     
-    [[NSUserDefaults standardUserDefaults] setObject:[self.lastDocumentWindowSettings data]
-                                              forKey:@"lastDocumentWindowSettings"];
+    [[NSUserDefaults standardUserDefaults] setObject:[self.lastDocumentWindowSettings data] forKey:@"lastDocumentWindowSettings"];
 }
 
 - (void)loadBookmarksForVersion:(NSString *)version {
@@ -123,8 +123,7 @@ static inline void migrateDocumentSettingsFromVersion1_1to1_2(CHMDocumentSetting
         self.bookmarks = [NSKeyedUnarchiver unarchiveObjectWithFile:[self bookmarksFilePathForVersion:version]];
     }
     @catch (NSException *e) {
-        NSLog(@"ERROR: Can't open bookmarks file '%@' for app version '%@': %@", 
-              [self bookmarksFilePathForVersion:version], version, e);
+        NSLog(@"ERROR: Can't open bookmarks file '%@' for app version '%@': %@", [self bookmarksFilePathForVersion:version], version, e);
     }
     @finally {
         if (nil == bookmarks) {
@@ -150,11 +149,10 @@ static inline void migrateDocumentSettingsFromVersion1_1to1_2(CHMDocumentSetting
     }
     
     @try {
-        self.recentDocumentsSettings = [NSKeyedUnarchiver unarchiveObjectWithFile:[self recentDocumentsSettingsFilePathForVersion:nil]];
+        self.recentDocumentsSettings = [NSKeyedUnarchiver unarchiveObjectWithFile:[self recentDocumentsSettingsFilePathForVersion:version]];
     }
     @catch (NSException *e) {
-        NSLog(@"ERROR: Can't open recent documents settings file '%@' for app version '%@': %@", 
-              [self recentDocumentsSettingsFilePathForVersion:nil], version, e);
+        NSLog(@"ERROR: Can't open recent documents settings file '%@' for app version '%@': %@",  [self recentDocumentsSettingsFilePathForVersion:version], version, e);
     }
     @finally {
         if (nil == recentDocumentsSettings) {
