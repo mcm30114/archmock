@@ -4,8 +4,7 @@
 
 @implementation CHMSearchOperation
 
-+ (CHMSearchOperation *)operationWithDocument:(CHMDocument *)document 
-                                        query:(CHMSearchQuery *)query {
++ (CHMSearchOperation *)operationWithDocument:(CHMDocument *)document query:(CHMSearchQuery *)query {
     if (!query) {
         NSLog(@"WARN: Can't create search operation without query");
         return nil;
@@ -22,10 +21,8 @@
     }
 }
 
-+ (CHMSearchOperation *)indexSearchOperationWithDocument:(CHMDocument *)document 
-                                                   query:(CHMSearchQuery *)query {
-    return [CHMIndexSearchOperation operationWithDocument:document 
-                                                    query:query];
++ (CHMSearchOperation *)indexSearchOperationWithDocument:(CHMDocument *)document query:(CHMSearchQuery *)query {
+    return [CHMIndexSearchOperation operationWithDocument:document query:query];
 }
 
 - (CHMSearchQuery *)query {
@@ -33,15 +30,11 @@
     return nil;
 }
 
-- (BOOL)shouldSkipSectionWithLabel:(NSString *)sectionLabel 
-                              path:(NSString *)sectionPath {
+- (BOOL)shouldSkipSectionWithLabel:(NSString *)sectionLabel path:(NSString *)sectionPath {
     return [[sectionPath lowercaseString] hasSuffix:@".hhp"];
 }
 
-- (void)foundWord:(NSString *)word 
- occurencesNumber:(int)occurencesNumber 
-     sectionLabel:(NSString *)sectionLabel 
-      sectionPath:(NSString *)sectionPath {
+- (void)foundWord:(NSString *)word occurencesNumber:(int)occurencesNumber sectionLabel:(NSString *)sectionLabel sectionPath:(NSString *)sectionPath {
     [self doesNotRecognizeSelector:_cmd];
 }
 

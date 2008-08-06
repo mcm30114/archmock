@@ -4,7 +4,8 @@
 @implementation CHMApplicationSettings
 
 @synthesize lastDocumentWindowSettings;
-@synthesize bookmarks, recentDocumentsSettings;
+@synthesize bookmarks;
+@synthesize recentDocumentsSettings;
 
 #define APPLICATIONS_SUPPORT_FOLDER @"~/Library/Application Support"
 

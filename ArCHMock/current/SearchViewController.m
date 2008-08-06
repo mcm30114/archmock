@@ -45,8 +45,8 @@
                 CHMSectionAccumulatedSearchResult *selectedResult = [[tableController selectedObjects] lastObject];
                 NSString *selectedSectionPath = selectedResult.sectionPath;
                 if (![selectedSectionPath isEqualToString:self.chmDocument.currentSectionPath]) {
-                    self.chmDocument.currentSectionPath = selectedSectionPath;
                     [NSApp sendAction:@selector(scheduleScrollingToHighlight:) to:nil from:self];
+                    self.chmDocument.currentSectionPath = selectedSectionPath;
                 }
             }
         }

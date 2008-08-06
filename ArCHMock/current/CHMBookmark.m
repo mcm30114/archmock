@@ -8,20 +8,11 @@
 @synthesize filePath, fileAlias;
 @dynamic fileRelativePath;
 
-+ (CHMBookmark *)bookmarkWithLabel:(NSString *)label 
-                          filePath:(NSString *)filePath
-                      sectionLabel:(NSString *)sectionLabel
-                  documentSettings:(CHMDocumentSettings *)documentSettings {
-    return [[[CHMBookmark alloc] initWithLabel:label
-                                      filePath:filePath
-                                  sectionLabel:sectionLabel
-                              documentSettings:documentSettings] autorelease];
++ (CHMBookmark *)bookmarkWithLabel:(NSString *)label filePath:(NSString *)filePath sectionLabel:(NSString *)sectionLabel documentSettings:(CHMDocumentSettings *)documentSettings {
+    return [[[CHMBookmark alloc] initWithLabel:label filePath:filePath sectionLabel:sectionLabel documentSettings:documentSettings] autorelease];
 }
 
-- (id)initWithLabel:(NSString *)initLabel
-           filePath:(NSString *)initFilePath
-       sectionLabel:(NSString *)initSectionLabel
-   documentSettings:(CHMDocumentSettings *)initDocumentSettings {
+- (id)initWithLabel:(NSString *)initLabel filePath:(NSString *)initFilePath sectionLabel:(NSString *)initSectionLabel documentSettings:(CHMDocumentSettings *)initDocumentSettings {
     if (self = [super init]) {
         self.fileAlias = [BDAlias aliasWithPath:initFilePath];
 
@@ -55,21 +46,13 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@: {label: '%@',\
-fileRelativePath: '%@', sectionLabel: '%@', documentSettings: '%@'}",
-            [super description],
-            label,
-            self.fileRelativePath,
-            sectionLabel,
-            documentSettings
-            ];
+    return [NSString stringWithFormat:@"%@: {label: '%@', fileRelativePath: '%@', sectionLabel: '%@', documentSettings: '%@'}", [super description], label, self.fileRelativePath, sectionLabel, documentSettings];
 }
 
 
 static BOOL doesFileExist(NSString *filePath) {
     BOOL isDirectory;
-    return [[NSFileManager defaultManager] fileExistsAtPath:filePath 
-                                                isDirectory:&isDirectory] && !isDirectory;
+    return [[NSFileManager defaultManager] fileExistsAtPath:filePath isDirectory:&isDirectory] && !isDirectory;
 }
 
 - (NSString *)locateFile {

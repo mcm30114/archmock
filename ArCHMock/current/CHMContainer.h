@@ -1,8 +1,10 @@
 #import <Cocoa/Cocoa.h>
 
 @interface CHMContainer : NSObject {
+    BOOL encodingAvailable;
     struct chmFile *fileHandle;
     NSString *filePath;
+    NSString *title;
     NSString *homeSectionPath;
     NSString *uniqueID;
     
@@ -13,39 +15,35 @@
     NSUInteger encoding;
 }
 
+@property BOOL encodingAvailable;
 @property (retain) NSString *filePath, *uniqueID;
 @property (retain) NSData *systemData, *stringsData, *windowsData;
 
-@property (readonly) NSString *title;
+@property (retain) NSString *title;
 @property (retain) NSString *homeSectionPath;
 
-@property NSUInteger encoding;
+@property NSStringEncoding encoding;
+@property (readonly) NSString *encodingName;
 
 + (CHMContainer *)containerWithFilePath:(NSString*)filePath;
-
 - (id)initWithFilePath:(NSString *)path;
 
-- (NSString *)findHomeSectionPath;
-
-- (NSUInteger)findEncoding;
+- (NSStringEncoding)findEncoding;
+- (NSString *)findHomeSectionPathWithEncoding:(NSStringEncoding)encoding;
+- (NSString *)findTitleWithEncoding:(NSStringEncoding)encoding;
 
 - (BOOL)doesObjectWithPathExist:(NSString *)path;
     
 - (NSString *)constructURLForObjectWithPath:(NSString *)path;
+- (NSString *)findMetadataStringWithEncoding:(NSStringEncoding)encoding inSystemObjectWithOffset:(unsigned long)systemUnitOffset orInStringsObjectWithOffset:(unsigned long)stringsUnitOffset;
 
-- (NSString *)findMetadataStringInSystemObjectWithOffset:(unsigned long)systemUnitOffset 
-                             orInStringsObjectWithOffset:(unsigned long)stringsUnitOffset;
-
-- (NSString *)findMetadataStringInSystemObjectWithOffset:(unsigned long)offset;
-
+- (NSString *)findMetadataStringWithEncoding:(NSStringEncoding)encoding inSystemObjectWithOffset:(unsigned long)offset;
 - (unsigned long)findMetadataCharInSystemObjectWithOffset:(unsigned long)offset;
-
-- (NSString *)findMetadataStringInStringsObjectWithOffset:(unsigned long)offset;
+- (NSString *)findMetadataStringWithEncoding:(NSStringEncoding)encoding inStringsObjectWithOffset:(unsigned long)offset;
 
 - (NSData *)dataForObjectWithPath:(NSString *)path;
+- (NSData *)dataForObjectWithPath:(NSString *)path offset:(unsigned long long)offset length:(long long)length;
 
-- (NSData *)dataForObjectWithPath:(NSString *)path 
-                           offset:(unsigned long long)offset 
-                           length:(long long)length;
+- (NSString *)decodeString:(NSString *)string;
 
 @end

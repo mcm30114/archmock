@@ -12,12 +12,7 @@
 @property int relevancy;
 
 
-+ (CHMSectionAccumulatedSearchResult *)resultWithSectionLabel:(NSString *)sectionLabel
-                                            sectionPath:(NSString *)sectionPath
-                                              relevancy:(int)relevancy;
-
-- (id)initWithSectionLabel:(NSString *)initSectionLabel
-               sectionPath:(NSString *)initSectionPath
-                 relevancy:(int)initRelevancy;
++ (CHMSectionAccumulatedSearchResult *)resultWithSectionLabel:(NSString *)sectionLabel sectionPath:(NSString *)sectionPath relevancy:(int)relevancy;
+- (id)initWithSectionLabel:(NSString *)initSectionLabel sectionPath:(NSString *)initSectionPath relevancy:(int)initRelevancy;
 
 @end

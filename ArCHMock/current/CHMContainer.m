@@ -4,14 +4,19 @@
 #import "chm_lib.h"
 #import <CoreFoundation/CoreFoundation.h>
 
-#define INVALID_ENCODING 65536
-
 @implementation CHMContainer
 
-@synthesize filePath, homeSectionPath, uniqueID, systemData, stringsData, windowsData;
+@synthesize encodingAvailable;
+@synthesize filePath;
+@synthesize title;
+@synthesize homeSectionPath;
+@synthesize uniqueID;
+@synthesize systemData;
+@synthesize stringsData;
+@synthesize windowsData;
 @synthesize encoding;
 
-@dynamic title;
+@dynamic encodingName;
 
 + (CHMContainer *)containerWithFilePath:(NSString *)filePath {
     return [[[CHMContainer alloc] initWithFilePath:filePath] autorelease];
@@ -28,20 +33,28 @@
             return nil;
         }
         
+        self.encodingAvailable = NO;
         self.systemData = [self dataForObjectWithPath:@"/#SYSTEM"];
         if (!systemData) {
             NSLog(@"ERROR: Can't open CHM file: can't find #SYSTEM object");
             return nil;
         }
         
+        self.encoding = [self findEncoding];
+        self.encodingAvailable = YES;
+        
         self.uniqueID = [[SSCrypto getSHA1ForData:systemData] hexval];
         
         self.windowsData = [self dataForObjectWithPath:@"/#WINDOWS"];
         self.stringsData = [self dataForObjectWithPath:@"/#STRINGS"];
         
-        self.homeSectionPath = [self findHomeSectionPath];
-        self.encoding = [self findEncoding];
-        if (self.homeSectionPath) {
+        self.title = [self findTitleWithEncoding:encoding];
+        if (!title) {
+            NSLog(@"WARN: Can't locate document's title");
+        }
+        
+        self.homeSectionPath = [self findHomeSectionPathWithEncoding:encoding];
+        if (homeSectionPath) {
 //            NSLog(@"INFO: Home section path: '%@'", homeSectionPath);
         }
         else {
@@ -195,22 +208,24 @@
             break;
     }
     
-    return INVALID_ENCODING;
+    return NSUTF8StringEncoding;
 }
 
-- (NSString *)findHomeSectionPath {
-    NSString *pathFromMetadata = [self findMetadataStringInSystemObjectWithOffset:2
-                                                      orInStringsObjectWithOffset:0x68];
-    if (![pathFromMetadata isEqualToString:@""] 
-        && ([self doesObjectWithPathExist:pathFromMetadata]
-        || [self doesObjectWithPathExist:[NSString stringWithFormat:@"/%@", pathFromMetadata]])) {
+- (NSString *)encodingName {
+    return (NSString *)CFStringConvertEncodingToIANACharSetName(CFStringConvertNSStringEncodingToEncoding(self.encoding));
+}
+
+- (NSString *)decodeString:(NSString *)string {
+    return nil;
+}
+
+- (NSString *)findHomeSectionPathWithEncoding:(NSStringEncoding)stringEncoding {
+    NSString *pathFromMetadata = [self findMetadataStringWithEncoding:stringEncoding inSystemObjectWithOffset:2 orInStringsObjectWithOffset:0x68];
+    if (![pathFromMetadata isEqualToString:@""] && ([self doesObjectWithPathExist:pathFromMetadata] || [self doesObjectWithPathExist:[NSString stringWithFormat:@"/%@", pathFromMetadata]])) {
         return pathFromMetadata;
     }
     
-    NSArray *testPaths = [NSArray arrayWithObjects:@"/index.html", 
-                          @"/default.html", 
-                          @"/index.htm", 
-                          @"/default.htm", nil];
+    NSArray *testPaths = [NSArray arrayWithObjects:@"/index.html", @"/default.html", @"/index.htm", @"/default.htm", nil];
     for (NSString *testPath in testPaths) {
         if ([self doesObjectWithPathExist:testPath]) {
             return [testPath stringByReplacingCharactersInRange:NSMakeRange(0, 1) withString:@""];
@@ -220,44 +235,40 @@
     return nil;
 }
 
-- (NSString *)constructURLForObjectWithPath:(NSString *)path {
-    return [NSString stringWithFormat:@"chm://%@/%@", uniqueID, path];
-}
-
-- (NSString *)title {
-    NSString *title = [[self findMetadataStringInStringsObjectWithOffset:0x14] 
-                       stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (title && 0 != [title length]) {
-//        NSLog(@"DEBUG: Title found in #STRINGS: '%@'", title);
-        return title;
+- (NSString *)findTitleWithEncoding:(NSStringEncoding)stringEncoding {
+    NSString *titleString = [[self findMetadataStringWithEncoding:stringEncoding inStringsObjectWithOffset:0x14] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (titleString && 0 != [titleString length]) {
+        //        NSLog(@"DEBUG: Title found in #STRINGS: '%@'", titleString);
+        return titleString;
     }
     
-    title = [[self findMetadataStringInSystemObjectWithOffset:3] 
-             stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (title && 0 != [title length]) {
-//        NSLog(@"DEBUG: Title found in #SYSTEM: '%@'", title);
-        return title;
+    titleString = [[self findMetadataStringWithEncoding:stringEncoding inSystemObjectWithOffset:3] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (titleString && 0 != [titleString length]) {
+        //        NSLog(@"DEBUG: Title found in #SYSTEM: '%@'", titleString);
+        return titleString;
     }
     
     return nil;
 }
 
-- (NSString *)indexPath {
-    return [self findMetadataStringInSystemObjectWithOffset:1
-                                orInStringsObjectWithOffset:0x64];
+- (NSString *)constructURLForObjectWithPath:(NSString *)path {
+    return [NSString stringWithFormat:@"chm://%@/%@", uniqueID, path];
 }
 
-- (NSString *)findMetadataStringInSystemObjectWithOffset:(unsigned long)systemObjectOffset 
-                             orInStringsObjectWithOffset:(unsigned long)stringsObjectOffset {
+- (NSString *)indexPath {
+    return [self findMetadataStringWithEncoding:NSUTF8StringEncoding inSystemObjectWithOffset:1 orInStringsObjectWithOffset:0x64];
+}
+
+- (NSString *)findMetadataStringWithEncoding:(NSStringEncoding)stringEncoding inSystemObjectWithOffset:(unsigned long)systemObjectOffset orInStringsObjectWithOffset:(unsigned long)stringsObjectOffset {
     NSString *metadataString;
-    if ((metadataString = [self findMetadataStringInSystemObjectWithOffset:systemObjectOffset])
+    if ((metadataString = [self findMetadataStringWithEncoding:(stringEncoding) inSystemObjectWithOffset:systemObjectOffset])
         && 0 != [metadataString length]) {
         return metadataString;
     }
-    return [self findMetadataStringInStringsObjectWithOffset:stringsObjectOffset];
+    return [self findMetadataStringWithEncoding:stringEncoding inStringsObjectWithOffset:stringsObjectOffset];
 }
 
-- (NSString *)findMetadataStringInSystemObjectWithOffset:(unsigned long)offset {
+- (NSString *)findMetadataStringWithEncoding:(NSStringEncoding)stringEncoding inSystemObjectWithOffset:(unsigned long)offset {
     unsigned int maxOffset = [systemData length];
     
     NSString *string;
@@ -265,7 +276,7 @@
          currentOffset < maxOffset; 
          currentOffset += [systemData shortFromOffset:currentOffset + 2] + 4) {
         unsigned int currentMetadataOffset = [systemData shortFromOffset:currentOffset];
-        if (offset == currentMetadataOffset && (string = [systemData stringFromOffset:currentOffset + 4])) {
+        if (offset == currentMetadataOffset && (string = [systemData stringWithEncoding:stringEncoding fromOffset:currentOffset + 4])) {
             return string;
         }
     }
@@ -276,9 +287,7 @@
 - (unsigned long)findMetadataCharInSystemObjectWithOffset:(unsigned long)offset {
     unsigned int maxOffset = [systemData length];
     
-    for (unsigned int currentOffset = 0; 
-         currentOffset < maxOffset; 
-         currentOffset += [systemData shortFromOffset:currentOffset + 2] + 4) {
+    for (unsigned int currentOffset = 0; currentOffset < maxOffset; currentOffset += [systemData shortFromOffset:currentOffset + 2] + 4) {
         unsigned int currentMetadataOffset = [systemData shortFromOffset:currentOffset];
         if (offset == currentMetadataOffset) {
             return [systemData longFromOffset:currentOffset + 4];
@@ -288,7 +297,7 @@
     return 0x0;
 }
 
-- (NSString *)findMetadataStringInStringsObjectWithOffset:(unsigned long)offset {
+- (NSString *)findMetadataStringWithEncoding:(NSStringEncoding)stringEncoding inStringsObjectWithOffset:(unsigned long)offset {
     if (windowsData && stringsData) {
         unsigned long entryCount = [windowsData longFromOffset:0];
         unsigned long entrySize = [windowsData longFromOffset:4];
@@ -296,7 +305,7 @@
         NSString *string;
         for (int entryIndex = 0; entryIndex < entryCount; entryIndex++) {
             unsigned long entryOffset = 8 + ( entryIndex * entrySize );
-            if (string = [stringsData stringFromOffset:[windowsData longFromOffset:entryOffset + offset]]) {
+            if (string = [stringsData stringWithEncoding:stringEncoding fromOffset:[windowsData longFromOffset:entryOffset + offset]]) {
                 return string;
             }
         }
@@ -313,24 +322,28 @@
         return NO;
     }
     struct chmUnitInfo unitInfo;
-    return CHM_RESOLVE_SUCCESS == chm_resolve_object(fileHandle, 
-                                                     [path UTF8String], 
-                                                     &unitInfo);
+    const char* cPath = [path cStringUsingEncoding:(self.encodingAvailable ? self.encoding : NSUTF8StringEncoding)];
+    return nil != cPath && CHM_RESOLVE_SUCCESS == chm_resolve_object(fileHandle, cPath, &unitInfo);
 }
 
 - (NSData *)dataForObjectWithPath:(NSString *)path {
     return [self dataForObjectWithPath:path offset:0 length:0];
 }
 
-
-- (NSData *)dataForObjectWithPath:(NSString *)path 
-                           offset:(unsigned long long)offset
-                           length:(long long)length {
+- (NSData *)dataForObjectWithPath:(NSString *)path offset:(unsigned long long)offset length:(long long)length {
 //    NSLog(@"DEBUG: Object with path '%@' requested. Offset: '%02qX', length: '%02qX'", path, offset, length);
     
     struct chmUnitInfo unitInfo;
-    if (CHM_RESOLVE_SUCCESS != 
-        chm_resolve_object(fileHandle, [path UTF8String], &unitInfo)) {
+    NSStringEncoding pathEncoding = self.encodingAvailable ? self.encoding : NSUTF8StringEncoding;
+    const char *cPath = [path cStringUsingEncoding:pathEncoding];
+    if (nil == cPath) {
+        NSLog(@"WARN: Can't decode path '%@' into cString using decoding %@", path, [NSString localizedNameOfStringEncoding:pathEncoding]);
+        
+        
+        return nil;
+    }
+    
+    if (CHM_RESOLVE_SUCCESS != chm_resolve_object(fileHandle, cPath, &unitInfo)) {
         NSLog(@"WARN: Object with path '%@' not found", path);
         return nil;
     }
@@ -345,11 +358,7 @@
         return nil;
     }
     
-    if (!chm_retrieve_object(fileHandle, 
-                             &unitInfo, 
-                             buffer, 
-                             offset, 
-                             length)) {
+    if (!chm_retrieve_object(fileHandle, &unitInfo, buffer, offset, length)) {
         NSLog(@"ERROR: Failed to load object data '%@' '%qi' bytes long", path, length);
         free(buffer);
         
@@ -357,9 +366,7 @@
     }
     
     //    NSLog(@"INFO: Object data with path '%@' loaded successfully", path); 
-    return [[[NSData alloc] initWithBytesNoCopy:buffer 
-                                         length:length 
-                                   freeWhenDone:YES] autorelease];
+    return [[[NSData alloc] initWithBytesNoCopy:buffer length:length freeWhenDone:YES] autorelease];
 }
 
 //- (id)retain {
@@ -380,6 +387,7 @@
         chm_close(fileHandle);
     }
     
+    self.title = nil;
     self.filePath = nil;
     self.uniqueID = nil;
     self.homeSectionPath = nil;

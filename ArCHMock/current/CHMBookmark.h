@@ -20,15 +20,8 @@
 
 @property (readonly) NSString *fileRelativePath;
 
-+ (CHMBookmark *)bookmarkWithLabel:(NSString *)label 
-                          filePath:(NSString *)filePath
-                      sectionLabel:(NSString *)sectionLabel
-                       documentSettings:(CHMDocumentSettings *)documentSettings;
-    
-- (id)initWithLabel:(NSString *)initLabel
-           filePath:(NSString *)initFilePath
-       sectionLabel:(NSString *)initSectionLabel
-        documentSettings:(CHMDocumentSettings *)documentSettings;
++ (CHMBookmark *)bookmarkWithLabel:(NSString *)label filePath:(NSString *)filePath sectionLabel:(NSString *)sectionLabel documentSettings:(CHMDocumentSettings *)documentSettings;
+- (id)initWithLabel:(NSString *)initLabel filePath:(NSString *)initFilePath sectionLabel:(NSString *)initSectionLabel documentSettings:(CHMDocumentSettings *)documentSettings;
 
 - (NSString *)locateFile;
 

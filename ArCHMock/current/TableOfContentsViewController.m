@@ -46,7 +46,7 @@
     }
     else if (object == treeController) {
         CHMSection *selectedSection = [[treeController selectedObjects] lastObject];
-//        NSLog(@"INFO: Section is selected in table of contents: %@", selectedSection);
+        NSLog(@"INFO: Section is selected in table of contents: %@", selectedSection);
         
         self.chmDocument.currentSectionPath = selectedSection.path;
     }

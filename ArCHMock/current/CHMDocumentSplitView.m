@@ -15,10 +15,10 @@ with animation. This method's behavior is undefined if there are not
 exactly two subviews. Note that the delegate must call -setNeedsDisplay:YES 
 whenever -isSplitterAnimating returns YES.
 */
-- (void)setSplitterPosition:(float)newSplitterPosition 
-                    animate:(BOOL)animate {
-    if ([[self subviews] count] < 2)
+- (void)setSplitterPosition:(float)newSplitterPosition animate:(BOOL)animate {
+    if ([[self subviews] count] < 2) {
         return;
+    }
     
     NSView *subview0 = [[self subviews] objectAtIndex:0];
     NSView *subview1 = [[self subviews] objectAtIndex:1];
