@@ -27,15 +27,15 @@
 }
 
 - (id)initWithCoder:(NSCoder *)coder {
-    [super init];
-    
-    self.currentSectionPath = [coder decodeObjectForKey:@"currentSectionPath"];
-    self.contentViewSettings = [coder decodeObjectForKey:@"contentViewSettings"];
-    self.windowSettings = [coder decodeObjectForKey:@"windowSettings"];
-    self.date = [coder decodeObjectForKey:@"date"];
-
-    // XXX: Deprecated since 1.2. Moved to CHMContentViewSettings as scrollOffset
-    self.currentSectionScrollOffset = [coder decodeObjectForKey:@"currentSectionScrollOffset"];
+    if (self = [super init]) {
+        self.currentSectionPath = [coder decodeObjectForKey:@"currentSectionPath"];
+        self.contentViewSettings = [coder decodeObjectForKey:@"contentViewSettings"];
+        self.windowSettings = [coder decodeObjectForKey:@"windowSettings"];
+        self.date = [coder decodeObjectForKey:@"date"];
+        
+        // XXX: Deprecated since 1.2. Moved to CHMContentViewSettings as scrollOffset
+        self.currentSectionScrollOffset = [coder decodeObjectForKey:@"sectionScrollOffset"];
+    }
     
     return self;
 }
@@ -48,7 +48,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@: {date: %@, currentSectionPath: '%@', contentViewSettings: %@, windowSettings: %@}", [super description], date, currentSectionPath, contentViewSettings, windowSettings];
+    return [NSString stringWithFormat:@"%@: {date: %@, currentSectionPath: '%@', contentViewSettings: %@, windowSettings: %@, currentSectionScrollOffset[deprecated]: '%@'}", [super description], date, currentSectionPath, contentViewSettings, windowSettings, currentSectionScrollOffset];
 }
 
 - (void)dealloc {

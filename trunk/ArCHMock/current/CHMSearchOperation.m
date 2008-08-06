@@ -12,8 +12,7 @@
     
     if (document.index) {
 //        NSLog(@"INFO: Document contains index. Creating index search operation");
-        return [CHMSearchOperation indexSearchOperationWithDocument:document 
-                                                              query:query];
+        return [CHMSearchOperation indexSearchOperationWithDocument:document query:query];
     }
     else {
 //        NSLog(@"WARN: Can't create search operation for documents without index");
