@@ -125,15 +125,15 @@ static NSString *librariesCode = nil;
 
 - (IBAction)scrollContentWithSuppliedOffset:(id)sender {
     NSString *scrollOffset = self.chmDocument.contentViewSettingsToApply.scrollOffset;
-    NSLog(@"DEBUG: Scrolling content with offset from chmDocument.contentViewSettingsToApply: '%@'", scrollOffset);
+//    NSLog(@"DEBUG: Scrolling content with offset from chmDocument.contentViewSettingsToApply: '%@'", scrollOffset);
     NSString *codeString = [NSString stringWithFormat:@"window.scrollTo.apply(window, %@);", scrollOffset];
     [self executeJavaScriptCode:codeString asynchronously:YES];
 }
 
 - (void)highlightContentUsingSearchStringFromSearchQuery {
-    CHMSearchQuery *query = [[self chmDocument] currentSearchQuery];
-    if (query) {
-        NSLog(@"DEBUG: Highlighting content");
+    CHMSearchQuery *query = [self chmDocument].currentSearchQuery;
+    if (nil != query) {
+//        NSLog(@"DEBUG: Highlighting content");
         NSString *searchString = [query.searchString stringByReplacingOccurrencesOfString:@"\\" withString:@"\\\\"];
         [self executeJavaScriptCode:[NSString stringWithFormat:@"highlighter.highlight('%@')", searchString] asynchronously:NO];
         if (self.shouldScheduleScrollingToHighlight) {
@@ -195,7 +195,7 @@ static NSString *librariesCode = nil;
             }
         }
         else if ([keyPath isEqualToString:@"currentSearchQuery"]) {
-            if (nil != [[self chmDocument] currentSearchQuery]) {
+            if (nil != [self chmDocument].currentSearchQuery) {
                 [self removeHighlights];
                 [self highlightContentUsingSearchStringFromSearchQuery];
             }
@@ -215,8 +215,6 @@ static NSString *librariesCode = nil;
         [self injectJavaScriptIntoContent];
         [self updateScrollOffsetSetting];
         
-        [self highlightContentUsingSearchStringFromSearchQuery];
-        
         if (nil != self.chmDocument.contentViewSettingsToApply) {
             float textSizeMultiplier = self.chmDocument.contentViewSettingsToApply.textSizeMultiplier;
 //            NSLog(@"DEBUG: Setting content text size multiplier: %f", textSizeMultiplier);
@@ -228,6 +226,7 @@ static NSString *librariesCode = nil;
             self.chmDocument.contentViewSettingsToApply = nil;
         }
         
+        [self highlightContentUsingSearchStringFromSearchQuery];
         [self notifyAboutCurrentContentChange];
     }
 }

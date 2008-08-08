@@ -46,7 +46,7 @@
             NSLog(@"WARN: Can't parse table of contents: %@", [error localizedDescription]);
             return nil;
         }
-        NSLog(@"DEBUG: character encoding: %@", [doc characterEncoding]);
+//        NSLog(@"DEBUG: character encoding: %@", [doc characterEncoding]);
         [doc setCharacterEncoding:[container.encodingName lowercaseString]];
         
 //        NSLog(@"DEBUG: Populating table of contents");
@@ -61,7 +61,7 @@
         NSArray *rootListItems = [doc nodesForXPath:@"html/body/ul/li" error:&error];
         
         [listItemsQueue addObjectsFromArray:rootListItems];
-        int sectionsCount = 0;
+//        int sectionsCount = 0;
         while ([listItemsQueue count] > 0) {
             NSXMLElement *listItemElement = [listItemsQueue objectAtIndex:0];
             
@@ -75,15 +75,15 @@
                 
                 NSXMLElement *sectionElement = [[listItemElement nodesForXPath:@"object[@type='text/sitemap']" error:&error] lastObject];
                 //                NSLog(@"DEBUG: section element: %@", sectionElement);
-                NSXMLNode *labelAttribute = [[sectionElement nodesForXPath:@"param[@name='Name' or @name='name']/@value" error:&error] lastObject];
-                NSXMLNode *pathAttribute = [[sectionElement nodesForXPath:@"param[@name='Local' or @name='local']/@value" error:&error] lastObject];
+                NSXMLNode *labelAttribute = [[sectionElement nodesForXPath:@"param[lower-case(@name) = 'name']/@value" error:&error] lastObject];
+                NSXMLNode *pathAttribute = [[sectionElement nodesForXPath:@"param[lower-case(@name) = 'local']/@value" error:&error] lastObject];
                 NSString *label = [labelAttribute stringValue];
                 NSString *path = [pathAttribute stringValue];
                 CHMSection *section = [CHMSection sectionWithLabel:label path:path parent:currentParentSection];
                 
-                NSLog(@"DEBUG: section: %@", section);
+//                NSLog(@"DEBUG: section: %@", section);
                 currentParentSection = section;
-                sectionsCount++;
+//                sectionsCount++;
                 
                 if (section.path) {
                     NSString *lowercasedPath = [section.path lowercaseString];
@@ -103,7 +103,7 @@
                 }
             }
         }
-//        NSLog(@"INFO: Table of contents is populated with %d section(s)", sectionsCount);
+//        NSLog(@"INFO: Table of contents is populated with %i section(s)", sectionsCount);
     }
     
     return self;
