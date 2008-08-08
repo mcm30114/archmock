@@ -1,0 +1,686 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD582A0DA1D0D100B32029 /* MainMenu.xib */; };
+		6703B6520DFED7E700E6DD20 /* CHMSearchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6703B6510DFED7E700E6DD20 /* CHMSearchOperation.m */; };
+		6710921A0DD772A200DA5EF0 /* CHMDocumentWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 671092190DD772A200DA5EF0 /* CHMDocumentWindowController.m */; };
+		671918BE0E4A29A4001943C3 /* Home.png in Resources */ = {isa = PBXBuildFile; fileRef = 671918BD0E4A29A4001943C3 /* Home.png */; };
+		67380E0B0DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 67380E0A0DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.m */; };
+		673861980DCEA9AC00BEA1DE /* CHMURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = 673861970DCEA9AC00BEA1DE /* CHMURLProtocol.m */; };
+		673861B00DCEAB5E00BEA1DE /* CHMApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 673861AF0DCEAB5E00BEA1DE /* CHMApplicationDelegate.m */; };
+		673863260DCED4F900BEA1DE /* CHMContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 673863250DCED4F900BEA1DE /* CHMContainer.m */; };
+		674288500DCADDF700848DA0 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6742884F0DCADDF700848DA0 /* WebKit.framework */; };
+		674288590DCADE3000848DA0 /* chm_lib.c in Sources */ = {isa = PBXBuildFile; fileRef = 674288550DCADE3000848DA0 /* chm_lib.c */; };
+		6742885A0DCADE3000848DA0 /* lzx.c in Sources */ = {isa = PBXBuildFile; fileRef = 674288570DCADE3000848DA0 /* lzx.c */; };
+		674B8E170DFBAE1500A48CF2 /* CHMDocumentController.m in Sources */ = {isa = PBXBuildFile; fileRef = 674B8E160DFBAE1500A48CF2 /* CHMDocumentController.m */; };
+		674CB4E30E2AE9D300169AFA /* CHMDocumentWindowSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 674CB4E20E2AE9D300169AFA /* CHMDocumentWindowSettings.m */; };
+		674EBEF90E233235002907A6 /* CHMBookmark.m in Sources */ = {isa = PBXBuildFile; fileRef = 674EBEF80E233235002907A6 /* CHMBookmark.m */; };
+		675895880DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 675895870DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.m */; };
+		675895C40DF7A86E000CDC91 /* CHMSearchToken.m in Sources */ = {isa = PBXBuildFile; fileRef = 675895C30DF7A86E000CDC91 /* CHMSearchToken.m */; };
+		675CEF870E4819F30000724A /* Print.png in Resources */ = {isa = PBXBuildFile; fileRef = 675CEF860E4819F30000724A /* Print.png */; };
+		6761DFF30E18991400DBF296 /* script.aculo.us MIT-license in Resources */ = {isa = PBXBuildFile; fileRef = 6761DFF20E18991400DBF296 /* script.aculo.us MIT-license */; };
+		6761DFF50E18999100DBF296 /* prototype MIT-license in Resources */ = {isa = PBXBuildFile; fileRef = 6761DFF40E18999100DBF296 /* prototype MIT-license */; };
+		676BE4CB0DF5A42C00DD3F3A /* javascript-logic.js in Resources */ = {isa = PBXBuildFile; fileRef = 676BE4C90DF4F59A00DD3F3A /* javascript-logic.js */; };
+		6770EA520DCADCEF00A1857F /* CHMDocument.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6770EA500DCADCEF00A1857F /* CHMDocument.xib */; };
+		677652750DEF5BA400996307 /* CHMIndexSearchOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 677652740DEF5BA400996307 /* CHMIndexSearchOperation.m */; };
+		677652A10DEF61C900996307 /* CHMIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = 677652A00DEF61C900996307 /* CHMIndex.m */; };
+		677B873D0DDD37B00032EB26 /* NSData-CHMChunks.m in Sources */ = {isa = PBXBuildFile; fileRef = 677B873C0DDD37B00032EB26 /* NSData-CHMChunks.m */; };
+		677C0A670DD2A06F0073A016 /* CHMSection.m in Sources */ = {isa = PBXBuildFile; fileRef = 677C0A660DD2A06F0073A016 /* CHMSection.m */; };
+		677C0A6A0DD2A0940073A016 /* CHMTableOfContents.m in Sources */ = {isa = PBXBuildFile; fileRef = 677C0A690DD2A0940073A016 /* CHMTableOfContents.m */; };
+		6785F14F0E022482000F4094 /* CHMDocumentSplitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6785F14E0E022482000F4094 /* CHMDocumentSplitView.m */; };
+		679B38730E2733B40034F45E /* CHMBookmarksArrayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 679B38720E2733B40034F45E /* CHMBookmarksArrayController.m */; };
+		67AA361D0E11854C000CF9CA /* prototype-1.6.0.2-scriptaculous-1.8.1-effects-shrinkvars.js in Resources */ = {isa = PBXBuildFile; fileRef = 67AA360F0E1184C2000CF9CA /* prototype-1.6.0.2-scriptaculous-1.8.1-effects-shrinkvars.js */; };
+		67AA37470E12029B000CF9CA /* BackArrow.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 67AA37460E12029B000CF9CA /* BackArrow.tiff */; };
+		67AA37490E1202A7000CF9CA /* ForwardArrow.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 67AA37480E1202A7000CF9CA /* ForwardArrow.tiff */; };
+		67AA374D0E120503000CF9CA /* BiggerFont.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 67AA374C0E120503000CF9CA /* BiggerFont.tiff */; };
+		67AA374F0E120511000CF9CA /* SmallerFont.tiff in Resources */ = {isa = PBXBuildFile; fileRef = 67AA374E0E120511000CF9CA /* SmallerFont.tiff */; };
+		67AA378F0E120F2D000CF9CA /* CHMToolbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 67AA378E0E120F2D000CF9CA /* CHMToolbar.m */; };
+		67AA37F10E12831B000CF9CA /* ShowSidebar.png in Resources */ = {isa = PBXBuildFile; fileRef = 67AA37EF0E12831B000CF9CA /* ShowSidebar.png */; };
+		67AA37F20E12831B000CF9CA /* HideSidebar.png in Resources */ = {isa = PBXBuildFile; fileRef = 67AA37F00E12831B000CF9CA /* HideSidebar.png */; };
+		67AA632E0E2813F700CB7CF8 /* About BDAlias.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 67AA63290E2813F400CB7CF8 /* About BDAlias.rtf */; };
+		67AA632F0E2813F700CB7CF8 /* BDAlias.m in Sources */ = {isa = PBXBuildFile; fileRef = 67AA632B0E2813F500CB7CF8 /* BDAlias.m */; };
+		67AA63300E2813F700CB7CF8 /* BDAlias.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 67AA632C0E2813F600CB7CF8 /* BDAlias.rtf */; };
+		67AA63310E2813F700CB7CF8 /* License.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 67AA632D0E2813F700CB7CF8 /* License.rtf */; };
+		67ABBEB80E2C58D000F16851 /* CHMJavaScriptConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ABBEB70E2C58D000F16851 /* CHMJavaScriptConsole.m */; };
+		67ADAF0B0DE694030063D2A4 /* TableOfContentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ADAF0A0DE694030063D2A4 /* TableOfContentsViewController.m */; };
+		67ADAF0E0DE6949C0063D2A4 /* TableOfContentsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67ADAF0D0DE6949C0063D2A4 /* TableOfContentsView.xib */; };
+		67ADAF150DE754410063D2A4 /* SectionAccumulatedSearchResultsView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67ADAF140DE754410063D2A4 /* SectionAccumulatedSearchResultsView.xib */; };
+		67ADAF180DE7545A0063D2A4 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ADAF170DE7545A0063D2A4 /* SearchViewController.m */; };
+		67ADAFE70DE7D24F0063D2A4 /* CHMSubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ADAFE60DE7D24F0063D2A4 /* CHMSubViewController.m */; };
+		67ADB1C20DE8F6A10063D2A4 /* SectionContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 67ADB1C10DE8F6A10063D2A4 /* SectionContentViewController.m */; };
+		67ADB1C60DE8F7290063D2A4 /* ContentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67ADB1C50DE8F7290063D2A4 /* ContentView.xib */; };
+		67BD29D20E149BE7001A0FEC /* QuestionMark.icns in Resources */ = {isa = PBXBuildFile; fileRef = 67BD29D10E149BE7001A0FEC /* QuestionMark.icns */; };
+		67CBAA3D0E2AC6BF00B5997B /* CHMApplicationSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 67CBAA3C0E2AC6BF00B5997B /* CHMApplicationSettings.m */; };
+		67CFECA10E48A49000C9019B /* CHMContentViewSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 67CFECA00E48A49000C9019B /* CHMContentViewSettings.m */; };
+		67D0CF0C0E2875F2000FD146 /* bDistributed-license in Resources */ = {isa = PBXBuildFile; fileRef = 67D0CF0B0E2875F2000FD146 /* bDistributed-license */; };
+		67D0CF150E2950EE000FD146 /* CHMBookmark-View.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D0CF140E2950EE000FD146 /* CHMBookmark-View.m */; };
+		67D0D0690E298F07000FD146 /* SSCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D0D0680E298F07000FD146 /* SSCrypto.m */; };
+		67D0D0DF0E29AEF5000FD146 /* CHMDocumentSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 67D0D0DE0E29AEF5000FD146 /* CHMDocumentSettings.m */; };
+		67D0D1CE0E2A643B000FD146 /* BookmarksEditor.xib in Resources */ = {isa = PBXBuildFile; fileRef = 67D0D1CD0E2A643B000FD146 /* BookmarksEditor.xib */; };
+		67DEDCAA0E26C9E60018C6EE /* AddBookmark.png in Resources */ = {isa = PBXBuildFile; fileRef = 67DEDCA90E26C9E60018C6EE /* AddBookmark.png */; };
+		67EFB2E60DD5515A00CC25C9 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 67EFB2E50DD5515A00CC25C9 /* libcrypto.dylib */; };
+		67FF96100DF850E000668B16 /* CHMSearchQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 67FF960F0DF850E000668B16 /* CHMSearchQuery.m */; };
+		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
+		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
+		8D15AC310486D014006FF6A4 /* CHMDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* CHMDocument.m */; settings = {ATTRIBUTES = (); }; };
+		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C1660FE840EACC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		1DDD582B0DA1D0D100B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		2A37F4ACFDCFA73011CA2CEA /* CHMDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMDocument.m; sourceTree = "<group>"; };
+		2A37F4AEFDCFA73011CA2CEA /* CHMDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMDocument.h; sourceTree = "<group>"; };
+		2A37F4B0FDCFA73011CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2A37F4BAFDCFA73011CA2CEA /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/Credits.rtf; sourceTree = "<group>"; };
+		2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		32DBCF750370BD2300C91783 /* ArCHMock_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArCHMock_Prefix.pch; sourceTree = "<group>"; };
+		6703B6510DFED7E700E6DD20 /* CHMSearchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMSearchOperation.m; sourceTree = "<group>"; };
+		671092180DD772A200DA5EF0 /* CHMDocumentWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMDocumentWindowController.h; sourceTree = "<group>"; };
+		671092190DD772A200DA5EF0 /* CHMDocumentWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMDocumentWindowController.m; sourceTree = "<group>"; };
+		671918BD0E4A29A4001943C3 /* Home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Home.png; sourceTree = "<group>"; };
+		67380E090DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMSectionAccumulatedSearchResult.h; sourceTree = "<group>"; };
+		67380E0A0DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMSectionAccumulatedSearchResult.m; sourceTree = "<group>"; };
+		673861960DCEA9AC00BEA1DE /* CHMURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMURLProtocol.h; sourceTree = "<group>"; };
+		673861970DCEA9AC00BEA1DE /* CHMURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMURLProtocol.m; sourceTree = "<group>"; };
+		673861AE0DCEAB5E00BEA1DE /* CHMApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMApplicationDelegate.h; sourceTree = "<group>"; };
+		673861AF0DCEAB5E00BEA1DE /* CHMApplicationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMApplicationDelegate.m; sourceTree = "<group>"; };
+		673863240DCED4F900BEA1DE /* CHMContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMContainer.h; sourceTree = "<group>"; };
+		673863250DCED4F900BEA1DE /* CHMContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMContainer.m; sourceTree = "<group>"; };
+		6742884F0DCADDF700848DA0 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = /System/Library/Frameworks/WebKit.framework; sourceTree = "<absolute>"; };
+		674288550DCADE3000848DA0 /* chm_lib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = chm_lib.c; sourceTree = "<group>"; };
+		674288560DCADE3000848DA0 /* chm_lib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = chm_lib.h; sourceTree = "<group>"; };
+		674288570DCADE3000848DA0 /* lzx.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lzx.c; sourceTree = "<group>"; };
+		674288580DCADE3000848DA0 /* lzx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lzx.h; sourceTree = "<group>"; };
+		674B8E150DFBAE1500A48CF2 /* CHMDocumentController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMDocumentController.h; sourceTree = "<group>"; };
+		674B8E160DFBAE1500A48CF2 /* CHMDocumentController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMDocumentController.m; sourceTree = "<group>"; };
+		674CB4E10E2AE9D300169AFA /* CHMDocumentWindowSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMDocumentWindowSettings.h; sourceTree = "<group>"; };
+		674CB4E20E2AE9D300169AFA /* CHMDocumentWindowSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMDocumentWindowSettings.m; sourceTree = "<group>"; };
+		674EBEF70E233235002907A6 /* CHMBookmark.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMBookmark.h; sourceTree = "<group>"; };
+		674EBEF80E233235002907A6 /* CHMBookmark.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMBookmark.m; sourceTree = "<group>"; };
+		675895860DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMSectionAccumulatingSearchResult.h; sourceTree = "<group>"; };
+		675895870DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMSectionAccumulatingSearchResult.m; sourceTree = "<group>"; };
+		675895C20DF7A86E000CDC91 /* CHMSearchToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMSearchToken.h; sourceTree = "<group>"; };
+		675895C30DF7A86E000CDC91 /* CHMSearchToken.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMSearchToken.m; sourceTree = "<group>"; };
+		675CEF860E4819F30000724A /* Print.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Print.png; sourceTree = "<group>"; };
+		6761DFF20E18991400DBF296 /* script.aculo.us MIT-license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "script.aculo.us MIT-license"; sourceTree = "<group>"; };
+		6761DFF40E18999100DBF296 /* prototype MIT-license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "prototype MIT-license"; sourceTree = "<group>"; };
+		676BE4C90DF4F59A00DD3F3A /* javascript-logic.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "javascript-logic.js"; sourceTree = "<group>"; };
+		6770EA510DCADCEF00A1857F /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/CHMDocument.xib; sourceTree = "<group>"; };
+		677652730DEF5BA400996307 /* CHMIndexSearchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMIndexSearchOperation.h; sourceTree = "<group>"; };
+		677652740DEF5BA400996307 /* CHMIndexSearchOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMIndexSearchOperation.m; sourceTree = "<group>"; };
+		6776529F0DEF61C900996307 /* CHMIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMIndex.h; sourceTree = "<group>"; };
+		677652A00DEF61C900996307 /* CHMIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMIndex.m; sourceTree = "<group>"; };
+		677654330DF0AAD300996307 /* CHMSearchOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMSearchOperation.h; sourceTree = "<group>"; };
+		677B873B0DDD37B00032EB26 /* NSData-CHMChunks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData-CHMChunks.h"; sourceTree = "<group>"; };
+		677B873C0DDD37B00032EB26 /* NSData-CHMChunks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData-CHMChunks.m"; sourceTree = "<group>"; };
+		677C0A650DD2A06F0073A016 /* CHMSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMSection.h; sourceTree = "<group>"; };
+		677C0A660DD2A06F0073A016 /* CHMSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMSection.m; sourceTree = "<group>"; };
+		677C0A680DD2A0940073A016 /* CHMTableOfContents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMTableOfContents.h; sourceTree = "<group>"; };
+		677C0A690DD2A0940073A016 /* CHMTableOfContents.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMTableOfContents.m; sourceTree = "<group>"; };
+		6785F14D0E022482000F4094 /* CHMDocumentSplitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMDocumentSplitView.h; sourceTree = "<group>"; };
+		6785F14E0E022482000F4094 /* CHMDocumentSplitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMDocumentSplitView.m; sourceTree = "<group>"; };
+		679B38710E2733B40034F45E /* CHMBookmarksArrayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMBookmarksArrayController.h; sourceTree = "<group>"; };
+		679B38720E2733B40034F45E /* CHMBookmarksArrayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMBookmarksArrayController.m; sourceTree = "<group>"; };
+		67AA360F0E1184C2000CF9CA /* prototype-1.6.0.2-scriptaculous-1.8.1-effects-shrinkvars.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = "prototype-1.6.0.2-scriptaculous-1.8.1-effects-shrinkvars.js"; sourceTree = "<group>"; };
+		67AA37460E12029B000CF9CA /* BackArrow.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = BackArrow.tiff; sourceTree = "<group>"; };
+		67AA37480E1202A7000CF9CA /* ForwardArrow.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = ForwardArrow.tiff; sourceTree = "<group>"; };
+		67AA374C0E120503000CF9CA /* BiggerFont.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = BiggerFont.tiff; sourceTree = "<group>"; };
+		67AA374E0E120511000CF9CA /* SmallerFont.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = SmallerFont.tiff; sourceTree = "<group>"; };
+		67AA378D0E120F2D000CF9CA /* CHMToolbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMToolbar.h; sourceTree = "<group>"; };
+		67AA378E0E120F2D000CF9CA /* CHMToolbar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMToolbar.m; sourceTree = "<group>"; };
+		67AA37EF0E12831B000CF9CA /* ShowSidebar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ShowSidebar.png; sourceTree = "<group>"; };
+		67AA37F00E12831B000CF9CA /* HideSidebar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HideSidebar.png; sourceTree = "<group>"; };
+		67AA63290E2813F400CB7CF8 /* About BDAlias.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = "About BDAlias.rtf"; sourceTree = "<group>"; };
+		67AA632A0E2813F500CB7CF8 /* BDAlias.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BDAlias.h; sourceTree = "<group>"; };
+		67AA632B0E2813F500CB7CF8 /* BDAlias.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BDAlias.m; sourceTree = "<group>"; };
+		67AA632C0E2813F600CB7CF8 /* BDAlias.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = BDAlias.rtf; sourceTree = "<group>"; };
+		67AA632D0E2813F700CB7CF8 /* License.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = License.rtf; sourceTree = "<group>"; };
+		67ABBEB60E2C58D000F16851 /* CHMJavaScriptConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMJavaScriptConsole.h; sourceTree = "<group>"; };
+		67ABBEB70E2C58D000F16851 /* CHMJavaScriptConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMJavaScriptConsole.m; sourceTree = "<group>"; };
+		67ADAF090DE694030063D2A4 /* TableOfContentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TableOfContentsViewController.h; sourceTree = "<group>"; };
+		67ADAF0A0DE694030063D2A4 /* TableOfContentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TableOfContentsViewController.m; sourceTree = "<group>"; };
+		67ADAF0D0DE6949C0063D2A4 /* TableOfContentsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TableOfContentsView.xib; sourceTree = "<group>"; };
+		67ADAF140DE754410063D2A4 /* SectionAccumulatedSearchResultsView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SectionAccumulatedSearchResultsView.xib; sourceTree = "<group>"; };
+		67ADAF160DE7545A0063D2A4 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		67ADAF170DE7545A0063D2A4 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		67ADAFE50DE7D24F0063D2A4 /* CHMSubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMSubViewController.h; sourceTree = "<group>"; };
+		67ADAFE60DE7D24F0063D2A4 /* CHMSubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMSubViewController.m; sourceTree = "<group>"; };
+		67ADB1C00DE8F6A10063D2A4 /* SectionContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SectionContentViewController.h; sourceTree = "<group>"; };
+		67ADB1C10DE8F6A10063D2A4 /* SectionContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SectionContentViewController.m; sourceTree = "<group>"; };
+		67ADB1C50DE8F7290063D2A4 /* ContentView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentView.xib; sourceTree = "<group>"; };
+		67BD29D10E149BE7001A0FEC /* QuestionMark.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = QuestionMark.icns; sourceTree = "<group>"; };
+		67CBAA3B0E2AC6BF00B5997B /* CHMApplicationSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMApplicationSettings.h; sourceTree = "<group>"; };
+		67CBAA3C0E2AC6BF00B5997B /* CHMApplicationSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMApplicationSettings.m; sourceTree = "<group>"; };
+		67CFEC9F0E48A49000C9019B /* CHMContentViewSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMContentViewSettings.h; sourceTree = "<group>"; };
+		67CFECA00E48A49000C9019B /* CHMContentViewSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMContentViewSettings.m; sourceTree = "<group>"; };
+		67D0CF0B0E2875F2000FD146 /* bDistributed-license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "bDistributed-license"; sourceTree = "<group>"; };
+		67D0CF130E2950EE000FD146 /* CHMBookmark-View.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CHMBookmark-View.h"; sourceTree = "<group>"; };
+		67D0CF140E2950EE000FD146 /* CHMBookmark-View.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CHMBookmark-View.m"; sourceTree = "<group>"; };
+		67D0D0670E298F07000FD146 /* SSCrypto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSCrypto.h; sourceTree = "<group>"; };
+		67D0D0680E298F07000FD146 /* SSCrypto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSCrypto.m; sourceTree = "<group>"; };
+		67D0D0DD0E29AEF5000FD146 /* CHMDocumentSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMDocumentSettings.h; sourceTree = "<group>"; };
+		67D0D0DE0E29AEF5000FD146 /* CHMDocumentSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMDocumentSettings.m; sourceTree = "<group>"; };
+		67D0D1CD0E2A643B000FD146 /* BookmarksEditor.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BookmarksEditor.xib; sourceTree = "<group>"; };
+		67DEDCA90E26C9E60018C6EE /* AddBookmark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AddBookmark.png; sourceTree = "<group>"; };
+		67EFB2E50DD5515A00CC25C9 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = /usr/lib/libcrypto.dylib; sourceTree = "<absolute>"; };
+		67FF960E0DF850E000668B16 /* CHMSearchQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CHMSearchQuery.h; sourceTree = "<group>"; };
+		67FF960F0DF850E000668B16 /* CHMSearchQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CHMSearchQuery.m; sourceTree = "<group>"; };
+		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D15AC370486D014006FF6A4 /* ArCHMock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ArCHMock.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D15AC330486D014006FF6A4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D15AC340486D014006FF6A4 /* Cocoa.framework in Frameworks */,
+				674288500DCADDF700848DA0 /* WebKit.framework in Frameworks */,
+				67EFB2E60DD5515A00CC25C9 /* libcrypto.dylib in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6742884F0DCADDF700848DA0 /* WebKit.framework */,
+				2A37F4C4FDCFA73011CA2CEA /* AppKit.framework */,
+				2A37F4C5FDCFA73011CA2CEA /* Foundation.framework */,
+				1058C7A7FEA54F5311CA2CBB /* Cocoa.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A8FEA54F5311CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				67EFB2E50DD5515A00CC25C9 /* libcrypto.dylib */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FB0FE9D524F11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D15AC370486D014006FF6A4 /* ArCHMock.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2A37F4AAFDCFA73011CA2CEA /* MacCHM */ = {
+			isa = PBXGroup;
+			children = (
+				2A37F4ABFDCFA73011CA2CEA /* Classes */,
+				2A37F4AFFDCFA73011CA2CEA /* Other Sources */,
+				2A37F4B8FDCFA73011CA2CEA /* Resources */,
+				2A37F4C3FDCFA73011CA2CEA /* Frameworks */,
+				19C28FB0FE9D524F11CA2CBB /* Products */,
+			);
+			name = MacCHM;
+			sourceTree = "<group>";
+		};
+		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				67898C980E2B08D900715B92 /* Settings */,
+				677652720DEF5B7F00996307 /* Views */,
+				677652700DEF5B7200996307 /* Operations */,
+				67ADAF080DE693BD0063D2A4 /* Controllers */,
+				67909AAE0DDBA55700B68688 /* Model */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		2A37F4AFFDCFA73011CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				67D0D06A0E298F0B000FD146 /* SSCrypto */,
+				67AA63280E2813F400CB7CF8 /* BDAlias-1.0.1 */,
+				674288540DCADE0200848DA0 /* libchm */,
+				32DBCF750370BD2300C91783 /* ArCHMock_Prefix.pch */,
+				2A37F4B0FDCFA73011CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6761DFF20E18991400DBF296 /* script.aculo.us MIT-license */,
+				671918BD0E4A29A4001943C3 /* Home.png */,
+				6761DFF40E18999100DBF296 /* prototype MIT-license */,
+				67AA37EF0E12831B000CF9CA /* ShowSidebar.png */,
+				675CEF860E4819F30000724A /* Print.png */,
+				67DEDCA90E26C9E60018C6EE /* AddBookmark.png */,
+				67AA37F00E12831B000CF9CA /* HideSidebar.png */,
+				67AA374E0E120511000CF9CA /* SmallerFont.tiff */,
+				67AA374C0E120503000CF9CA /* BiggerFont.tiff */,
+				67AA360F0E1184C2000CF9CA /* prototype-1.6.0.2-scriptaculous-1.8.1-effects-shrinkvars.js */,
+				67BD29D10E149BE7001A0FEC /* QuestionMark.icns */,
+				67AA37480E1202A7000CF9CA /* ForwardArrow.tiff */,
+				67AA37460E12029B000CF9CA /* BackArrow.tiff */,
+				2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */,
+				8D15AC360486D014006FF6A4 /* Info.plist */,
+				089C165FFE840EACC02AAC07 /* InfoPlist.strings */,
+				676BE4C90DF4F59A00DD3F3A /* javascript-logic.js */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		2A37F4C3FDCFA73011CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A6FEA54F5311CA2CBB /* Linked Frameworks */,
+				1058C7A8FEA54F5311CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		674288540DCADE0200848DA0 /* libchm */ = {
+			isa = PBXGroup;
+			children = (
+				674288550DCADE3000848DA0 /* chm_lib.c */,
+				674288560DCADE3000848DA0 /* chm_lib.h */,
+				674288570DCADE3000848DA0 /* lzx.c */,
+				674288580DCADE3000848DA0 /* lzx.h */,
+			);
+			name = libchm;
+			sourceTree = "<group>";
+		};
+		677652700DEF5B7200996307 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				67FF96110DF850ED00668B16 /* Search */,
+				673861960DCEA9AC00BEA1DE /* CHMURLProtocol.h */,
+				673861970DCEA9AC00BEA1DE /* CHMURLProtocol.m */,
+				67ABBEB60E2C58D000F16851 /* CHMJavaScriptConsole.h */,
+				67ABBEB70E2C58D000F16851 /* CHMJavaScriptConsole.m */,
+			);
+			name = Operations;
+			sourceTree = "<group>";
+		};
+		677652720DEF5B7F00996307 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				1DDD582A0DA1D0D100B32029 /* MainMenu.xib */,
+				6770EA500DCADCEF00A1857F /* CHMDocument.xib */,
+				67ADAF0D0DE6949C0063D2A4 /* TableOfContentsView.xib */,
+				67ADAF140DE754410063D2A4 /* SectionAccumulatedSearchResultsView.xib */,
+				67ADB1C50DE8F7290063D2A4 /* ContentView.xib */,
+				67D0D1CD0E2A643B000FD146 /* BookmarksEditor.xib */,
+				6785F14D0E022482000F4094 /* CHMDocumentSplitView.h */,
+				6785F14E0E022482000F4094 /* CHMDocumentSplitView.m */,
+				67AA378D0E120F2D000CF9CA /* CHMToolbar.h */,
+				67AA378E0E120F2D000CF9CA /* CHMToolbar.m */,
+				67D0CF130E2950EE000FD146 /* CHMBookmark-View.h */,
+				67D0CF140E2950EE000FD146 /* CHMBookmark-View.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		67898C980E2B08D900715B92 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				67CBAA3B0E2AC6BF00B5997B /* CHMApplicationSettings.h */,
+				67CBAA3C0E2AC6BF00B5997B /* CHMApplicationSettings.m */,
+				67D0D0DD0E29AEF5000FD146 /* CHMDocumentSettings.h */,
+				67D0D0DE0E29AEF5000FD146 /* CHMDocumentSettings.m */,
+				67CFEC9F0E48A49000C9019B /* CHMContentViewSettings.h */,
+				67CFECA00E48A49000C9019B /* CHMContentViewSettings.m */,
+				674CB4E10E2AE9D300169AFA /* CHMDocumentWindowSettings.h */,
+				674CB4E20E2AE9D300169AFA /* CHMDocumentWindowSettings.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
+		67909AAE0DDBA55700B68688 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2A37F4AEFDCFA73011CA2CEA /* CHMDocument.h */,
+				2A37F4ACFDCFA73011CA2CEA /* CHMDocument.m */,
+				677B873B0DDD37B00032EB26 /* NSData-CHMChunks.h */,
+				677B873C0DDD37B00032EB26 /* NSData-CHMChunks.m */,
+				673863240DCED4F900BEA1DE /* CHMContainer.h */,
+				673863250DCED4F900BEA1DE /* CHMContainer.m */,
+				6776529F0DEF61C900996307 /* CHMIndex.h */,
+				677652A00DEF61C900996307 /* CHMIndex.m */,
+				677C0A680DD2A0940073A016 /* CHMTableOfContents.h */,
+				677C0A690DD2A0940073A016 /* CHMTableOfContents.m */,
+				677C0A650DD2A06F0073A016 /* CHMSection.h */,
+				677C0A660DD2A06F0073A016 /* CHMSection.m */,
+				674EBEF70E233235002907A6 /* CHMBookmark.h */,
+				674EBEF80E233235002907A6 /* CHMBookmark.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		67AA63280E2813F400CB7CF8 /* BDAlias-1.0.1 */ = {
+			isa = PBXGroup;
+			children = (
+				67AA63290E2813F400CB7CF8 /* About BDAlias.rtf */,
+				67AA632A0E2813F500CB7CF8 /* BDAlias.h */,
+				67AA632B0E2813F500CB7CF8 /* BDAlias.m */,
+				67AA632C0E2813F600CB7CF8 /* BDAlias.rtf */,
+				67AA632D0E2813F700CB7CF8 /* License.rtf */,
+				67D0CF0B0E2875F2000FD146 /* bDistributed-license */,
+			);
+			path = "BDAlias-1.0.1";
+			sourceTree = "<group>";
+		};
+		67ADAF080DE693BD0063D2A4 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				673861AE0DCEAB5E00BEA1DE /* CHMApplicationDelegate.h */,
+				673861AF0DCEAB5E00BEA1DE /* CHMApplicationDelegate.m */,
+				674B8E150DFBAE1500A48CF2 /* CHMDocumentController.h */,
+				674B8E160DFBAE1500A48CF2 /* CHMDocumentController.m */,
+				679B38710E2733B40034F45E /* CHMBookmarksArrayController.h */,
+				679B38720E2733B40034F45E /* CHMBookmarksArrayController.m */,
+				671092180DD772A200DA5EF0 /* CHMDocumentWindowController.h */,
+				671092190DD772A200DA5EF0 /* CHMDocumentWindowController.m */,
+				67ADAFE50DE7D24F0063D2A4 /* CHMSubViewController.h */,
+				67ADAFE60DE7D24F0063D2A4 /* CHMSubViewController.m */,
+				67ADB1C00DE8F6A10063D2A4 /* SectionContentViewController.h */,
+				67ADB1C10DE8F6A10063D2A4 /* SectionContentViewController.m */,
+				67ADAF160DE7545A0063D2A4 /* SearchViewController.h */,
+				67ADAF170DE7545A0063D2A4 /* SearchViewController.m */,
+				67ADAF090DE694030063D2A4 /* TableOfContentsViewController.h */,
+				67ADAF0A0DE694030063D2A4 /* TableOfContentsViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		67D0D06A0E298F0B000FD146 /* SSCrypto */ = {
+			isa = PBXGroup;
+			children = (
+				67D0D0670E298F07000FD146 /* SSCrypto.h */,
+				67D0D0680E298F07000FD146 /* SSCrypto.m */,
+			);
+			name = SSCrypto;
+			sourceTree = "<group>";
+		};
+		67FF96110DF850ED00668B16 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				675895C20DF7A86E000CDC91 /* CHMSearchToken.h */,
+				675895C30DF7A86E000CDC91 /* CHMSearchToken.m */,
+				67FF960E0DF850E000668B16 /* CHMSearchQuery.h */,
+				67FF960F0DF850E000668B16 /* CHMSearchQuery.m */,
+				677654330DF0AAD300996307 /* CHMSearchOperation.h */,
+				6703B6510DFED7E700E6DD20 /* CHMSearchOperation.m */,
+				677652730DEF5BA400996307 /* CHMIndexSearchOperation.h */,
+				677652740DEF5BA400996307 /* CHMIndexSearchOperation.m */,
+				675895860DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.h */,
+				675895870DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.m */,
+				67380E090DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.h */,
+				67380E0A0DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.m */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D15AC270486D014006FF6A4 /* ArCHMock */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "ArCHMock" */;
+			buildPhases = (
+				8D15AC2B0486D014006FF6A4 /* Resources */,
+				8D15AC300486D014006FF6A4 /* Sources */,
+				8D15AC330486D014006FF6A4 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ArCHMock;
+			productInstallPath = "$(HOME)/Applications";
+			productName = MacCHM;
+			productReference = 8D15AC370486D014006FF6A4 /* ArCHMock.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		2A37F4A9FDCFA73011CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "ArCHMock" */;
+			compatibilityVersion = "Xcode 3.1";
+			hasScannedForEncodings = 1;
+			mainGroup = 2A37F4AAFDCFA73011CA2CEA /* MacCHM */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D15AC270486D014006FF6A4 /* ArCHMock */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D15AC2B0486D014006FF6A4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				676BE4CB0DF5A42C00DD3F3A /* javascript-logic.js in Resources */,
+				67AA361D0E11854C000CF9CA /* prototype-1.6.0.2-scriptaculous-1.8.1-effects-shrinkvars.js in Resources */,
+				8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */,
+				8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */,
+				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
+				6770EA520DCADCEF00A1857F /* CHMDocument.xib in Resources */,
+				67ADAF0E0DE6949C0063D2A4 /* TableOfContentsView.xib in Resources */,
+				67ADAF150DE754410063D2A4 /* SectionAccumulatedSearchResultsView.xib in Resources */,
+				67ADB1C60DE8F7290063D2A4 /* ContentView.xib in Resources */,
+				67AA37470E12029B000CF9CA /* BackArrow.tiff in Resources */,
+				67DEDCAA0E26C9E60018C6EE /* AddBookmark.png in Resources */,
+				67AA37490E1202A7000CF9CA /* ForwardArrow.tiff in Resources */,
+				67AA374D0E120503000CF9CA /* BiggerFont.tiff in Resources */,
+				67AA374F0E120511000CF9CA /* SmallerFont.tiff in Resources */,
+				67AA37F10E12831B000CF9CA /* ShowSidebar.png in Resources */,
+				67AA37F20E12831B000CF9CA /* HideSidebar.png in Resources */,
+				67BD29D20E149BE7001A0FEC /* QuestionMark.icns in Resources */,
+				6761DFF30E18991400DBF296 /* script.aculo.us MIT-license in Resources */,
+				6761DFF50E18999100DBF296 /* prototype MIT-license in Resources */,
+				67AA632E0E2813F700CB7CF8 /* About BDAlias.rtf in Resources */,
+				67AA63300E2813F700CB7CF8 /* BDAlias.rtf in Resources */,
+				67AA63310E2813F700CB7CF8 /* License.rtf in Resources */,
+				67D0CF0C0E2875F2000FD146 /* bDistributed-license in Resources */,
+				67D0D1CE0E2A643B000FD146 /* BookmarksEditor.xib in Resources */,
+				675CEF870E4819F30000724A /* Print.png in Resources */,
+				671918BE0E4A29A4001943C3 /* Home.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D15AC300486D014006FF6A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6703B6520DFED7E700E6DD20 /* CHMSearchOperation.m in Sources */,
+				8D15AC310486D014006FF6A4 /* CHMDocument.m in Sources */,
+				8D15AC320486D014006FF6A4 /* main.m in Sources */,
+				674288590DCADE3000848DA0 /* chm_lib.c in Sources */,
+				6742885A0DCADE3000848DA0 /* lzx.c in Sources */,
+				673861980DCEA9AC00BEA1DE /* CHMURLProtocol.m in Sources */,
+				673861B00DCEAB5E00BEA1DE /* CHMApplicationDelegate.m in Sources */,
+				673863260DCED4F900BEA1DE /* CHMContainer.m in Sources */,
+				677C0A670DD2A06F0073A016 /* CHMSection.m in Sources */,
+				677C0A6A0DD2A0940073A016 /* CHMTableOfContents.m in Sources */,
+				6710921A0DD772A200DA5EF0 /* CHMDocumentWindowController.m in Sources */,
+				677B873D0DDD37B00032EB26 /* NSData-CHMChunks.m in Sources */,
+				67ADAF0B0DE694030063D2A4 /* TableOfContentsViewController.m in Sources */,
+				67ADAF180DE7545A0063D2A4 /* SearchViewController.m in Sources */,
+				67ADAFE70DE7D24F0063D2A4 /* CHMSubViewController.m in Sources */,
+				67ADB1C20DE8F6A10063D2A4 /* SectionContentViewController.m in Sources */,
+				67380E0B0DEB3FB20068E9E3 /* CHMSectionAccumulatedSearchResult.m in Sources */,
+				677652750DEF5BA400996307 /* CHMIndexSearchOperation.m in Sources */,
+				677652A10DEF61C900996307 /* CHMIndex.m in Sources */,
+				675895880DF74FEA000CDC91 /* CHMSectionAccumulatingSearchResult.m in Sources */,
+				675895C40DF7A86E000CDC91 /* CHMSearchToken.m in Sources */,
+				67FF96100DF850E000668B16 /* CHMSearchQuery.m in Sources */,
+				674B8E170DFBAE1500A48CF2 /* CHMDocumentController.m in Sources */,
+				6785F14F0E022482000F4094 /* CHMDocumentSplitView.m in Sources */,
+				67AA378F0E120F2D000CF9CA /* CHMToolbar.m in Sources */,
+				674EBEF90E233235002907A6 /* CHMBookmark.m in Sources */,
+				679B38730E2733B40034F45E /* CHMBookmarksArrayController.m in Sources */,
+				67AA632F0E2813F700CB7CF8 /* BDAlias.m in Sources */,
+				67D0CF150E2950EE000FD146 /* CHMBookmark-View.m in Sources */,
+				67D0D0690E298F07000FD146 /* SSCrypto.m in Sources */,
+				67D0D0DF0E29AEF5000FD146 /* CHMDocumentSettings.m in Sources */,
+				67CBAA3D0E2AC6BF00B5997B /* CHMApplicationSettings.m in Sources */,
+				674CB4E30E2AE9D300169AFA /* CHMDocumentWindowSettings.m in Sources */,
+				67ABBEB80E2C58D000F16851 /* CHMJavaScriptConsole.m in Sources */,
+				67CFECA10E48A49000C9019B /* CHMContentViewSettings.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165FFE840EACC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C1660FE840EACC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1DDD582A0DA1D0D100B32029 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DDD582B0DA1D0D100B32029 /* English */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A37F4BAFDCFA73011CA2CEA /* English */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		6770EA500DCADCEF00A1857F /* CHMDocument.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6770EA510DCADCEF00A1857F /* English */,
+			);
+			name = CHMDocument.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C05733C808A9546B00998B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ArCHMock_Prefix.pch;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				LD_MAP_FILE_PATH = "$(TARGET_TEMP_DIR)/$(PRODUCT_NAME)-LinkMap-$(CURRENT_VARIANT)-$(CURRENT_ARCH).txt";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = ArCHMock;
+			};
+			name = Debug;
+		};
+		C05733C908A9546B00998B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = ArCHMock_Prefix.pch;
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+				);
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = ArCHMock;
+			};
+			name = Release;
+		};
+		C05733CC08A9546B00998B17 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Debug;
+		};
+		C05733CD08A9546B00998B17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.5;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C05733C708A9546B00998B17 /* Build configuration list for PBXNativeTarget "ArCHMock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05733C808A9546B00998B17 /* Debug */,
+				C05733C908A9546B00998B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C05733CB08A9546B00998B17 /* Build configuration list for PBXProject "ArCHMock" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C05733CC08A9546B00998B17 /* Debug */,
+				C05733CD08A9546B00998B17 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 2A37F4A9FDCFA73011CA2CEA /* Project object */;
+}
