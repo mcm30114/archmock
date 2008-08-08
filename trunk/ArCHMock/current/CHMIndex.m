@@ -61,7 +61,7 @@
 }
 
 - (void)searchForTextChunk:(NSString *)textChunk forOperation:(CHMIndexSearchOperation *)operation {
-    NSLog(@"INFO: Searching through index for text: '%@'", textChunk);
+//    NSLog(@"INFO: Searching through index for text: '%@'", textChunk);
     
     u_int32_t currentOffset = [self firstIndexWordNodeOffsetWithEncoding:operation.containerEncoding];
 

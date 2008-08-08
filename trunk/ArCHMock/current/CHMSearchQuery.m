@@ -25,7 +25,7 @@
         self.uniqueSubstrings = [NSMutableArray array];
         self.tokensBySubstrings = [NSMutableDictionary dictionary];
         
-        NSString *substring;
+        NSString *substring = nil;
         int i = 0;
         while ([substrings count] > 0) {
             substring = [[substrings objectAtIndex:0] lowercaseString];
@@ -33,8 +33,7 @@
             
             NSArray *alphaNumericSubstrings = [substring componentsSeparatedByCharactersInSet:[[NSCharacterSet alphanumericCharacterSet] invertedSet]];
             alphaNumericSubstrings = [alphaNumericSubstrings filteredArrayUsingPredicate:emptyStringPredicate];
-            if ([alphaNumericSubstrings count] > 0 && 
-                ([alphaNumericSubstrings count] != 1 || ![alphaNumericSubstrings containsObject:substring])) {
+            if ([alphaNumericSubstrings count] > 0 && ([alphaNumericSubstrings count] != 1 || ![alphaNumericSubstrings containsObject:substring])) {
                 [substrings insertObjects:alphaNumericSubstrings atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [alphaNumericSubstrings count])]];
                 continue;
             }
@@ -54,8 +53,9 @@
 }
 
 - (NSMutableArray *)tokensInfoArray {
-    NSMutableArray *array = [NSMutableArray array];
-    for (int i = 0; i < [tokens count]; i++) {
+    int elementsToAddCount = [tokens count];
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:elementsToAddCount];
+    while (elementsToAddCount--) {
         [array addObject:[NSNumber numberWithInt:0]];
     }
     return array;

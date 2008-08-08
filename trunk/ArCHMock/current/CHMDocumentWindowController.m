@@ -31,7 +31,7 @@
     
     CHMDocumentWindowSettings *windowInitialSettings = chmDocument.windowInitialSettings;
     BOOL sidebarShouldBeCollapsed = NO;
-    NSLog(@"DEBUG: DocumentWindowController: initial window settings: %@", windowInitialSettings);
+//    NSLog(@"DEBUG: DocumentWindowController: initial window settings: %@", windowInitialSettings);
     if (nil != windowInitialSettings) {
         NSWindow *window = [self window];
         [window setFrame:windowInitialSettings.frame display:NO];

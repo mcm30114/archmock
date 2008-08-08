@@ -39,7 +39,7 @@ static inline void migrateDocumentSettingsFromVersion1_1to1_2(CHMDocumentSetting
     }
     settings.contentViewSettings = contentViewSettings;
     
-    NSLog(@"DEBUG: Migrated settings: %@", settings);
+//    NSLog(@"DEBUG: Migrated settings: %@", settings);
 }
 
 - (BOOL)migrate {
@@ -165,7 +165,7 @@ static inline void migrateDocumentSettingsFromVersion1_1to1_2(CHMDocumentSetting
     settings.date = [NSDate date];
     
     [recentDocumentsSettings setObject:settings forKey:document.containerID];
-    NSLog(@"DEBUG: Saved recent settings for document with title '%@': %@", [document title], settings);
+//    NSLog(@"DEBUG: Saved recent settings for document with title '%@': %@", [document title], settings);
     
     if (nil != document.tableOfContents) {
         self.lastDocumentWindowSettings = document.windowSettings;

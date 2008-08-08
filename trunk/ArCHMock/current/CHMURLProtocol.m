@@ -24,7 +24,7 @@
     id client = [self client];
     
     NSURL *url = [[self request] URL];
-    NSLog(@"INFO: Handling URL '%@'", url);
+//    NSLog(@"DEBUG: Handling URL '%@'", url);
     
     NSString *containerUniqueID = [url host];
     NSString *objectPath = [url path];

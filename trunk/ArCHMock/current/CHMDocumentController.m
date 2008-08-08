@@ -75,7 +75,7 @@
 
 - (IBAction)openBookmark:(id)sender {
     CHMBookmark *bookmark = (CHMBookmark *)[sender representedObject];
-    NSLog(@"DEBUG: Open Bookmark: %@", bookmark);
+//    NSLog(@"DEBUG: Open Bookmark: %@", bookmark);
     
     NSString *filePath = [bookmark locateFile];
     NSString *fileURLString = [NSString stringWithFormat:@"file://%@", [filePath stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -131,7 +131,7 @@
         if (nil == documentRecentSettings) {
             currentSectionPath = document.homeSectionPath;
             initialWindowSettings = [CHMApplicationDelegate settings].lastDocumentWindowSettings;
-            NSLog(@"DEBUG: Could not find recent settings for document with title '%@'. Will use last document window settings: %@ and will open it with home section with path: '%@'", [document title], initialWindowSettings, currentSectionPath);
+//            NSLog(@"DEBUG: Could not find recent settings for document with title '%@'. Will use last document window settings: %@ and will open it with home section with path: '%@'", [document title], initialWindowSettings, currentSectionPath);
         }
         else {
             currentSectionPath = documentRecentSettings.currentSectionPath;
