@@ -83,7 +83,7 @@
     
     NSError *error = nil;
     CHMDocument *document = (CHMDocument *)[self documentForURL:fileURL];
-    // Dcoument is already loaded
+    // Document is already loaded
     if (nil != document) {
         document.contentViewSettingsToApply = bookmark.documentSettings.contentViewSettings;
         [super openDocumentWithContentsOfURL:fileURL display:YES error:&error];
