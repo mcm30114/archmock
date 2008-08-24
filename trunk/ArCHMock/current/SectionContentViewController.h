@@ -18,4 +18,6 @@
 
 - (BOOL)canScrollBetweenHighlights;
 
+- (void)close;
+
 @end

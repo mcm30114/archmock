@@ -75,7 +75,7 @@
         [client URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
         [client URLProtocol:self didLoadData:objectData];
         
-        //        NSLog(@"INFO: URL '%@' handled", url);
+//        NSLog(@"INFO: URL '%@' handled", url);
         
         [[NSNotificationCenter defaultCenter] postNotificationName:@"URLHandled" object:document userInfo:[NSDictionary dictionaryWithObject:url forKey:@"url"]];
     }

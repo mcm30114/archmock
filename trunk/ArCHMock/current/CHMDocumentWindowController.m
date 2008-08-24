@@ -31,7 +31,7 @@
     
     CHMDocumentWindowSettings *windowInitialSettings = chmDocument.windowInitialSettings;
     BOOL sidebarShouldBeCollapsed = NO;
-//    NSLog(@"DEBUG: DocumentWindowController: initial window settings: %@", windowInitialSettings);
+    NSLog(@"DEBUG: DocumentWindowController: initial window settings: %@", windowInitialSettings);
     if (nil != windowInitialSettings) {
         NSWindow *window = [self window];
         [window setFrame:windowInitialSettings.frame display:NO];
@@ -407,10 +407,14 @@
 //}
 
 - (void)dealloc {
+//    NSLog(@"DEBUG: Deallocating document window controller: %@", self);
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [chmDocument removeObserver:self forKeyPath:@"currentSectionPath"];
     
     self.chmDocument = nil;
+    
+    [sectionContentViewController close];
     self.sectionContentViewController = nil;
     self.tableOfContentsViewController = nil;
     self.searchViewController = nil;

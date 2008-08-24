@@ -212,12 +212,12 @@
 
 //- (id)retain {
 //    [super retain];
-//    NSLog(@"DEBUG: Retaining CHM document: retain count: %i, %@", [self retainCount], self);
+//    NSLog(@"DEBUG: Retaining CHM document %@: retain count: %i", self, [self retainCount]);
 //    return self;
 //}
 //
 //- (oneway void)release {
-//    NSLog(@"DEBUG: Releasing CHM document: retain count: %i, %@", [self retainCount], self);
+//    NSLog(@"DEBUG: Releasing CHM document %@: retain count: %i", self, [self retainCount]);
 //    [super release];
 //}
         
@@ -230,7 +230,7 @@
 }
 
 - (void)dealloc {
-    //    NSLog(@"DEBUG: Deallocating CHMDocument");
+//    NSLog(@"DEBUG: Deallocating CHMDocument");
     self.container = nil;
     self.tableOfContents = nil;
     self.index = nil;

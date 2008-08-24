@@ -84,9 +84,17 @@ static CHMJavaScriptConsole *console = nil;
     if (nil == console) {
         console = [CHMJavaScriptConsole new];
     }
-    
+//    NSLog(@"DEBUG: Publishing external objects in JavaScript");
     [scriptObject setValue:console forKey:@"console"];
     [scriptObject setValue:self forKey:@"contentViewController"];
+}
+
+- (void)unpublishExternalObjectsInJavaScriptEnvironment {
+//    NSLog(@"DEBUG: Unpublishing external objects in JavaScript");
+    
+    WebScriptObject *scriptObject = [[self webView] windowScriptObject];
+    [scriptObject removeWebScriptKey:@"console"];
+    [scriptObject removeWebScriptKey:@"contentViewController"];
 }
 
 - (void)contentScrolled:(NSString *)scrollOffset {
@@ -231,6 +239,12 @@ static NSString *librariesCode = nil;
     }
 }
 
+- (void)webView:(WebView *)sender willCloseFrame:(WebFrame *)frame {
+    if (frame == [sender mainFrame]) {
+        [self unpublishExternalObjectsInJavaScriptEnvironment];
+    }
+}
+
 - (void)webView:(WebView *)sender didChangeLocationWithinPageForFrame:(WebFrame *)frame {
 //    NSLog(@"DEBUG: Changed location within page frame");
     [self notifyAboutCurrentContentChange];
@@ -265,6 +279,11 @@ static inline void openExternalURL(id<WebPolicyDecisionListener> listener, NSURL
     }
     
     return defaultMenuItems;
+}
+
+- (void)close {
+    [self unpublishExternalObjectsInJavaScriptEnvironment];
+    [[self webView] close];
 }
 
 - (void)dealloc {
